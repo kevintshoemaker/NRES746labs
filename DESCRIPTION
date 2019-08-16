@@ -9,8 +9,10 @@ Description: More about what it does (maybe more than one line)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-Imports: 
+Imports:
     learnr,
+    redpen,
     checkr
 Remotes:
-    dtkaplan/checkr
+    dtkaplan/checkr,
+    lionel-/redpen/
