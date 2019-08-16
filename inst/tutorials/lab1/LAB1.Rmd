@@ -8,6 +8,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(checkr)
 tutorial_options(exercise.timelimit = 60, exercise.checker = checkr::check_for_learnr)
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
@@ -102,9 +103,9 @@ myfunc(myvec)
 ```{r functest-check}
 myvec <- c(1:4)
 check_functest <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F=="myfunc","Use function 'myfunc()'"))
-    line_where(func_call, insist(V==10, "Your solution is {{V}}. This is not the correct result"),passif(TRUE, "Great job!"))
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F=="myfunc","Use function 'myfunc()'"))
+    checkr::line_where(func_call, checkr::insist(V==10, "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
 }
 check_functest(USER_CODE)
 
@@ -301,22 +302,22 @@ CoefVar(test)   # note that the name of the vector can be different inside and o
 ```{r q1a-check}
 test <- trees$Height
 check_q1a <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "CoefVar","Use CoefVar() function!"))
-    t1 <- line_where(func_call, insist(all(V==answer1a), "Your solution is {{V}}. This is not the correct result"),passif(TRUE, "Great job!"))
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "CoefVar","Use CoefVar() function!"))
+    t1 <- checkr::line_where(func_call, checkr::insist(all(V==answer1a), "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
 }
 check_q1a(USER_CODE)
 ```
 
 ```{r playwithcheckr, eval=FALSE, echo=FALSE}
 
-code <- for_checkr(quote({test <- trees$Height;CoefVar <- function(vector){sd(vector)/mean(vector)};CoefVar(vector=test)}))
+code <- checkr::for_checkr(quote({test <- trees$Height;CoefVar <- function(vector){sd(vector)/mean(vector)};CoefVar(vector=test)}))
 code
 func_call <- line_calling(code, CoefVar, message = "Use CoefVar() to construct the model.")
-line_where(code, insist(V==answer1a, "Your solution is {{V}}. This is not the correct result"),passif(TRUE, "Great job!"))
-check(func_call, insist(dplyr::near(V,answer1a,tol=0.001), 
+checkr::line_where(code, checkr::insist(V==answer1a, "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
+check(func_call, checkr::insist(dplyr::near(V,answer1a,tol=0.001), 
         message="Your solution is {{V}}. This is not the correct result"),
-        passif(TRUE, "Great job!"))
+        checkr::passif(TRUE, "Great job!"))
 
 
 ```
@@ -408,9 +409,9 @@ DrawLine(trees$Height,trees$Volume)
 ```{r q1b-check}
 
 check_q1b <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "DrawLine","Use DrawLine() function!"))
-    t1 <- line_where(func_call, insist(all(V==answer1b), "Your solution is {{V}}. This is not the correct result"),passif(TRUE, "Great job!"))
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine","Use DrawLine() function!"))
+    t1 <- checkr::line_where(func_call, checkr::insist(all(V==answer1b), "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
 }
 check_q1b(USER_CODE)
 
@@ -491,12 +492,12 @@ DrawLine2(xvec,yvec,smooth=T,span=0.5)
 
 ```{r q1c-check}
 check_q1c <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "DrawLine2","Use DrawLine2() function!"))
-    t1 <- line_where(func_call, 
-        insist(all(V$fitted == answer1c$fitted), 
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine2","Use DrawLine2() function!"))
+    t1 <- checkr::line_where(func_call, 
+        checkr::insist(all(V$fitted == answer1c$fitted), 
         "Sorry, that's not correct"),
-        passif(TRUE, "Fantastic!"))
+        checkr::passif(TRUE, "Fantastic!"))
 }
 check_q1c(USER_CODE)
 ```
@@ -505,7 +506,7 @@ check_q1c(USER_CODE)
 
 ```{r playwithcheckr2, eval=FALSE, echo=FALSE}
 
-code <- for_checkr(quote({xvec <- c(1:10)
+code <- checkr::for_checkr(quote({xvec <- c(1:10)
                           set.seed(100)    # don't change this line, or the answer checking function won't work!
                           yvec <- rnorm(length(xvec),c(2:6,7:3),2)
                           DrawLine2 <- function(x,y,smooth=F,span=1){
@@ -523,25 +524,25 @@ code <- for_checkr(quote({xvec <- c(1:10)
                           DrawLine2(xvec,yvec,smooth=T,span=0.5)}))
 code
 #func_call <- line_calling(code, DrawLine2, message = "Use DrawLine2() to construct the model.")
-func_call <- line_where(code,insist(F== "DrawLine2","Use DrawLine2() to construct the model."))
+func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine2","Use DrawLine2() to construct the model."))
 #func_call <- line_binding(code, DrawLine2, message = "Use DrawLine2() to construct the model.")
-t1 <- line_where(func_call, 
-        insist(all(V$fitted == answer1c$fitted) , "Sorry, that's not correct"),
-        passif(TRUE, "Great job!"))
+t1 <- checkr::line_where(func_call, 
+        checkr::insist(all(V$fitted == answer1c$fitted) , "Sorry, that's not correct"),
+        checkr::passif(TRUE, "Great job!"))
 
 
-code <- for_checkr(quote(lm(mpg ~ hp, data= mtcars)))
+code <- checkr::for_checkr(quote(lm(mpg ~ hp, data= mtcars)))
 code
 lm_line <- line_calling(code, lm, message = "Use lm() to construct the model.")
 lm_call <- arg_calling(lm_line, lm)
 t1 <- data_arg(lm_call, 
-                 insist(identical(V, mtcars), 
+                 checkr::insist(identical(V, mtcars), 
                         "Your data argument {{E}} was not `mtcars`."),
                  message = "You didn't supply a `data = ` argument to `lm()`.")
 
-# t1 <- line_where(code,insist(V %same_as% answer1c, message = "Sorry, try again!"))
-# passif(any(func_call$values[[length(func_call$values)]]$fitted==answer1c$fitted),"Right!")
-# #t1 <- line_where(func_call, insist(V==8.49, "Sorry, this is not the correct result"),passif(TRUE, "Fantastic!"))
+# t1 <- checkr::line_where(code,checkr::insist(V %same_as% answer1c, message = "Sorry, try again!"))
+# checkr::passif(any(func_call$values[[length(func_call$values)]]$fitted==answer1c$fitted),"Right!")
+# #t1 <- checkr::line_where(func_call, checkr::insist(V==8.49, "Sorry, this is not the correct result"),checkr::passif(TRUE, "Fantastic!"))
 
 
 
@@ -629,12 +630,12 @@ CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)
 
 ```{r q1d-check}
 check_q1d <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "CLTdemo","Use CLTdemo() function!"))
-    t1 <- line_where(func_call, 
-        insist(V$p.value <= 0.01, 
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "CLTdemo","Use CLTdemo() function!"))
+    t1 <- checkr::line_where(func_call, 
+        checkr::insist(V$p.value <= 0.01, 
         "Sorry, that's not correct"),
-        passif(TRUE, "Fantastic!"))
+        checkr::passif(TRUE, "Fantastic!"))
 }
 check_q1d(USER_CODE)
 ```
@@ -1135,12 +1136,12 @@ t.test.onetail(dat=df2,group = "Treatment", value = "Mass")
 
 ```{r q4a-check}
 check_q4a <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "t.test.onetail","Use t.test.onetail() function!"))
-    t1 <- line_where(func_call, 
-        insist(all(V$p_value <= 0.02), 
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.onetail","Use t.test.onetail() function!"))
+    t1 <- checkr::line_where(func_call, 
+        checkr::insist(all(V$p_value <= 0.02), 
         "Sorry, that's not correct"),
-        passif(TRUE, "Very nice!"))
+        checkr::passif(TRUE, "Very nice!"))
 }
 check_q4a(USER_CODE)
 ```
@@ -1289,12 +1290,12 @@ t.test.vardif(dat=df2,group = "Treatment", value = "Mass")
 
 ```{r q4b-check}
 check_q4b <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "t.test.vardif","Use t.test.vardif() function!"))
-    t1 <- line_where(func_call, 
-        insist(all((V$p_value >=  (answer4b$p_value-0.2))&(V$p_value <=  (answer4b$p_value+0.2))), 
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.vardif","Use t.test.vardif() function!"))
+    t1 <- checkr::line_where(func_call, 
+        checkr::insist(all((V$p_value >=  (answer4b$p_value-0.2))&(V$p_value <=  (answer4b$p_value+0.2))), 
         "Sorry, that's not correct"),
-        passif(TRUE, "Bravo!"))
+        checkr::passif(TRUE, "Bravo!"))
 }
 check_q4b(USER_CODE)
 ```
@@ -1436,12 +1437,12 @@ t.test.ndif(dat=df2,group = "Treatment", value = "Mass")
 
 ```{r q4c-check}
 check_q4c <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "t.test.ndif","Use t.test.ndif() function!"))
-    t1 <- line_where(func_call, 
-        insist(all((V$p_value >=  (answer4c$p_value-0.15))&(V$p_value <=  (answer4c$p_value+0.15))), 
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.ndif","Use t.test.ndif() function!"))
+    t1 <- checkr::line_where(func_call, 
+        checkr::insist(all((V$p_value >=  (answer4c$p_value-0.15))&(V$p_value <=  (answer4c$p_value+0.15))), 
         "Sorry, that's not correct"),
-        passif(TRUE, "Bravo!"))
+        checkr::passif(TRUE, "Bravo!"))
 }
 check_q4c(USER_CODE)
 ```
@@ -1562,12 +1563,12 @@ RegressionCoefs(df,"mpg")
 
 ```{r q5a-check}
 check_q5a <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "RegressionCoefs","Use RegressionCoefs() function!"))
-    t1 <- line_where(func_call, 
-        insist(any((V ==  answer5a)), 
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "RegressionCoefs","Use RegressionCoefs() function!"))
+    t1 <- checkr::line_where(func_call, 
+        checkr::insist(any((V ==  answer5a)), 
         "Sorry, that's not correct"),
-        passif(TRUE, "Bravo!"))
+        checkr::passif(TRUE, "Bravo!"))
 }
 check_q5a(USER_CODE)
 ```
@@ -1679,12 +1680,12 @@ BootCoefs(df=df,statfunc=RegressionCoefs,
 
 ```{r q5b-check}
 check_q5b <- function(USER_CODE){
-    code <- for_checkr(USER_CODE)
-    func_call <- line_where(code,insist(F== "BootCoefs","Use BootCoefs() function!"))
-    t1 <- line_where(func_call, 
-        insist(all((V[1,3] >=  (answer5b[1,3]-0.2))&(V[1,3] <=  (answer5b[1,3]+0.2))), 
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "BootCoefs","Use BootCoefs() function!"))
+    t1 <- checkr::line_where(func_call, 
+        checkr::insist(all((V[1,3] >=  (answer5b[1,3]-0.2))&(V[1,3] <=  (answer5b[1,3]+0.2))), 
         "Sorry, that's not correct"),
-        passif(TRUE, "Delightful!"))
+        checkr::passif(TRUE, "Delightful!"))
 }
 check_q5b(USER_CODE)
 ```

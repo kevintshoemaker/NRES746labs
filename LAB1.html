@@ -102,9 +102,9 @@ myfunc(myvec)   </code></pre>
 <div class="tutorial-exercise-support" data-label="functest-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>myvec &lt;- c(1:4)
 check_functest &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F==&quot;myfunc&quot;,&quot;Use function &#39;myfunc()&#39;&quot;))
-    line_where(func_call, insist(V==10, &quot;Your solution is {{V}}. This is not the correct result&quot;),passif(TRUE, &quot;Great job!&quot;))
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F==&quot;myfunc&quot;,&quot;Use function &#39;myfunc()&#39;&quot;))
+    checkr::line_where(func_call, checkr::insist(V==10, &quot;Your solution is {{V}}. This is not the correct result&quot;),checkr::passif(TRUE, &quot;Great job!&quot;))
 }
 check_functest(USER_CODE)
 
@@ -237,9 +237,9 @@ CoefVar(test)   # note that the name of the vector can be different inside and o
 <div class="tutorial-exercise-support" data-label="q1a-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>test &lt;- trees$Height
 check_q1a &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;CoefVar&quot;,&quot;Use CoefVar() function!&quot;))
-    t1 &lt;- line_where(func_call, insist(all(V==answer1a), &quot;Your solution is {{V}}. This is not the correct result&quot;),passif(TRUE, &quot;Great job!&quot;))
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;CoefVar&quot;,&quot;Use CoefVar() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, checkr::insist(all(V==answer1a), &quot;Your solution is {{V}}. This is not the correct result&quot;),checkr::passif(TRUE, &quot;Great job!&quot;))
 }
 check_q1a(USER_CODE)</code></pre>
 </div>
@@ -288,9 +288,9 @@ DrawLine(trees$Height,trees$Volume)</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="q1b-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>check_q1b &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;DrawLine&quot;,&quot;Use DrawLine() function!&quot;))
-    t1 &lt;- line_where(func_call, insist(all(V==answer1b), &quot;Your solution is {{V}}. This is not the correct result&quot;),passif(TRUE, &quot;Great job!&quot;))
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;DrawLine&quot;,&quot;Use DrawLine() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, checkr::insist(all(V==answer1b), &quot;Your solution is {{V}}. This is not the correct result&quot;),checkr::passif(TRUE, &quot;Great job!&quot;))
 }
 check_q1b(USER_CODE)</code></pre>
 </div>
@@ -335,12 +335,12 @@ DrawLine2(xvec,yvec,smooth=T,span=0.5)</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="q1c-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>check_q1c &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;DrawLine2&quot;,&quot;Use DrawLine2() function!&quot;))
-    t1 &lt;- line_where(func_call, 
-        insist(all(V$fitted == answer1c$fitted), 
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;DrawLine2&quot;,&quot;Use DrawLine2() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, 
+        checkr::insist(all(V$fitted == answer1c$fitted), 
         &quot;Sorry, that&#39;s not correct&quot;),
-        passif(TRUE, &quot;Fantastic!&quot;))
+        checkr::passif(TRUE, &quot;Fantastic!&quot;))
 }
 check_q1c(USER_CODE)</code></pre>
 </div>
@@ -380,12 +380,12 @@ CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="q1d-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>check_q1d &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;CLTdemo&quot;,&quot;Use CLTdemo() function!&quot;))
-    t1 &lt;- line_where(func_call, 
-        insist(V$p.value &lt;= 0.01, 
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;CLTdemo&quot;,&quot;Use CLTdemo() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, 
+        checkr::insist(V$p.value &lt;= 0.01, 
         &quot;Sorry, that&#39;s not correct&quot;),
-        passif(TRUE, &quot;Fantastic!&quot;))
+        checkr::passif(TRUE, &quot;Fantastic!&quot;))
 }
 check_q1d(USER_CODE)</code></pre>
 </div>
@@ -630,12 +630,12 @@ t.test.onetail(dat=df2,group = &quot;Treatment&quot;, value = &quot;Mass&quot;)<
 </div>
 <div class="tutorial-exercise-support" data-label="q4a-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>check_q4a &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;t.test.onetail&quot;,&quot;Use t.test.onetail() function!&quot;))
-    t1 &lt;- line_where(func_call, 
-        insist(all(V$p_value &lt;= 0.02), 
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;t.test.onetail&quot;,&quot;Use t.test.onetail() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, 
+        checkr::insist(all(V$p_value &lt;= 0.02), 
         &quot;Sorry, that&#39;s not correct&quot;),
-        passif(TRUE, &quot;Very nice!&quot;))
+        checkr::passif(TRUE, &quot;Very nice!&quot;))
 }
 check_q4a(USER_CODE)</code></pre>
 </div>
@@ -684,12 +684,12 @@ t.test.vardif(dat=df2,group = &quot;Treatment&quot;, value = &quot;Mass&quot;)</
 </div>
 <div class="tutorial-exercise-support" data-label="q4b-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>check_q4b &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;t.test.vardif&quot;,&quot;Use t.test.vardif() function!&quot;))
-    t1 &lt;- line_where(func_call, 
-        insist(all((V$p_value &gt;=  (answer4b$p_value-0.2))&amp;(V$p_value &lt;=  (answer4b$p_value+0.2))), 
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;t.test.vardif&quot;,&quot;Use t.test.vardif() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, 
+        checkr::insist(all((V$p_value &gt;=  (answer4b$p_value-0.2))&amp;(V$p_value &lt;=  (answer4b$p_value+0.2))), 
         &quot;Sorry, that&#39;s not correct&quot;),
-        passif(TRUE, &quot;Bravo!&quot;))
+        checkr::passif(TRUE, &quot;Bravo!&quot;))
 }
 check_q4b(USER_CODE)</code></pre>
 </div>
@@ -739,12 +739,12 @@ t.test.ndif(dat=df2,group = &quot;Treatment&quot;, value = &quot;Mass&quot;)</co
 </div>
 <div class="tutorial-exercise-support" data-label="q4c-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>check_q4c &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;t.test.ndif&quot;,&quot;Use t.test.ndif() function!&quot;))
-    t1 &lt;- line_where(func_call, 
-        insist(all((V$p_value &gt;=  (answer4c$p_value-0.15))&amp;(V$p_value &lt;=  (answer4c$p_value+0.15))), 
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;t.test.ndif&quot;,&quot;Use t.test.ndif() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, 
+        checkr::insist(all((V$p_value &gt;=  (answer4c$p_value-0.15))&amp;(V$p_value &lt;=  (answer4c$p_value+0.15))), 
         &quot;Sorry, that&#39;s not correct&quot;),
-        passif(TRUE, &quot;Bravo!&quot;))
+        checkr::passif(TRUE, &quot;Bravo!&quot;))
 }
 check_q4c(USER_CODE)</code></pre>
 </div>
@@ -772,12 +772,12 @@ RegressionCoefs(df,&quot;mpg&quot;)</code></pre>
 </div>
 <div class="tutorial-exercise-support" data-label="q5a-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>check_q5a &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;RegressionCoefs&quot;,&quot;Use RegressionCoefs() function!&quot;))
-    t1 &lt;- line_where(func_call, 
-        insist(any((V ==  answer5a)), 
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;RegressionCoefs&quot;,&quot;Use RegressionCoefs() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, 
+        checkr::insist(any((V ==  answer5a)), 
         &quot;Sorry, that&#39;s not correct&quot;),
-        passif(TRUE, &quot;Bravo!&quot;))
+        checkr::passif(TRUE, &quot;Bravo!&quot;))
 }
 check_q5a(USER_CODE)</code></pre>
 </div>
@@ -838,12 +838,12 @@ BootCoefs(df=df,statfunc=RegressionCoefs,
 </div>
 <div class="tutorial-exercise-support" data-label="q5b-check" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>check_q5b &lt;- function(USER_CODE){
-    code &lt;- for_checkr(USER_CODE)
-    func_call &lt;- line_where(code,insist(F== &quot;BootCoefs&quot;,&quot;Use BootCoefs() function!&quot;))
-    t1 &lt;- line_where(func_call, 
-        insist(all((V[1,3] &gt;=  (answer5b[1,3]-0.2))&amp;(V[1,3] &lt;=  (answer5b[1,3]+0.2))), 
+    code &lt;- checkr::for_checkr(USER_CODE)
+    func_call &lt;- checkr::line_where(code,checkr::insist(F== &quot;BootCoefs&quot;,&quot;Use BootCoefs() function!&quot;))
+    t1 &lt;- checkr::line_where(func_call, 
+        checkr::insist(all((V[1,3] &gt;=  (answer5b[1,3]-0.2))&amp;(V[1,3] &lt;=  (answer5b[1,3]+0.2))), 
         &quot;Sorry, that&#39;s not correct&quot;),
-        passif(TRUE, &quot;Delightful!&quot;))
+        checkr::passif(TRUE, &quot;Delightful!&quot;))
 }
 check_q5b(USER_CODE)</code></pre>
 </div>
@@ -864,6 +864,7 @@ confint.lm(lm(Volume~Girth,trees))    # compare with lm() </code></pre>
 
 <script type="application/shiny-prerendered" data-context="server-start">
 library(learnr)
+library(checkr)
 tutorial_options(exercise.timelimit = 60, exercise.checker = checkr::check_for_learnr)
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 </script>
