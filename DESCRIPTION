@@ -12,3 +12,5 @@ LazyData: true
 Imports: 
     learnr,
     checkr
+Remotes:
+    dtkaplan/checkr
