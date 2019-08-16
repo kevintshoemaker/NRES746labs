@@ -10,9 +10,10 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports:
+    remotes,
     learnr,
     redpen,
     checkr
 Remotes:
-    dtkaplan/checkr,
-    lionel-/redpen/
+    github::lionel-/redpen,
+    github::dtkaplan/checkr
