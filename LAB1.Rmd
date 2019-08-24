@@ -1066,7 +1066,7 @@ df <- data.frame(
 
 Note that we need to reshape the data frame before entering it into our function. Since this we will need to do this again, let's make a function to do this!
 
-```{r test4a2}
+```{r test4a2, context="data", echo=TRUE}
 
 reshapefunc <- function(df,varname){
   sample.size <- nrow(df)     # determine sample size 

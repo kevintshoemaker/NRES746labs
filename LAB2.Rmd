@@ -1,15 +1,15 @@
 ---
-title: "Lab Exercise 2"
+title: "Lab 2"
 author: "NRES 746"
-date: "Fall 2018"
-output: 
-  html_document: 
-    theme: cerulean
-    toc: yes
-    toc_float: yes
+date: "Fall 2019"
+output: learnr::tutorial
+runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
+library(learnr)
+library(checkr)
+tutorial_options(exercise.timelimit = 60, exercise.checker = checkr::check_for_learnr)
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
@@ -35,43 +35,47 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 
 ## The Virtual Ecologist
 
-As with all lab reports, your answers will either take the form of R functions or short written responses (submitted together in a Word document). The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab2.R". So my submission would be "kevin_shoemaker_lab2.R". The name of your Word docuement doesn't matter, as long as you submit via WebCampus. 
+As with all lab reports, your answers will either take the form of R functions or short written responses (submitted together in a Word document). The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab2.R". So my submission would be "kevin_shoemaker_lab2.R". The name of your Word document doesn't matter, as long as you submit via WebCampus. 
 
-Please submit the R script and the Word document via WebCampus by midnight on the due date (one week after the final lab session allocated for this topic -- here, _Oct. 2, 2018_). You can work in groups but please submit the materials individually. 
+Please submit the R script and the Word document via WebCampus by midnight on the due date (one week after the final lab session allocated for this topic -- here, _Oct. 8_). You can work in groups but please submit the materials individually. 
 
 When writing functions, it's often easiest to start off by writing a script, and then when you have everything working properly, wrap the script into a function. But still remember to test your function!
 
-Please comment each line of your code. Don't be afraid of *for* loops and inefficient coding practices... And of course be dangerous!
+Please comment each line of your code. Don't be afraid of *for* loops and inefficient coding practices... And of course *be dangerous*!
 
-### Final Projects
+## Final Projects
 
-If you haven't already, please list your final project information (project title, group members etc.) on our [shared Google sheets document](https://docs.google.com/spreadsheets/d/1xdDvmcT35Ih5gReknhb7lqjMRJO7CyJb4vsRWIb24cw/edit?usp=sharing)
+If you haven't already, please list your final project information (project title, group members etc.) on our [shared Google sheets document](https://docs.google.com/spreadsheets/d/1aZa31yLtxN5_El95SrbqXFT5eDgm0EmtrJmNcY2jEKA/edit?usp=sharing)
 
-### Simulating Data in R
+## Simulating Data in R
 
 First, review the basic approach to simulating data in the ["Virtual Ecologist" lecture](https://kevintshoemaker.github.io/NRES-746/LECTURE3.html). Recall that a data simulation model can be constructed as a *deterministic component* (defining underlying relationships between the process of interest and a set of covariates), with a *stochastic component* wrapped around it (defining the "noise", or "error" associated with each observation from the process of interest).   
 
-### CHALLENGE 1: model verification, part 1
+## Exercise 1: model verification, part 1
 
-Simulate data that meet the standard assumptions of univariate linear regression (homoskedasticity, independence, normal/Gaussian errors). Then run the "lm()" function on your simulated data and examine how closely the parameter estimates match the "true" parameter value. 
+Simulate data that meet the standard assumptions of univariate linear regression (homoskedasticity, Gaussian/independent residual errors). Then run the "lm()" function on your simulated data and examine how closely the parameter estimates match the "true" parameter value. 
 
-* **Exercise 1a**. Write a function called "LMDataSim()" for drawing a set of random observations from a defined linear relationship (that meets all the assumptions of ordinary linear regression). This function should be specified as follows:
 
-    + **input**:         
-        + sample.size = a scalar (integer) specifying the number of observations to simulate
-        + xlimits = a vector of length 2 specifying the minimum and maximum values of the covariate "x"       
-        + coefs = a vector of length 2 specifying (in order) the intercept and slope of the relationship between "x" and the expected response   
-        + stdev = a scalar specifying the standard deviation of the residual errors.
 
-    + **suggested algorithm**:   
-        + sample random values (size="sample.size") from a uniform distribution (min and max defined by "xlimits") to represent the covariate (use the "runif()" function)    
-        + Use the defined linear model (defined by "coefs") to determine the expected value of the response. 
-        + Add "noise" to the expected values according to the "stdev" parameter (use the "rnorm()" function)
+## Exercise 1a 
 
-    + **return**:    
-        + out = a data frame with number of rows equal to "sample.size", and two columns. The first column should represent the values of the "x" variable and the second column should represent stochastic observations from the *known* model defined by "coefs" and "stdev"    
+Write a function called "LMDataSim()" for drawing a set of random observations from a defined data generating model that meets all the assumptions of ordinary linear regression. This function should be specified as follows:
 
-```{r answer1a, echo=FALSE}
++ **input**:         
+    + sample.size = a scalar (integer) specifying the number of observations to simulate
+    + xlimits = a vector of length 2 specifying the minimum and maximum values of the covariate "x"       
+    + coefs = a vector of length 2 specifying (in order) the intercept and slope of the deterministic relationship defining the expected response as a function of "x".    
+    + stdev = a scalar specifying the standard deviation of the residual errors.
+
++ **suggested algorithm**:   
+    + sample random values (size="sample.size") from a uniform distribution (min and max defined by "xlimits") to represent the covariate (use the "runif()" function)    
+    + Use the defined linear model (defined by "coefs") to determine the expected value of the response. 
+    + Add "noise" to the expected values according to the "stdev" parameter (use the "rnorm()" function)
+
++ **return**:    
+    + out = a data frame with number of rows equal to "sample.size", and two columns. The first column should represent the values of the "x" variable and the second column should represent stochastic observations from the *known* model defined by "coefs" and "stdev"    
+
+```{r answer2.1a, echo=FALSE}
 
 #############
 ## exercise 1a
@@ -91,14 +95,55 @@ LMDataSim <- function(sample.size,xlimits,coefs,stdev){
 
 Test your function- for example, using the following code: 
 
-```{r test1a}
+```{r test2.1a}
 
 LMDataSim(sample.size=10,xlimits=c(40,120),coefs=c(55,-0.09),stdev=6.8)
 
 ```
 
 
-* **Exercise 1b**. Write a function called "LMVerify_pt1()" for computing how well the coefficients and variance from R's "lm()" function match the known coefficients of the model used to generate the data. This function should be specified as follows:
+```{r test2.1a1, context="data",echo=FALSE}
+
+temp <- LMDataSim(sample.size=20,xlimits=c(40,120),coefs=c(5,0.3),stdev=1)
+answer1a <- coef(lm(temp$y~temp$x))
+
+```
+
+
+Include your function in your submitted r script!
+
+You can use this "sandbox" (below) to develop and test your function!
+
+```{r q2.1a, exercise=TRUE}
+LMDataSim <- function(sample.size,xlimits,coefs,stdev){
+    # [add code here!]
+}
+LMDataSim(sample.size=20,xlimits=c(40,120),coefs=c(5,0.3),stdev=1)
+
+```
+
+<div id="q2.1a-hint">
+**Hint:** No hints ... yet!
+</div>
+
+```{r q2.1a-check}
+check_q2.1a <- function(USER_CODE){
+    code <- checkr::for_checkr(USER_CODE)
+    func_call <- checkr::line_where(code,checkr::insist(F== "LMDataSim","Use LMDataSim() function!"))
+    t1 <- checkr::line_where(func_call, 
+        checkr::insist(abs(sum(coef(lm(V$y~V$x))-c(5,0.3)))<=1.3, 
+        "Sorry, that's not correct"),
+        checkr::passif(TRUE, "Very nice!"))
+}
+check_q2.1a(USER_CODE)
+```
+
+
+
+
+## Exercise 1b
+
+Write a function called "LMVerify_pt1()" for computing how well the coefficients and variance from R's "lm()" function match the known coefficients of the model used to generate the data. This function should be specified as follows:
 
     + **input**:         
         + sim.dataset = a data frame representing data simulated from a linear model with known coefficients (and known residual variance).  The first column should represent the values of the "x" variable and the second column should represent stochastic observations from the *known* model defined by "trueparams"
