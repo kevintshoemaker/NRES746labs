@@ -837,7 +837,7 @@ For this exercise, we will use tree data from a forest in the western Oregon Cas
 
 We will fit a multiple linear regression model that predicts forest tree biomass as a function of environmental variables (including a mix of continuous and categorical predictors) and stand age.
 
-Obtain the TreeData.csv file from the "Data Sets" tab (or just download [here](TreeData.csv))- save it to your working directory.
+Obtain the TreeData.csv file from the "Data Sets" tab (or just download [here](http://naes.unr.edu/shoemaker/teaching/NRES-746/TreeData.csv))- save it to your working directory.
 
 This describes a subset of forest inventory data from the Douglas-fir forests of western Oregon (n = 90, 0.1-ha sites).
 
