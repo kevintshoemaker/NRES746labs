@@ -289,7 +289,7 @@ sum(is.inside)/reps
 
 ## ASIDE: review of conditional statements in R
 
-NOTE: The previous challenge problem requires the use of "conditional" statements. That is, if a condition is true, do something. If the condition is false, do something else. The syntax for doing this in R is:
+NOTE: The previous exercise requires the use of "conditional" statements. That is, if a condition is true, do something. If the condition is false, do something else. The syntax for doing this in R is:
 
 ```
 if(TRUE){
@@ -336,7 +336,7 @@ div_by_three <- length(which(inputvector%%3==0))
 ```
 
 
-## CHALLENGE 2.2: model verification, part 2
+## Exercise 2.2: model verification, part 2
 
 How might your results from part 2.1 change if your data simulations DID NOT meet the assumptions of ordinary linear regression- e.g., if the variances were not homogeneous? 
 
@@ -576,9 +576,9 @@ points(simdat_lots$x,simdat_lots$y,pch=19,cex=0.5,col=gray(0.5))
 ```
 
 
-## CHALLENGE 2.3: Power analysis!
+## Exercise 2.3: Power analysis!
 
-Review the "power analysis" section of the [Virtual Ecologist lecture](LECTURE3.html), and complete the following challenge problems. Recall that we are designing a monitoring program for a population of an at-risk species, and we want to have *at least a 75% chance of detecting a decline of 25% or more over a 25 year period*. Let's assume that we are using visual counts, and that the probability of encountering each organism visually is 2% per person-day. The most recent population estimate was 1000 (assume that we know that with certainty).  
+Review the "power analysis" section of the [Virtual Ecologist lecture](LECTURE3.html), and complete the following exercises. Recall that we are designing a monitoring program for a population of an at-risk species, and we want to have *at least a 75% chance of detecting a decline of 25% or more over a 25 year period*. Let's assume that we are using visual counts, and that the probability of encountering each organism visually is 2% per person-day. The most recent population estimate was 1000 (assume that we know that with certainty).  
 
 ## **Exercise 2.3a** 
 
