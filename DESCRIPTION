@@ -12,7 +12,8 @@ LazyData: true
 Imports:
     redpen,
     checkr,
-    learnr
+    learnr,
+    dplyr
 Remotes:
     github::lionel-/redpen,
     github::dtkaplan/checkr
