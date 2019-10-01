@@ -1,0 +1,12 @@
+name: LAB1
+title: LAB1
+username:
+account: kevintshoemaker
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1208063
+bundleId: 2421936
+url: https://kevintshoemaker.shinyapps.io/LAB1/
+when: 1568756580.61715
+asMultiple: FALSE
+asStatic: FALSE
