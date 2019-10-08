@@ -725,7 +725,7 @@ Write a function called "MyxRicker()" for computing the maximum likelihood estim
     + a vector of length 3 containing the MLE for the a, b, and shape parameters    
     
 
-```{r answer3b, echo=FALSE}
+```{r answer3.3b, echo=FALSE}
 
 ##########
 # 3.3b
@@ -782,7 +782,7 @@ You can use this "sandbox" (below) to develop and test your function!
 MyxRicker <- function(params,data){
     # [add code here!]
 }
-MyxRicker(MyxRicker(params=c(a=1,b=0.1,shape=30),data=myxdat[,-1]))
+MyxRicker(params=c(a=1,b=0.1,shape=30),data=myxdat[,-1])
 
 ```
 
