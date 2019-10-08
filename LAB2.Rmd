@@ -727,10 +727,6 @@ GetPower(initabund=1000,nreps=1000,trend=-0.03,years=25,days=1,observers=1,survi
 
 ```
 
-<div id="q2.3a-hint">
-**Hint:** No hints ... yet!
-</div>
-
 
 ```{r q2.3a-check, echo=F}
 check_q2.3a <- function(USER_CODE){
