@@ -544,7 +544,7 @@ Rffuncresp(params=c(a=0.5,h=(1/30)),data=rffr)
 ```{r q3.2a-check, echo=F}
 check_q3.2a <- function(USER_CODE){
     code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "Rffuncresp","Use Rffuncresp() function!"))
+    func_call <- checkr::line_where(code,checkr::insist(F=="Rffuncresp","Use Rffuncresp() function!"))
     t1 <- checkr::line_where(func_call, 
         checkr::insist(any(dplyr::near(0.01660342,V,tol=0.01)), "Sorry, that's not correct"),
         checkr::passif(TRUE, "Bravo!"))
