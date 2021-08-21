@@ -109,21 +109,83 @@ myfunc <- function(vector){
 **Hint:** You may want to use the `sum()` function.
 </div>
 
+```{r functest-code-check}
+grade_this_code()
+```
+
+
 ```{r functest-check}
-grade_result_strict(
-  pass_if(~ .result(3:4) == sum(3:4)),
-  pass_if(~ identical(.result(c(0,5,6)), sum(c(0,5,6))))
+grade_this(
+  pass_if_equal(.solution(3:4),.result(3:4)),
+  fail()
+)
+
+```
+
+```{r echo=FALSE, eval=FALSE}
+
+this.grader <- grade_this(
+    pass_if_equal(),
+    fail()
+)
+
+.solution <- 
+ myfunc <- function(vector){
+    sum(vector)
+ }
+
+.result <- 
+ myfunc <- function(vector){
+    sum(vector)
+}
+
+grade_this_code()(mock_this_exercise(
+    .user_code = !!.result,
+    .solution_code = !!.solution      # aha this is why you need double exclamations... 
+  )
+)
+
+
+this.grader <- grade_this({
+  
+    pass_if_equal()
+    fail()
+}
+)
+
+this.grader(mock_this_exercise(
+    .user_code     = "sum(2:3)", # user submitted code
+    .solution_code = "sum(2:3)"  # from -solution chunk
+  ))
+
+grade_this(pass_if_equal(.solution(3:4),.result(3:4)),
+    fail())(mock_this_exercise(
+    .user_code = !!.result,
+    .solution_code = !!.solution      # this still does not work...
+  )
+)
+
+
+grade_this_code()(
+  mock_this_exercise(
+    .user_code     = "sqrt(log(2))", # user submitted code
+    .solution_code = "sqrt(log(1))"  # from -solution chunk
+  )
 )
 
 ```
 
 
 ## Demonstration: Central Limit Theorem (CLT)
-To gain some familiarity with using R scripts and developing algorithms, complete the following exercise (you don't need to submit this demo as part of your lab write-up BUT you will be asked to use this code as part of exercise 1 (below):  
+To gain some familiarity with using R scripts and developing algorithms, complete the following exercise (you don't need to submit this demo as part of your lab write-up BUT you will be asked to use this code as part of exercise 1 (below).
+
+Remember that you may want to have two scripts for this and other labs. The first script contains all the code you built to learn new concepts, develop and test code for answering the questions, etc. The second script is the one you will submit, and only contains the functions you defined as part of each lab. I recommend putting the second script (for submission) together after you finish the lab (just before submitting). 
 
 ## Complete the following steps:
-1. Review the meaning of the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which implies that the mean of a sufficiently large number of independent random variables (small samples from a much larger *population* of interest) will have a *sampling distribution* that is approximately normally distributed, regardless of whether the underlying data distribution is normally distributed.
-2. The following code for illustrating the Central Limit Theorem was inspired by Teetor, Paul. 2011. R Cookbook. O-Reilly Media, Inc. (p. 45), with several modifications. Type (or paste) the following code into your R script window (or RStudio script window):         
+
+Review the meaning of the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which implies that the mean of a sufficiently large number of independent random variables (small samples from a much larger *population* of interest) will have a *sampling distribution* that is approximately normally distributed, regardless of whether the underlying data distribution is normally distributed.
+
+Type (or paste) the following code into your R script window (or RStudio script window):         
 
 ```{r results='hide'}
 
@@ -131,9 +193,9 @@ To gain some familiarity with using R scripts and developing algorithms, complet
 # CENTRAL LIMIT THEOREM demonstration
 ####################
 
-lots <- 100000       # number approximating infinity      
+infinity <- 100000       # number approximating infinity      
 
-N_IND_SAMPLES <- 1000       # number of indepenent random samples to draw from the specified distribution
+N_SAMPLES <- 1000       # number of independent random samples to draw from the specified distribution
 SAMPLESIZE <- 10          # sample size of each independent random sample
 
 
@@ -141,18 +203,18 @@ SAMPLESIZE <- 10          # sample size of each independent random sample
 #  Define the random number distribution. Here, we will use a "uniform" random number generator with a min of 10 and max of 20.   
 TRUEMIN <- 10            
 TRUEMAX <- 20      
-datafountain <- runif(lots,TRUEMIN,TRUEMAX)      # here we define the full set of possible random numbers to draw random samples from (the population of potential data)
+data_population <- runif(infinity,TRUEMIN,TRUEMAX)      # here we define the full set of possible random numbers to draw random samples from (the population of potential data). We assume this is uniformly distributed
 
 #######
 # Draw multiple samples from the pool (population) of possible data.  
 
-samplemean <- numeric(N_IND_SAMPLES)     # set up storage vector
-for(i in 1:N_IND_SAMPLES){      # for each replicate (independent random sample)
-  sample <- sample(datafountain,SAMPLESIZE)   # draw an independent random sample from the population of interest
+samplemean <- numeric(N_SAMPLES)     # set up storage vector
+for(i in 1:N_SAMPLES){      # for each replicate (independent random sample)
+  sample <- sample(data_population,SAMPLESIZE)   # draw an independent random sample from the population of interest
   samplemean[i] <- mean(sample)    # compute and record the sample mean
 }
 
-hist(datafountain,freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of sample means
+hist(data_population,freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of sample means
 hist(samplemean,freq=F,add=T,col="red")    # overlay the distribution of the underlying data from which we are drawing samples.
 legend("topleft",fill=c("white","red"),legend=c("data population","sample means"),bty="n")     # add a legend to the plot
 
@@ -166,14 +228,14 @@ legend("topleft",fill=c("white","red"),legend=c("data population","sample means"
 
 ```
 
-source("H:\\Courses\\NRES746\\Lab1\\CentralLimitTheorem.R")     # load the R script!
+source("CentralLimitTheorem.R")     # load the R script!
 
 ```
 
-**NOTE**: The pound (#) sign used above allows the R programmer to insert comments adjacent to snippets of code, which facilitates readability of code (and lets the programmer remember later on what he/she was thinking when coding things a certain way!). It is good practice, especially for the beginning programmer, to comment every line so as to describe its precise meaning, including all variables and functions. Make sure you fully understand the commented code for the central limit theorem demonstration above!
+**NOTE**: The pound (#) sign used above allows the R programmer to insert comments adjacent to snippets of code, which facilitates readability of code (and lets the programmer remember later on what he/she was thinking when coding things a certain way!). It is good practice to comment every line so as to describe its precise meaning, including all variables and functions. Make sure you fully understand the commented code for the central limit theorem demonstration above!
 
 
-Here is an interactive window you can use to play around with the CLT code:
+Here is an interactive window you can use to play around with the CLT code (or even better, just open another RStudio instance and explore the code there!):
 
 ```{r cltdemo1, exercise=TRUE}
 
@@ -218,7 +280,7 @@ In addition, run a *Shapiro-Wilk normality test*, which tests the null hypothesi
 ```
 
 
-Again, here is an interactive window you can use to play around with the CLT code. 
+Again, here is an interactive window you can use to play around with the CLT code (or just use another instance of RStudio). 
 
 ```{r cltdemo2, exercise=TRUE}
 
@@ -235,9 +297,11 @@ So... what can you conclude from these tests? Can you conclude that the distribu
 
 ## Exercise 1: home-made functions!
 
+Finally we have arrived at the ACTUAL lab exercises. Remember you don't need to submit any of the work up to this point...
+
 For the first part of this lab, you are asked to write several functions (and submit them as part of your lab script, of course!). The functions increase in order of complexity!
 
-You should now know how to construct functions in R. If you don't, go back to the [NCEAS tutorial](https://www.nceas.ucsb.edu/files/scicomp/Dloads/RProgramming/BestFirstRTutorial.pdf) and review the section on writing functions.
+You should now know how to construct functions in R. If you don't, go back to the [NCEAS tutorial](https://gsp.humboldt.edu/olm/R/Tutorials/BestFirstRTutorial.pdf) and review the section on writing functions.
 
 ## **Exercise 1a** (for R script) 
 
@@ -284,7 +348,7 @@ CoefVar(trees$Height)    # run your new function!
 ```
 
 
-You can use this "sandbox" (below) to develop and test your function!
+You can use this "sandbox" (below) to develop and test your function! Make sure the last line in the code stays as is- otherwise the answer checker won't work!
 
 ```{r q1a, exercise=TRUE}
 test <- trees$Height
