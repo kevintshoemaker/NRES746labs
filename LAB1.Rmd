@@ -109,45 +109,53 @@ myfunc <- function(vector){
 **Hint:** You may want to use the `sum()` function.
 </div>
 
-```{r functest-code-check}
-grade_this_code()
-```
-
 
 ```{r functest-check}
-grade_this(
-  pass_if_equal(.solution(3:4),.result(3:4)),
+grade_this({
+  pass_if_equal(y=.solution(3:5),x=.result(3:5))
   fail()
-)
+})
 
 ```
 
-```{r echo=FALSE, eval=FALSE}
+```{r functest_test, echo=FALSE, eval=FALSE}
 
-this.grader <- grade_this(
-    pass_if_equal(),
-    fail()
+this.grader <- grade_this({
+  pass_if_equal(y=.solution(1:3),x=.result(1:3))
+  fail()
+}
 )
 
-.solution <- 
- myfunc <- function(vector){
+.solution <- {myfunc <- function(vector){
     sum(vector)
- }
+}}
 
-.result <- 
- myfunc <- function(vector){
+.result <- {myfunc <- function(vector){
     sum(vector)
-}
+}}
 
 grade_this_code()(mock_this_exercise(
-    .user_code = !!.result,
+    .user_code = !!.result,            # double exclamation just runs an expression
     .solution_code = !!.solution      # aha this is why you need double exclamations... 
   )
 )
 
 
+this.grader(mock_this_exercise(
+    .user_code     = !!.result, # user submitted code
+    .solution_code = !!.solution  # from -solution chunk
+  ))
+
+
+this.grader2(mock_this_exercise(
+    .user_code     = "myfunc <- function(vector){sum(vector)}", # user submitted code
+    .solution_code = "myfunc <- function(vector){sum(vector)}"  # from -solution chunk
+  ))
+
+
+
+
 this.grader <- grade_this({
-  
     pass_if_equal()
     fail()
 }
@@ -155,10 +163,10 @@ this.grader <- grade_this({
 
 this.grader(mock_this_exercise(
     .user_code     = "sum(2:3)", # user submitted code
-    .solution_code = "sum(2:3)"  # from -solution chunk
+    .solution_code = "sum(1:3)"  # from -solution chunk
   ))
 
-grade_this(pass_if_equal(.solution(3:4),.result(3:4)),
+grade_this(pass_if_equal(!!.solution(3:4),!!.result(3:4)),
     fail())(mock_this_exercise(
     .user_code = !!.result,
     .solution_code = !!.solution      # this still does not work...
@@ -307,7 +315,21 @@ You should now know how to construct functions in R. If you don't, go back to th
 
 Write an R function called "CoefVar()" that takes a numeric vector (named 'vector' within the function but could have any name outside the function) as input, and computes (and returns) its coefficient of variation (CV; standard deviation as a proportion of the mean). To make sure it works, apply your function to the 'Height' vector in the 'trees' dataset that installs with R as sample data:
 
-```{r answer1a, echo=FALSE}
+You can use this "sandbox" (below) to develop and test your function! You can test your function in the 'sandbox' below, but when you submit, make sure you delete all code except for the function itself (but comments are okay). 
+
+```{r q1a, exercise=TRUE}
+
+CoefVar <- function(vector){
+    # [add code here!]
+}
+
+```
+
+<div id="q1a-hint">
+**Hint:** You probably want to use the 'sd()' and 'mean()' functions.
+</div>
+
+```{r test1a-solution, echo=FALSE}
 
 ######################
 # LAB 1 (possible) answers
@@ -324,13 +346,7 @@ CoefVar <- function(vector){
 
 ```
 
-```{r test1a, echo=FALSE, context='data'}
-
-answer1a <- CoefVar(trees$Height)    # run your new function!
-answer1a
-
-```
-
+You can use the following code to test your function using the built-in 'trees' dataset. 
 
 ```{r eval=FALSE}
 
@@ -348,54 +364,13 @@ CoefVar(trees$Height)    # run your new function!
 ```
 
 
-You can use this "sandbox" (below) to develop and test your function! Make sure the last line in the code stays as is- otherwise the answer checker won't work!
-
-```{r q1a, exercise=TRUE}
-test <- trees$Height
-CoefVar <- function(vector){
-    # [add code here!]
-}
-CoefVar(test)   # note that the name of the vector can be different inside and outside the function. The name of the
-                   # vector inside the function is just a placeholder for any vector the user wants to compute a cv for
-
-```
-
-<div id="q1a-hint">
-**Hint:** You probably want to use the 'sd()' and 'mean()' functions.
-</div>
-
 ```{r q1a-check}
-test <- trees$Height
-check_q1a <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "CoefVar","Use CoefVar() function!"))
-    t1 <- checkr::line_where(func_call, checkr::insist(all(V==answer1a), "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
-}
-check_q1a(USER_CODE)
+grade_this({
+  pass_if_equal(y=.solution(trees$Height),x=.result(trees$Height))
+  fail()
+})
 ```
 
-```{r playwithcheckr, eval=FALSE, echo=FALSE}
-
-code <- checkr::for_checkr(quote({test <- trees$Height;CoefVar <- function(vector){sd(vector)/mean(vector)};CoefVar(vector=test)}))
-code
-func_call <- line_calling(code, CoefVar, message = "Use CoefVar() to construct the model.")
-checkr::line_where(code, checkr::insist(V==answer1a, "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
-check(func_call, checkr::insist(dplyr::near(V,answer1a,tol=0.001), 
-        message="Your solution is {{V}}. This is not the correct result"),
-        checkr::passif(TRUE, "Great job!"))
-
-
-```
-
-```{r playwithtestthis1, eval=FALSE, echo=FALSE}
-
-check_result(pass_if(answer1a),grader_args=list(user_quo = quo({test <- trees$Height;CoefVar <-            function(vector){sd(vector)/mean(vector)};CoefVar(vector=test)})))
-
-test_result(grader_args=list(user_quo = quo({a=10;a}),solution_quo=quo(10)))    # use this syntax!
-
-
-
-```
 
 ## * **Exercise 1b** (for R script) 
 
@@ -412,46 +387,17 @@ Write a function called "DrawLine()" for drawing a regression line through a sca
     + add a regression line to the scatter plot (HINT: use the "abline()" function)
 
 + **return**:  
-    + coefs = a vector of length 2, storing the intercept and slope of the linear relationship
+    + coefs = a vector of length 2, storing the intercept and slope of the linear relationship (in that order)
 
 
-```{r answer1b, echo=FALSE}
-
-#############
-## exercise 1b
-
-DrawLine <- function(x,y){  
-  plot(y~x)
-  mod <- lm(y~x)
-  coefs <- coef(mod)
-  abline(mod)
-  return(coefs)
-  
-}
-
-
-```
-
-```{r test1b, echo=FALSE, fig.keep='none', context='data'}
-
-answer1b <- DrawLine(trees$Height,trees$Volume)    # run your new function!
-
-DrawLine(faithful$waiting,faithful$eruptions)    # test using the old faithful eruptions data
-
-
-
-```
-
-Apply this function to the 'Height' (x axis) and 'Volume' (y axis) vectors in the 'trees' dataset, and then to the 'waiting' (x axis) and 'eruptions' (y axis) vectors in the 'faithful' dataset.
+As a test, apply this function to the 'Height' (x axis) and 'Volume' (yaxis) vectors in the 'trees' dataset, and then to the 'waiting' (x axis) and 'eruptions' (y axis) vectors in the 'faithful' dataset.
 
 ```{r eval=FALSE}
 
 ?faithful
-
 summary(faithful)
 
-faithful$eruptions
-faithful$waiting
+DrawLine(faithful$waiting,faithful$eruptions)    # test your function using the old faithful eruptions data
 
 ```
 
@@ -471,17 +417,28 @@ DrawLine(trees$Height,trees$Volume)
 **Hint:** You may want to use the `coef()` function.
 </div>
 
-```{r q1b-check}
+```{r q1b-solution, echo=FALSE}
 
-check_q1b <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine","Use DrawLine() function!"))
-    t1 <- checkr::line_where(func_call, checkr::insist(all(V==answer1b), "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
+#############
+## exercise 1b
+
+DrawLine <- function(x,y){  
+  plot(y~x)
+  mod <- lm(y~x)
+  coefs <- coef(mod)
+  abline(mod)
+  return(coefs)
 }
-check_q1b(USER_CODE)
 
 ```
 
+```{r q1b-check}
+grade_this({
+  fail_if(any(is.na(.result)), "You shouldn't have missing values.")
+  pass_if(all(.result(faithful$waiting,faithful$eruptions)==.solution(faithful$waiting,faithful$eruptions)))
+  fail()
+})
+```
 
 
 ## * **Exercise 1c** (for R script) 
@@ -503,8 +460,38 @@ Write a function called "DrawLine2()" for (optionally) drawing a "smoothed" regr
 + **return**:    
     + out = the loess model (the output produced by running "loess()" (or the slope and intercept from the linear regression, if smooth=FALSE) 
         
+Try testing your function using the trees and faithful datasets!
 
-```{r answer1c, echo=FALSE}
+```{r test1c, eval=FALSE}
+xvec <- c(1:10)
+yvec <- rnorm(length(xvec),c(2:6,7:3),2)
+answer1c <- DrawLine2(xvec,yvec,smooth=T,span=0.5)    # run your new function!
+
+DrawLine2(x=trees$Height,y=trees$Volume,smooth=F,span=NA)
+
+DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.5)    # test using the old faithful eruptions data
+
+DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.1)
+
+```
+
+You can use this "sandbox" (below) to develop and test your function!
+
+```{r q1c, exercise=TRUE}
+xvec <- c(1:10)
+yvec <- rnorm(length(xvec),c(2:6,7:3),2)     # you can use these vectors for testing the function
+DrawLine2 <- function(x,y,smooth=F,span=1){    # note the default values (the ones set using equal sign)
+    # [add code here!]
+}
+
+```
+
+<div id="q1c-hint">
+**Hint:** You may want to use the `scatter.smooth()` function to draw the curve and the 'loess()' function to build the model.
+</div>
+
+
+```{r q1c-solution, echo=FALSE}
 
 #############
 ## exercise 1c
@@ -524,94 +511,17 @@ DrawLine2 <- function(x,y,smooth=TRUE,span=1){
 
 ```
 
-```{r test1c, echo=FALSE, context='data', warning=FALSE, quietly=T,fig.keep='none',results=FALSE}
-xvec <- c(1:10)
-set.seed(100) 
-yvec <- rnorm(length(xvec),c(2:6,7:3),2)
-answer1c <- DrawLine2(xvec,yvec,smooth=T,span=0.5)    # run your new function!
-
-DrawLine2(x=trees$Height,y=trees$Volume,smooth=F,span=NA)
-
-DrawLine2(faithful$waiting,faithful$eruptions,span=.5)    # test using the old faithful eruptions data
-
-DrawLine2(faithful$waiting,faithful$eruptions,span=.1)
-
-```
-
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q1c, exercise=TRUE}
-xvec <- c(1:10)
-set.seed(100)    # don't change this line, or the answer checking function won't work!
-yvec <- rnorm(length(xvec),c(2:6,7:3),2)
-DrawLine2 <- function(x,y,smooth=F,span=1){
-    # [add code here!]
-}
-DrawLine2(xvec,yvec,smooth=T,span=0.5)
-
-```
-
-<div id="q1c-hint">
-**Hint:** You may want to use the `scatter.smooth()` function to draw the curve and the 'loess()' function to build the model.
-</div>
-
 ```{r q1c-check}
-check_q1c <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine2","Use DrawLine2() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all(V$fitted == answer1c$fitted), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Fantastic!"))
-}
-check_q1c(USER_CODE)
+grade_this({
+  pass_if(all(.result(faithful$waiting,faithful$eruptions,F)==.solution(faithful$waiting,faithful$eruptions,F)))
+  pass_if(all(.result(faithful$waiting,faithful$eruptions,T,0.1)$fitted==.solution(faithful$waiting,faithful$eruptions,T,0.1)$fitted))
+  fail()
+})
 ```
 
 
 
-```{r playwithcheckr2, eval=FALSE, echo=FALSE}
 
-code <- checkr::for_checkr(quote({xvec <- c(1:10)
-                          set.seed(100)    # don't change this line, or the answer checking function won't work!
-                          yvec <- rnorm(length(xvec),c(2:6,7:3),2)
-                          DrawLine2 <- function(x,y,smooth=F,span=1){
-                              plot(y~x)
-                              if(smooth==FALSE){
-                                mod <- lm(y~x)
-                                coefs <- coef(mod)
-                                abline(coefs)
-                              }else{
-                                coefs <- loess(y~x,span=span)
-                                scatter.smooth(y~x,span=span)
-                              }
-                              return(coefs)    
-                          }
-                          DrawLine2(xvec,yvec,smooth=T,span=0.5)}))
-code
-#func_call <- line_calling(code, DrawLine2, message = "Use DrawLine2() to construct the model.")
-func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine2","Use DrawLine2() to construct the model."))
-#func_call <- line_binding(code, DrawLine2, message = "Use DrawLine2() to construct the model.")
-t1 <- checkr::line_where(func_call, 
-        checkr::insist(all(V$fitted == answer1c$fitted) , "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Great job!"))
-
-
-code <- checkr::for_checkr(quote(lm(mpg ~ hp, data= mtcars)))
-code
-lm_line <- line_calling(code, lm, message = "Use lm() to construct the model.")
-lm_call <- arg_calling(lm_line, lm)
-t1 <- data_arg(lm_call, 
-                 checkr::insist(identical(V, mtcars), 
-                        "Your data argument {{E}} was not `mtcars`."),
-                 message = "You didn't supply a `data = ` argument to `lm()`.")
-
-# t1 <- checkr::line_where(code,checkr::insist(V %same_as% answer1c, message = "Sorry, try again!"))
-# checkr::passif(any(func_call$values[[length(func_call$values)]]$fitted==answer1c$fitted),"Right!")
-# #t1 <- checkr::line_where(func_call, checkr::insist(V==8.49, "Sorry, this is not the correct result"),checkr::passif(TRUE, "Fantastic!"))
-
-
-
-```
 
 ## **Exercise 1d** (for R script) 
 
@@ -694,15 +604,9 @@ CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)
 </div>
 
 ```{r q1d-check}
-check_q1d <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "CLTdemo","Use CLTdemo() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(V$p.value <= 0.01, 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Fantastic!"))
-}
-check_q1d(USER_CODE)
+grade_this({
+  pass()
+})
 ```
 
 
@@ -1199,15 +1103,18 @@ t.test.onetail(dat=df2,group = "Treatment", value = "Mass")
 
 
 ```{r q4a-check}
-check_q4a <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.onetail","Use t.test.onetail() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all(V$p_value <= 0.02), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Very nice!"))
-}
-check_q4a(USER_CODE)
+grade_this({
+  pass()
+})
+# check_q4a <- function(USER_CODE){
+#     code <- checkr::for_checkr(USER_CODE)
+#     func_call <- checkr::line_where(code,checkr::insist(F== "t.test.onetail","Use t.test.onetail() function!"))
+#     t1 <- checkr::line_where(func_call, 
+#         checkr::insist(all(V$p_value <= 0.02), 
+#         "Sorry, that's not correct"),
+#         checkr::passif(TRUE, "Very nice!"))
+# }
+# check_q4a(USER_CODE)
 ```
 
 
@@ -1353,15 +1260,18 @@ t.test.vardif(dat=df2,group = "Treatment", value = "Mass")
 
 
 ```{r q4b-check}
-check_q4b <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.vardif","Use t.test.vardif() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all((V$p_value >=  (answer4b$p_value-0.2))&(V$p_value <=  (answer4b$p_value+0.2))), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Bravo!"))
-}
-check_q4b(USER_CODE)
+grade_this({
+  pass()
+})
+# check_q4b <- function(USER_CODE){
+#     code <- checkr::for_checkr(USER_CODE)
+#     func_call <- checkr::line_where(code,checkr::insist(F== "t.test.vardif","Use t.test.vardif() function!"))
+#     t1 <- checkr::line_where(func_call, 
+#         checkr::insist(all((V$p_value >=  (answer4b$p_value-0.2))&(V$p_value <=  (answer4b$p_value+0.2))), 
+#         "Sorry, that's not correct"),
+#         checkr::passif(TRUE, "Bravo!"))
+# }
+# check_q4b(USER_CODE)
 ```
 
 
@@ -1500,15 +1410,18 @@ t.test.ndif(dat=df2,group = "Treatment", value = "Mass")
 
 
 ```{r q4c-check}
-check_q4c <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.ndif","Use t.test.ndif() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all((V$p_value >=  (answer4c$p_value-0.15))&(V$p_value <=  (answer4c$p_value+0.15))), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Bravo!"))
-}
-check_q4c(USER_CODE)
+grade_this({
+  pass()
+})
+# check_q4c <- function(USER_CODE){
+#     code <- checkr::for_checkr(USER_CODE)
+#     func_call <- checkr::line_where(code,checkr::insist(F== "t.test.ndif","Use t.test.ndif() function!"))
+#     t1 <- checkr::line_where(func_call, 
+#         checkr::insist(all((V$p_value >=  (answer4c$p_value-0.15))&(V$p_value <=  (answer4c$p_value+0.15))), 
+#         "Sorry, that's not correct"),
+#         checkr::passif(TRUE, "Bravo!"))
+# }
+# check_q4c(USER_CODE)
 ```
 
 
@@ -1626,15 +1539,18 @@ RegressionCoefs(df,"mpg")
 
 
 ```{r q5a-check}
-check_q5a <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "RegressionCoefs","Use RegressionCoefs() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(any((V ==  answer5a)), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Bravo!"))
-}
-check_q5a(USER_CODE)
+grade_this({
+  pass()
+})
+# check_q5a <- function(USER_CODE){
+#     code <- checkr::for_checkr(USER_CODE)
+#     func_call <- checkr::line_where(code,checkr::insist(F== "RegressionCoefs","Use RegressionCoefs() function!"))
+#     t1 <- checkr::line_where(func_call, 
+#         checkr::insist(any((V ==  answer5a)), 
+#         "Sorry, that's not correct"),
+#         checkr::passif(TRUE, "Bravo!"))
+# }
+# check_q5a(USER_CODE)
 ```
 
 
@@ -1743,15 +1659,18 @@ BootCoefs(df=df,statfunc=RegressionCoefs,
 
 
 ```{r q5b-check}
-check_q5b <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "BootCoefs","Use BootCoefs() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all((V[1,3] >=  (answer5b[1,3]-0.2))&(V[1,3] <=  (answer5b[1,3]+0.2))), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Delightful!"))
-}
-check_q5b(USER_CODE)
+grade_this({
+  pass()
+})
+# check_q5b <- function(USER_CODE){
+#     code <- checkr::for_checkr(USER_CODE)
+#     func_call <- checkr::line_where(code,checkr::insist(F== "BootCoefs","Use BootCoefs() function!"))
+#     t1 <- checkr::line_where(func_call, 
+#         checkr::insist(all((V[1,3] >=  (answer5b[1,3]-0.2))&(V[1,3] <=  (answer5b[1,3]+0.2))), 
+#         "Sorry, that's not correct"),
+#         checkr::passif(TRUE, "Delightful!"))
+# }
+# check_q5b(USER_CODE)
 ```
 
 
