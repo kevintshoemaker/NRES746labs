@@ -118,7 +118,7 @@ grade_this({
 
 ```
 
-```{r functest_test, echo=FALSE, eval=FALSE}
+```{r echo=FALSE, eval=FALSE}
 
 this.grader <- grade_this({
   pass_if_equal(y=.solution(1:3),x=.result(1:3))
@@ -329,7 +329,7 @@ CoefVar <- function(vector){
 **Hint:** You probably want to use the 'sd()' and 'mean()' functions.
 </div>
 
-```{r test1a-solution, echo=FALSE}
+```{r q1a-solution, echo=FALSE}
 
 ######################
 # LAB 1 (possible) answers

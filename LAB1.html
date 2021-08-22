@@ -166,7 +166,7 @@ if (window.hljs) {
 <h2>Complete the following steps:</h2>
 <p>Review the meaning of the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">Central Limit Theorem</a>, which implies that the mean of a sufficiently large number of independent random variables (small samples from a much larger <em>population</em> of interest) will have a <em>sampling distribution</em> that is approximately normally distributed, regardless of whether the underlying data distribution is normally distributed.</p>
 <p>Type (or paste) the following code into your R script window (or RStudio script window):</p>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-2-1.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-3-1.png" width="624" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Experiment with executing this code in the following four ways:
 <ul>
@@ -224,6 +224,19 @@ source(&quot;CentralLimitTheorem.R&quot;)     # load the R script!
 </div>
 <div id="section-q1a-hint">
 <p><strong>Hint:</strong> You probably want to use the ‘sd()’ and ‘mean()’ functions.</p>
+</div>
+<div class="tutorial-exercise-support" data-label="q1a-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>######################
+# LAB 1 (possible) answers
+######################
+
+#############
+## exercise 1a
+
+CoefVar &lt;- function(vector){    
+  cv &lt;- sd(vector,na.rm=TRUE)/mean(vector,na.rm=TRUE)
+  return(cv)     
+}</code></pre>
 </div>
 <p>You can use the following code to test your function using the built-in ‘trees’ dataset.</p>
 </div>
@@ -370,7 +383,7 @@ CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)</code></pre>
 <div id="section-exercise-1f-optional" class="section level2">
 <h2><strong>Exercise 1f (optional)</strong></h2>
 <p>Optionally, Modify your CLTdemo() function (e.g., call it “CLTdemo2()”) to try a different underlying data distribution (other than uniform). If you really want to test the limits of the CLT, try creating your own highly non-standard distribution and seeing if the CLT still holds (spoiler alert: it does!). For example:</p>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-8-1.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-9-1.png" width="624" /></p>
 <p>You can use this “sandbox” (below) to develop and test your function!</p>
 <div class="tutorial-exercise" data-label="q1f" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>CLTdemo2 &lt;- function(n.samples=1000,sample.size=10,...){
@@ -399,13 +412,13 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 <li><p>Conduct a multiple linear regression of ozone concentration as a function of solar radiation, wind and temperature. Use the ‘lm()’ function to conduct an ordinary least squares (OLS) regression analysis.</p></li>
 <li><p>Explore the regression outputs using the ‘summary’ function, and explore regression diagnostics using, e.g. (depending on what you named the regression model object):</p></li>
 </ol>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-13-1.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-14-1.png" width="624" /></p>
 <p>NOTE: see <a href="https://data.library.virginia.edu/diagnostic-plots/">this website</a> for more information on the diagnostic plots produced by lm().</p>
 <p>If no one in your group knows why you are doing any of this or what it all means, ask the instructor! That’s why he’s hanging around the lab…</p>
 <ol start="6" style="list-style-type: decimal">
 <li>Consider the possibility that there may be an important interaction effect between solar radiation and temperature on influencing ozone concentrations. Explore that with a simple scatter plot where symbol size is scaled to ozone concentration:</li>
 </ol>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-14-1.png" width="624" /><img src="LAB1_files/figure-html/unnamed-chunk-14-2.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-15-1.png" width="624" /><img src="LAB1_files/figure-html/unnamed-chunk-15-2.png" width="624" /></p>
 <ol start="7" style="list-style-type: decimal">
 <li><p>Now fit a second model that includes the interaction between solar radiation and temperature. Use the following formula to fit the interaction:</p></li>
 <li><p>Explore regression outputs for the second model in the same way as you did for the first model without the interaction term.</p></li>
@@ -456,11 +469,11 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 <p>Obtain a correlation matrix for biomass and the four numeric predictor variables using the ‘cor()’ function and by subscripting column locations on the data frame (ask instructor for explanation of syntax if needed):</p>
 <p>Are any of the predictor variables highly correlated?</p>
 <p>Calculate <em>Box Plots</em> for the continuous predictor variables (excluding x and y coordinates) according to sites with or without noble fir. Use the ‘boxplot()’ function. What clear relationships, if any, emerge for how sites with and without noble fir differ with regard to their environmental setting? For example:</p>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-20-1.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
 <p>Use multiple linear regression to model <em>A. procera</em> biomass as a function of predictor variables (excluding spatial coordinates), using the same approach for regression fitting and diagnostics as we did previously.</p>
 <p>Re-run the regression to obtain standardized regression coefficients, allowing direct comparison of effect sizes for the continuous predictor variables (since all variables are then transformed to standard deviate units, i.e. mean centered on zero with standard deviation of one). The ‘scale’ function provides an easy way to implement this.</p>
 <p>Visually assess whether regression errors (residuals) are spatially autocorrelated using the ‘symbols’ function:</p>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-22-1.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-23-1.png" width="624" /></p>
 <p>You can use this “sandbox” (below) to play around with this example in R!</p>
 <div class="tutorial-exercise" data-label="q3prelim" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># your code here</code></pre>
@@ -499,8 +512,8 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
   names(reshape_df)[2] &lt;- varname   # rename the value column to whatever the user specifies
   return(reshape_df)
 }</code></pre>
-<pre><code>## [1] 0.159</code></pre>
-<pre><code>## [1] 0.353</code></pre>
+<pre><code>## [1] 0.173</code></pre>
+<pre><code>## [1] 0.318</code></pre>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -863,7 +876,11 @@ learnr:::store_exercise_cache("q1a", list(setup = NULL, chunks = list(list(label
     code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
     "  pass_if_equal(y=.solution(trees$Height),x=.result(trees$Height))", 
     "  fail()", "})"), chunk_opts = list(label = "q1a-check")), 
-    solution = NULL, options = list(eval = FALSE, echo = TRUE, 
+    solution = structure(c("", "######################", "# LAB 1 (possible) answers", 
+    "######################", "", "#############", "## exercise 1a", 
+    "", "CoefVar <- function(vector){    ", "  cv <- sd(vector,na.rm=TRUE)/mean(vector,na.rm=TRUE)", 
+    "  return(cv)     ", "}", "", ""), chunk_opts = list(label = "q1a-solution", 
+        echo = FALSE)), options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
         prompt = FALSE, comment = NA, highlight = FALSE, strip.white = TRUE, 
         size = "normalsize", background = "#F7F7F7", cache = 0, 
