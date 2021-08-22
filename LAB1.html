@@ -227,7 +227,7 @@ source(&quot;CentralLimitTheorem.R&quot;)     # load the R script!
 </div>
 <div class="tutorial-exercise-support" data-label="q1a-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>######################
-# LAB 1 (possible) answers
+# LAB 1 answer key (lots of other possibilities)
 ######################
 
 #############
@@ -236,7 +236,8 @@ source(&quot;CentralLimitTheorem.R&quot;)     # load the R script!
 CoefVar &lt;- function(vector){    
   cv &lt;- sd(vector,na.rm=TRUE)/mean(vector,na.rm=TRUE)
   return(cv)     
-}</code></pre>
+}
+#CoefVar(c(2,3,4,3,2,3,4))   # test your function</code></pre>
 </div>
 <p>You can use the following code to test your function using the built-in ‘trees’ dataset.</p>
 </div>
@@ -262,13 +263,12 @@ CoefVar &lt;- function(vector){
 <li>coefs = a vector of length 2, storing the intercept and slope of the linear relationship (in that order)</li>
 </ul></li>
 </ul>
-<p>As a test, apply this function to the ‘Height’ (x axis) and ‘Volume’ (yaxis) vectors in the ‘trees’ dataset, and then to the ‘waiting’ (x axis) and ‘eruptions’ (y axis) vectors in the ‘faithful’ dataset.</p>
-<p>You can use this “sandbox” (below) to develop and test your function!</p>
+<p>You can use this “sandbox” (below) to develop and test your function! Again, remember to comment out everything except for your “DrawLine” function definition prior to submitting (you can test the function using the “run” button).</p>
 <div class="tutorial-exercise" data-label="q1b" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>DrawLine &lt;- function(x,y){
     # [add code here!]
 }
-DrawLine(trees$Height,trees$Volume)</code></pre>
+#DrawLine(trees$Height,trees$Volume)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div id="section-q1b-hint">
@@ -286,6 +286,7 @@ DrawLine &lt;- function(x,y){
   return(coefs)
 }</code></pre>
 </div>
+<p>As a test, apply this function to the ‘Height’ (x axis) and ‘Volume’ (yaxis) vectors in the ‘trees’ dataset, and then to the ‘waiting’ (x axis) and ‘eruptions’ (y axis) vectors in the ‘faithful’ dataset.</p>
 </div>
 <div id="section-exercise-1c-for-r-script" class="section level2">
 <h2>* <strong>Exercise 1c</strong> (for R script)</h2>
@@ -311,14 +312,14 @@ DrawLine &lt;- function(x,y){
 <li>out = the loess model (the output produced by running “loess()” (or the slope and intercept from the linear regression, if smooth=FALSE)</li>
 </ul></li>
 </ul>
-<p>Try testing your function using the trees and faithful datasets!</p>
 <p>You can use this “sandbox” (below) to develop and test your function!</p>
 <div class="tutorial-exercise" data-label="q1c" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>xvec &lt;- c(1:10)
 yvec &lt;- rnorm(length(xvec),c(2:6,7:3),2)     # you can use these vectors for testing the function
 DrawLine2 &lt;- function(x,y,smooth=F,span=1){    # note the default values (the ones set using equal sign)
     # [add code here!]
-}</code></pre>
+}
+# DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.5)    # test using the old faithful eruptions data</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div id="section-q1c-hint">
@@ -341,6 +342,7 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
   return(coefs)     
 }</code></pre>
 </div>
+<p>Try testing your function using the trees and faithful datasets!</p>
 </div>
 <div id="section-exercise-1d-for-r-script" class="section level2">
 <h2><strong>Exercise 1d</strong> (for R script)</h2>
@@ -364,12 +366,12 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
 <li>out = the Shapiro-Wilks normality test results (the output produced by running “shapiro.test()”)</li>
 </ul></li>
 </ul>
-<p>You can use this “sandbox” (below) to develop and test your function!</p>
+<p>You can use this “sandbox” (below) to develop and test your function! As always, remember to comment out everything except for the requested function prior to submitting.</p>
 <div class="tutorial-exercise" data-label="q1d" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>CLTdemo &lt;- function(n.samples=1000,sample.size=10,min=10,max=20){
     # [add code here!]
 }
-CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)</code></pre>
+# CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div id="section-q1d-hint">
@@ -378,18 +380,23 @@ CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)</code></pre>
 </div>
 <div id="section-exercise-1e-for-word-doc" class="section level2">
 <h2><strong>Exercise 1e</strong> (for Word doc)</h2>
-<p>Finally, test the function out for different parameter combinations to make sure it works! See if you can use this function to develop a reasonable rule for how big a sample size is necessary to ensure that the sample mean is normally distributed given that the underlying data population is distributed along a uniform distribution. <em>Please include your answer in your Word document</em>- and please justify your answer! [note: you don’t need to write new code to answer this question, I am just looking for a thoughtful response, not a definitive answer! And just a few sentences is fine.]</p>
+<p>Finally, test the CLT function out for different parameter combinations to make sure it works! See if you can use this function to develop a reasonable rule for how large a sample size is necessary to ensure that the sample mean is normally distributed given that the underlying data population is a uniform distribution. <em>Please include your answer in your Word document</em>- and please justify your answer! [note: I am just looking for a thoughtful response, not a definitive answer! And just a few sentences is fine.]</p>
+<p>You can use the following interactive R window for testing if that is helpful:</p>
+<div class="tutorial-exercise" data-label="1e" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>   # use this space if it&#39;s helpful</code></pre>
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<div id="section-exercise-1f-optional" class="section level2">
-<h2><strong>Exercise 1f (optional)</strong></h2>
-<p>Optionally, Modify your CLTdemo() function (e.g., call it “CLTdemo2()”) to try a different underlying data distribution (other than uniform). If you really want to test the limits of the CLT, try creating your own highly non-standard distribution and seeing if the CLT still holds (spoiler alert: it does!). For example:</p>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-9-1.png" width="624" /></p>
-<p>You can use this “sandbox” (below) to develop and test your function!</p>
+</div>
+<div id="section-exercise-1f-optional-not-for-submission" class="section level2">
+<h2><strong>Exercise 1f (optional, not for submission)</strong></h2>
+<p>Optionally, Modify your CLTdemo() function (e.g., call it “CLTdemo2()”) to try a different underlying data distribution (other than uniform). If you really want to test the limits of the CLT, try creating your own highly non-standard distribution and seeing if the result you obtained in exercise 1e still holds. For example:</p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-7-1.png" width="624" /></p>
+<p>You can use this “sandbox” (below) to develop and test your function! Remember, you do not need to submit this function as part of your submitted r script.</p>
 <div class="tutorial-exercise" data-label="q1f" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>CLTdemo2 &lt;- function(n.samples=1000,sample.size=10,...){
     # [add code here!]
 }
-CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
+#CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div id="section-q1f-hint">
@@ -401,6 +408,7 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 <p><strong>NOTE:</strong> to set default values, just use the equals sign when specifying your function. For example, say I wanted to write a function that adds numbers in a vector. It might look something like this:</p>
 <pre><code>## [1] 45</code></pre>
 <pre><code>## [1] 7</code></pre>
+<p>Try setting some alternative default values and re-running the function with and without arguments until you are sure you understand how default values work!</p>
 </div>
 <div id="section-multiple-regression-1-air-quality-data" class="section level2">
 <h2>Multiple Regression 1: Air Quality Data</h2>
@@ -408,23 +416,28 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>Type the following for a list of sample datasets that come with the core R package (some of these you have already encountered).</p></li>
 <li><p>Examine the ‘airquality’ dataset (use the ‘head’ and ‘summary’ functions). Note that there are <em>missing values</em> where ozone concentration data and solar radiation data were not collected.</p></li>
-<li><p>We could ignore the missing values and just go ahead with our regression analysis, since the default response of the “lm()” (‘linear model’) function is to omit cases with missing values in any of the specified parameters. However, to avoid problems later, we will omit them by constructing a new, ‘cleaned’ dataset as follows:</p></li>
+<li><p>We could ignore the missing values and just go ahead with our regression analysis, since the default response of the “lm()” (‘linear model’) function is to omit cases with missing values in any of the specified parameters. However, to avoid problems later, we will omit them explicitly by constructing a new, ‘cleaned’ dataset as follows:</p></li>
 <li><p>Conduct a multiple linear regression of ozone concentration as a function of solar radiation, wind and temperature. Use the ‘lm()’ function to conduct an ordinary least squares (OLS) regression analysis.</p></li>
 <li><p>Explore the regression outputs using the ‘summary’ function, and explore regression diagnostics using, e.g. (depending on what you named the regression model object):</p></li>
 </ol>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-14-1.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-12-1.png" width="624" /></p>
 <p>NOTE: see <a href="https://data.library.virginia.edu/diagnostic-plots/">this website</a> for more information on the diagnostic plots produced by lm().</p>
 <p>If no one in your group knows why you are doing any of this or what it all means, ask the instructor! That’s why he’s hanging around the lab…</p>
+<p>Here is a practice R window in case it is helpful:</p>
+<div class="tutorial-exercise" data-label="regressiontest1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># practice space for regression analysis!</code></pre>
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
 <ol start="6" style="list-style-type: decimal">
 <li>Consider the possibility that there may be an important interaction effect between solar radiation and temperature on influencing ozone concentrations. Explore that with a simple scatter plot where symbol size is scaled to ozone concentration:</li>
 </ol>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-15-1.png" width="624" /><img src="LAB1_files/figure-html/unnamed-chunk-15-2.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-13-1.png" width="624" /><img src="LAB1_files/figure-html/unnamed-chunk-13-2.png" width="624" /></p>
 <ol start="7" style="list-style-type: decimal">
 <li><p>Now fit a second model that includes the interaction between solar radiation and temperature. Use the following formula to fit the interaction:</p></li>
 <li><p>Explore regression outputs for the second model in the same way as you did for the first model without the interaction term.</p></li>
 <li><p>Conduct an ‘F Test’ (or a Likelihood Ratio Test, LRT, if you prefer…) to formally test whether the more complex model (including the interaction term) fits the data significantly better than the reduced model (with fewer parameters) that lacks the interaction term. Recall that the <span class="math inline">\(R^2\)</span> value is inadequate for this purpose because <span class="math inline">\(R^2\)</span> will always increase with additional parameters! Use the following syntax,</p></li>
 </ol>
-<p>You can use this “sandbox” (below) to play around with multiple regression in R!</p>
+<p>You can use this “sandbox” (below) to play around with multiple regression in R! You don’t need to include any of this code in your submission.</p>
 <div class="tutorial-exercise" data-label="q2prelim" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># your code here</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -432,17 +445,17 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 </div>
 <div id="section-exercise-2-regression-in-r-written-responses" class="section level2">
 <h2>Exercise 2: regression in R (written responses)</h2>
-<p>Very briefly answer the following questions in your Word document:</p>
+<p>Very briefly (in ) answer the following questions in your Word document:</p>
 <ul>
-<li><p><strong>Exercise 2a</strong> On average, by how much does ozone concentration increase (or decrease) for each 10-unit increase in temperature? Use the ‘no interaction’ model from part 4 above to answer this question.</p></li>
-<li><p><strong>Exercise 2b</strong> What is the (null) hypothesis that the <em>p</em>-values for the individual regression coefficients are designed to test?</p></li>
+<li><p><strong>Exercise 2a</strong> By how much (and in what direction) is ozone concentration expected to change if temperature increased from 26 to 30 degrees Celsius? Assume that solar radiation stays constant at 200 lang and wind speed stays constant at 9 mph. Be careful with the units for temperature! Make sure to use the ‘interaction’ model (model2) from part 7 above to answer this question. Please briefly explain (in your Word document) how you got your answer.</p></li>
+<li><p><strong>Exercise 2b</strong> What is the null hypothesis that the <em>p</em>-values for the individual regression coefficients are designed to test?</p></li>
 </ul>
 </div>
 <div id="section-multiple-regression-2-noble-fir-data" class="section level2">
 <h2>Multiple Regression 2: Noble fir data</h2>
 <p>For this exercise, we will use tree data from a forest in the western Oregon Cascades.</p>
 <p>We will fit a multiple linear regression model that predicts forest tree biomass as a function of environmental variables (including a mix of continuous and categorical predictors) and stand age.</p>
-<p>Obtain the TreeData.csv file from the “Data Sets” tab (or just download <a href="http://naes.unr.edu/shoemaker/teaching/NRES-746/TreeData.csv">here</a>)- save it to your working directory.</p>
+<p>Obtain the TreeData.csv file from the “Data Sets” tab (or just download <a href="https://kevintshoemaker.github.io/NRES-746/TreeData.csv">here</a>)- save it to your working directory.</p>
 <p>This describes a subset of forest inventory data from the Douglas-fir forests of western Oregon (n = 90, 0.1-ha sites).</p>
 <p>Arranged in columns from left to right, variables are:</p>
 <ul>
@@ -469,11 +482,12 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 <p>Obtain a correlation matrix for biomass and the four numeric predictor variables using the ‘cor()’ function and by subscripting column locations on the data frame (ask instructor for explanation of syntax if needed):</p>
 <p>Are any of the predictor variables highly correlated?</p>
 <p>Calculate <em>Box Plots</em> for the continuous predictor variables (excluding x and y coordinates) according to sites with or without noble fir. Use the ‘boxplot()’ function. What clear relationships, if any, emerge for how sites with and without noble fir differ with regard to their environmental setting? For example:</p>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-19-1.png" width="624" /></p>
 <p>Use multiple linear regression to model <em>A. procera</em> biomass as a function of predictor variables (excluding spatial coordinates), using the same approach for regression fitting and diagnostics as we did previously.</p>
 <p>Re-run the regression to obtain standardized regression coefficients, allowing direct comparison of effect sizes for the continuous predictor variables (since all variables are then transformed to standard deviate units, i.e. mean centered on zero with standard deviation of one). The ‘scale’ function provides an easy way to implement this.</p>
 <p>Visually assess whether regression errors (residuals) are spatially autocorrelated using the ‘symbols’ function:</p>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-23-1.png" width="624" /></p>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
+<p>Note the ‘with’ function above- this function essentially makes all columns in a data frame part of the global environment- that is, the commands you enclose in a ‘with’ function can refer to the columns in the data frame as if they were part of the global environment. This is a safe way to replicate the ‘attach’ function in R (which I recommend you never use!).</p>
 <p>You can use this “sandbox” (below) to play around with this example in R!</p>
 <div class="tutorial-exercise" data-label="q3prelim" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># your code here</code></pre>
@@ -486,9 +500,9 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 <ul>
 <li><strong>Exercise 3a</strong> Can forest biomass be reliably predicted by topographic variables and stand age? Explain your reasoning.<br />
 </li>
-<li><strong>Exercise 3b</strong> Is there spatial variation in model goodness of fit? Explain your reasoning.<br />
+<li><strong>Exercise 3b</strong> Is there spatial variation in model goodness of fit (i.e., on the residual error)? Use your visual assessment of regression errors (residuals) across space to answer this question. Explain your reasoning.<br />
 </li>
-<li><strong>Exercise 3c</strong> Which of the environmental influences are most important in predicting forest biomass? Explain your reasoning.</li>
+<li><strong>Exercise 3c</strong> Which of the environmental influences you included in your model are most important in predicting forest biomass? Explain your reasoning.</li>
 </ul>
 </div>
 <div id="section-exercise-4-algorithmic-brute-force-t-test" class="section level2">
@@ -497,133 +511,136 @@ CLTdemo2(n.samples=5000,sample.size=4,...)</code></pre>
 </div>
 <div id="section-exercise-4a" class="section level2">
 <h2>Exercise 4a</h2>
-<p>What if we wanted to run a <em>one-tailed t-test</em>? That is, what if our alternative hypothesis were that lizards in treatment group “A” would tend to have lower body mass than treatment group “B”? Modify the function (“t.test.algorithm()”) to do this! Name your new function “t.test.onetail()”.</p>
-<p>To convince yourself that your new function works, try running your function for a case where the “group A” body mass data are generally higher than group B- the opposite of your (alternative) hypothesis!</p>
-<p>NOTE: you may get tangled up with the null hypothesis/p-value concept, which is admittedly a difficult concept! A p-value always assumes the null hypothesis is true (given the null hypothesis is true, a p-value gives the probability of obtaining a test statistic that lends as much or more support to the alternative hypothesis than the observed test statistic). The alternative hypothesis for the 1-tailed test is that the mean for treatment A is less than the mean for treatment B. The null hypothesis, as always, is that there is no difference between treatments. Therefore, if you hypothesize that A (which is actually much larger) is less than B, then the p-value should reflect a near-complete inability to reject the null hypothesis (very high p-value) – that is, nearly all possible datasets generated under the null hypothesis lend as much or more support to the idea that A is less than B than the observed data!</p>
-<p>Note that we need to reshape the data frame before entering it into our function. Since we will need to do this again, let’s make a function to do this!</p>
-<pre class="r"><code>reshapefunc &lt;- function(df,varname){
-  sample.size &lt;- nrow(df)     # determine sample size 
-
-  reshape_df &lt;- data.frame(                # &quot;reshape&quot; the data frame so each observation gets its own row (standard format)
-    Treatment = rep(c(&quot;A&quot;,&quot;B&quot;),each=sample.size),
-    Value = c(df[,1],df[,2])
-  )
-  
-  names(reshape_df)[2] &lt;- varname   # rename the value column to whatever the user specifies
-  return(reshape_df)
-}</code></pre>
-<pre><code>## [1] 0.173</code></pre>
-<pre><code>## [1] 0.318</code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  df$TreatmentA and df$TreatmentB
-## t = -0.94737, df = 15.981, p-value = 0.1788
-## alternative hypothesis: true difference in means is less than 0
-## 95 percent confidence interval:
-##      -Inf 2.866204
-## sample estimates:
-## mean of x mean of y 
-##     174.8     178.2</code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  df$TreatmentA and df$TreatmentB
-## t = -0.94737, df = 15.981, p-value = 0.3576
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -11.008795   4.208795
-## sample estimates:
-## mean of x mean of y 
-##     174.8     178.2</code></pre>
+<p>What if we wanted to run a <em>two-tailed z-test</em>? That is, what if our alternative hypothesis were that salmon fed on the new vegetarian diet could plausibly be larger or smaller than those fed on the conventional diet after one year? Modify the function (“z.test.algorithm()”) with a new argument that allows for both one and two-tailed tests! Name your new function “z.test.q4a()”. To convince yourself that your new function works, try running your function for a (made-up) case where the observed body mass for those fed on the new diet are generally higher than the expected body mass for those fed on the conventional diet after one year – the opposite of your (alternative) hypothesis!</p>
+<p>NOTE: you may get tangled up with the null hypothesis/p-value concept, which is admittedly a difficult concept! A p-value always assumes the null hypothesis is true (given the null hypothesis is true, a p-value gives the probability of obtaining a test statistic as or more extreme than the observed test statistic). The alternative hypothesis for the 1-tailed test is that the population mean for the treatment group is less than the population mean for conventional farm-raised salmon. The alternative hypothesis for the 2-tailed test is that the population mean for the treatment group is less than or greater than the population mean for conventional farm-raised salmon. The null hypothesis, as always, is that there is no difference.</p>
 <p>Include your function in your submitted r script!</p>
+<p>This function should be specified as follows:</p>
+<ul>
+<li><strong>input</strong>:
+<ul>
+<li>sample = a vector of observed sample values</li>
+<li>pop.mean = a scalar value representing the expected mean value under the null hypothesis<br />
+</li>
+<li>pop.sd = a scalar value representing the population standard deviation under the null hypothesis<br />
+</li>
+<li>onetail = a logical TRUE or FALSE to indicate whether or not to perform a one-tailed test or a two-tailed test</li>
+</ul></li>
+<li><strong>suggested algorithm</strong>:
+<ul>
+<li>See lecture for example z-test function</li>
+<li>To implement the two-sided test, you need to define what ‘extreme’ means in both directions. You might first define the absolute difference between the population mean and the sample mean. Then define ‘more extreme’ as any sample mean that falls further away from the population mean in either direction (larger or smaller than the population mean).<br />
+</li>
+<li>Use an “if-else” statement to accommodate both a one-tailed and a two-tailed test.</li>
+</ul></li>
+<li><strong>return</strong>:
+<ul>
+<li>to_return = a list with three elements: “null_dist”, representing the sampling distribution for sample means under the null hypothesis, “p_value”, representing the p-value, and “observed_mean”, representing the mean of the observed sample.</li>
+</ul></li>
+</ul>
 <p>You can use this “sandbox” (below) to develop and test your function!</p>
 <div class="tutorial-exercise" data-label="q4a" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>df &lt;- data.frame(
-      TreatmentA = c(105, 118, 119, 112, 109),
-      TreatmentB = c(138, 130, 150, 123, 144)
-    )
-df2&lt;-reshapefunc(df,varname=&quot;Mass&quot;)
-t.test.onetail &lt;- function(dat, group, value){
+<pre class="text"><code>population.mean = 4.5
+population.sd = 0.9
+my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+# ztest &lt;- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )  # use function from class..
+
+z.test.q4a &lt;- function(sample, pop.mean, pop.sd, onetail=T){
     # [add code here!]
 }
-t.test.onetail(dat=df2,group = &quot;Treatment&quot;, value = &quot;Mass&quot;)</code></pre>
+#z.test.q4a(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=F )   # test your function</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div id="section-q4a-hint">
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
+<div class="tutorial-exercise-support" data-label="q4a-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>###############
+# Question 4a
+
+z.test.q4a &lt;- function(sample, pop.mean, pop.sd, onetail=T){
+  
+  #############
+  # Compute the sample statistic
+  #############
+  
+  observed_mean &lt;- mean(sample)
+  
+  sample.size &lt;- length(observed_mean)   # compute sample size
+
+  #################
+  # Generate SAMPLING DISTRIBUTION
+  #################
+  
+  reps &lt;- 1000                 # set the number of replicate samples
+  null_dist &lt;- numeric(reps)       # initialize a storage structure for sampling distribution
+  
+  for(i in 1:reps){            # for each replicate... 
+    nullsamp &lt;- rnorm(10,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
+    null_dist[i] &lt;- mean(nullsamp)           # compute and store the sample produced under the null hypothesis
+  }
+  
+  if(onetail==T){
+    more.extreme &lt;- length(which(null_dist&lt;=observed_mean))       # how many of these samples are more extreme than the sample statistic?
+    p_value &lt;- more.extreme/reps
+  }else{
+    obs_dev &lt;- abs(observed_mean-pop.mean)
+    low &lt;- pop.mean-obs_dev       # limit to extremeness in low body mass
+    high &lt;- pop.mean+obs_dev       # limit to extremeness in high body mass
+    more.extreme &lt;- length(which((null_dist&lt;=low)|(null_dist&gt;=high)))
+    p_value &lt;- more.extreme/reps
+  }
+ 
+  
+  to_return &lt;- list()   # initialize object to return
+  
+  to_return$null_dist &lt;- null_dist
+  to_return$p_value &lt;- p_value
+  to_return$observed_mean &lt;- observed_mean
+  
+  return(to_return)
+
+}</code></pre>
+</div>
+<p>Test your function using some alternative sample data values. For example:</p>
 </div>
 <div id="section-exercise-4b" class="section level2">
 <h2>Exercise 4b</h2>
-<p>What if we wanted to <em>relax</em> the assumption of equal variances? That is, what if our null hypothesis were that each treatment group has the same mean, but they could differ in variance? Modify the function (“t.test.algorithm()”) to do this! To enable automated grading, please name your new function “t.test.vardif()”. To convince yourself that your new function works, try running the following code:</p>
-<pre><code>
-ttest_vardif &lt;- t.test.vardif(dat=df.vardif)
-</code></pre>
-<p>where “df.vardif” is the following dataframe (where variance differs dramatically between the two groups):</p>
-<pre><code>##    TreatmentA      TreatmentB   
-##  Min.   :121.0   Min.   : 69.0  
-##  1st Qu.:126.5   1st Qu.:129.5  
-##  Median :128.5   Median :169.5  
-##  Mean   :129.7   Mean   :181.8  
-##  3rd Qu.:134.8   3rd Qu.:217.2  
-##  Max.   :139.0   Max.   :340.0</code></pre>
-<p>Now we can test our new t-test function!</p>
+<p>Now, what if we had access to a large set of samples under the null hypothesis AND that we would like to relax the assumption that the data follow a normal distribution under the null hypothesis?</p>
+<p>In this exercise, you are asked to modify the brute-force z-test function so that you generate your sampling distribution by simply sampling from the known data set under the null hypothesis. To do this you can use the ‘sample’ function in R. For this purpose you should sample with replacement. Here is an example:</p>
+<p>For this problem, let’s go back to the original null hypothesis: that salmon raised on the new diet will be smaller (lower mass) than those raised on conventional diet after one year.</p>
 <p>Include your function in your submitted r script!</p>
+<p>This function should be named ‘z.test.q4b’ and should be specified as follows:</p>
+<ul>
+<li><strong>input</strong>:
+<ul>
+<li>sample = a vector of observed sample values</li>
+<li>null.data = a vector of observed sample values under the null hypothesis</li>
+</ul></li>
+<li><strong>suggested algorithm</strong>:
+<ul>
+<li>Instead of sampling from a normal distribution to simulate samples under the null hypothesis, use the ‘sample’ function to sample directly from the null data distribution.</li>
+</ul></li>
+<li><strong>return</strong>:
+<ul>
+<li>to_return = a list with three elements: “null_dist”, representing the sampling distribution for sample means under the null hypothesis, “p_value”, representing the p-value, and “observed_mean”, representing the mean of the observed sample.</li>
+</ul></li>
+</ul>
 <p>You can use this “sandbox” (below) to develop and test your function!</p>
 <div class="tutorial-exercise" data-label="q4b" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>df &lt;- data.frame(
-      TreatmentA = c(1135, 1128, 1139, 1122, 1126),
-      TreatmentB = c(1915, 69, 3143, 53, 1818)
-    )
-df2&lt;-reshapefunc(df,varname=&quot;Mass&quot;)
-    
-t.test.vardif &lt;- function(dat, group, value){
+<pre class="text"><code>null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)
+my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+# ztest &lt;- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )  # use function from class..
+
+z.test.q4b &lt;- function(sample, null.data){
     # [add code here!]
 }
-t.test.vardif(dat=df2,group = &quot;Treatment&quot;, value = &quot;Mass&quot;)</code></pre>
+#z.test.q4b(sample = my.sample, null.data )   # test your function</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<div id="section-q4b-hint">
+<div id="section-q4a-hint">
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
-</div>
-<div id="section-exercise-4c" class="section level2">
-<h2>Exercise 4c</h2>
-<p>Modify the above function (“t.test.vardif()”) to allow for unequal sample sizes AND unequal variances. That is, our null hypothesis is the same (equal treatment means, potentially unequal variances), but now we enable each treatment group to have different sample sizes! To enable automated grading, please name your new function “t.test.ndif()”. To convince yourself that your new function works, try running the following code:</p>
-<pre><code>
-ttest_ndif &lt;- t.test.ndif(dat=df.ndif)
-</code></pre>
-<p>where “df.ndif” is the following dataframe:</p>
-<pre><code>##    TreatmentA      TreatmentB   
-##  Min.   :121.0   Min.   : 98.0  
-##  1st Qu.:125.5   1st Qu.:184.5  
-##  Median :129.0   Median :271.0  
-##  Mean   :129.5   Mean   :236.3  
-##  3rd Qu.:134.0   3rd Qu.:305.5  
-##  Max.   :139.0   Max.   :340.0  
-##                  NA&#39;s   :12</code></pre>
-<pre><code>## Warning in rnorm(n = lots, mean = popMean_null, sd = varA): NAs produced</code></pre>
-<pre><code>## Warning in rnorm(n = lots, mean = popMean_null, sd = varB): NAs produced</code></pre>
-<p>Note: data frames require that all columns have the same number of elements. If one vector (column) is shorter than the others, R <em>recycles</em> the shorter vector, repeating the vector until it is the same length as the longer vector. To avoid this unwanted behavior, we can use the “NA” designation to tell R that no data exist. However, you will have to modify your function to ensure that it can handle missing values!</p>
-<p>Include your function in your submitted r script!</p>
-<p>You can use this “sandbox” (below) to develop and test your function!</p>
-<div class="tutorial-exercise" data-label="q4c" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>df &lt;- data.frame(
-  TreatmentA = c(135, 128, 139, 122, 126,rep(NA,3)),
-  TreatmentB = c(315, 69, 143, 53, 818,4,55,190)
-)
-df2&lt;-reshapefunc(df,varname=&quot;Mass&quot;)
-    
-t.test.ndif &lt;- function(dat, group, value){
-    # [add code here!]
-}
-t.test.ndif(dat=df2,group = &quot;Treatment&quot;, value = &quot;Mass&quot;)</code></pre>
-<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
-</div>
-<div id="section-q4c-hint">
-<p><strong>Hint:</strong> No hints … yet!</p>
-</div>
+<p>Test your function using some alternative sample data vectors. For example:</p>
 </div>
 <div id="section-exercise-5-bootstrapping-algorithm" class="section level2">
 <h2>Exercise 5: Bootstrapping algorithm</h2>
@@ -631,21 +648,38 @@ t.test.ndif(dat=df2,group = &quot;Treatment&quot;, value = &quot;Mass&quot;)</co
 </div>
 <div id="section-exercise-5a" class="section level2">
 <h2>Exercise 5a</h2>
-<p>Generate a new R function, called “RegressionCoefs()” that takes a data frame as the first input and the name of the response variable as the second input, and returns the (univariate) regression coefficients (<span class="math inline">\(\beta\)</span>) produced by regressing the response variable on each predictor variable (returning a vector of regression coefficients). You can use the “Rsquared()” function (from the lecture) as a reference!</p>
+<p>Generate a new R function, called “RegressionCoefs()” that takes a data frame as the first input parameter and the name of the response variable as the second input parameter, and returns the (univariate) regression coefficients (<span class="math inline">\(\beta\)</span>) produced by regressing the response variable on each predictor variable (returning a vector of regression coefficients). You can use the “Rsquared()” function (from the lecture) as a reference!</p>
+<p>More specifically, this function should be specified as follows:</p>
+<ul>
+<li><strong>input</strong>:
+<ul>
+<li>df = a data frame containing with one response variable and one or more predictor variables. All columns that are not the response variable are assumed to be predictor variables.</li>
+<li>responsevar = the name of the column that represents the response variable.</li>
+</ul></li>
+<li><strong>suggested algorithm</strong>:
+<ul>
+<li>Follow the example from lecture. Store the regression coefficients instead of the R-squared values.</li>
+</ul></li>
+<li><strong>return</strong>:
+<ul>
+<li>coefs = a vector of the regression coefficients for all predictor variables</li>
+</ul></li>
+</ul>
 <p>Include your function in your submitted r script!</p>
-<p>You can use this “sandbox” (below) to develop and test your function!</p>
+<p>You can use this “sandbox” (below) to develop and test your function! Remember to comment out everything but the function prior to submitting.</p>
 <div class="tutorial-exercise" data-label="q5a" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>df &lt;- mtcars[,c(1,3,4,6)]
    
 RegressionCoefs &lt;- function(df,responsevar){
     # [add code here!]
 }
-RegressionCoefs(df,&quot;mpg&quot;)</code></pre>
+# RegressionCoefs(df,&quot;mpg&quot;)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div id="section-q5a-hint">
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
+<p>You can test your function using the following code:</p>
 </div>
 <div id="section-exercise-5b" class="section level2">
 <h2><strong>Exercise 5b:</strong></h2>
@@ -655,32 +689,30 @@ RegressionCoefs(df,&quot;mpg&quot;)</code></pre>
 <ul>
 <li>“df” = a data frame that includes the response variable and all possible predictor variables<br />
 </li>
-<li>“statfunc” = a function for generating summary statistics (regression coefficients) from a data frame (which you already developed in part 1 of this challenge problem)<br />
+<li>“statfunc” = a function for generating summary statistics (in this case, regression coefficients) from a data frame (which you already developed in part 1 of this challenge problem)<br />
 </li>
 <li>“n_samples” = the number of bootstrapped samples to generate<br />
 </li>
-<li>“n_stats” = the number of predictor variables<br />
-</li>
-<li>“responseVar” = the name of the response variable [NOTE: this is optional since it was added after the lab was first assigned!]</li>
+<li>“responseVar” = the name of the response variable</li>
 </ul></li>
 <li><strong>algorithm</strong>:
 <ul>
-<li>with the data frame, first use the “boot_sample()” function provided in the lecture to generate summary statistics for multiple bootstrap samples.<br />
+<li>with the data frame, use the “boot_sample()” function provided in the lecture to generate summary statistics for multiple bootstrap samples. You do not need to modify the ‘boot_sample()’ function for this problem<br />
 </li>
-<li>Then, generate confidence intervals for each variable as the 2.5%, 50% and 97.5% quantile of the summary statistic for each predictor variables.</li>
+<li>Then, generate confidence intervals for each variable as the 2.5%, 50% and 97.5% quantile of the summary statistic for each predictor variable.</li>
 </ul></li>
 <li><strong>return</strong>: a matrix (rows=predictor vars, cols=2.5%, 50%, and 97.5% quantiles). Try to give the rows and columns proper labels!</li>
 </ul>
-<p>You can test your function using the following code:</p>
 <p>Include your function in your submitted r script!</p>
 <p>You can use this “sandbox” (below) to develop and test your function!</p>
 <div class="tutorial-exercise" data-label="q5b" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>df &lt;- mtcars[,c(1,3,4,6)]
 responsevar=&quot;mpg&quot;
 
-boot_sample &lt;- function(df=trees,statfunc=Rsquared,n_samples=1000,n_stats=2,responsevar=&quot;Volume&quot;){
+ # note: this is copied from the lecture code...
+boot_sample &lt;- function(df,statfunc,n_samples,responsevar=&quot;Volume&quot;){
   indices &lt;- c(1:nrow(df))
-  output &lt;- matrix(NA,nrow=n_samples,ncol=n_stats)        # storage object- to store a single bootstrapped sample from the original data
+  output &lt;- matrix(NA,nrow=n_samples,ncol=ncol(df)-1)        # storage object- to store a single bootstrapped sample from the original data
   
   for(i in 1:n_samples){              # for each bootstrap replicate:
     boot_rows &lt;- sample(indices,size=nrow(df),replace=T)         # randomly sample observations with replacement
@@ -690,23 +722,24 @@ boot_sample &lt;- function(df=trees,statfunc=Rsquared,n_samples=1000,n_stats=2,r
   return(output)
 }
 
-BootCoefs &lt;- function(df,statfunc,n_samples,n_stats,responsevar){
+BootCoefs &lt;- function(df,statfunc,n_samples,responsevar){
     # [add code here!]
 }
 BootCoefs(df=df,statfunc=RegressionCoefs,
-              n_samples=1000,n_stats=3,responsevar=responsevar)</code></pre>
+              n_samples=1000,responsevar=responsevar)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 <div id="section-q5b-hint">
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
+<p>You can test your function using the following code:</p>
 </div>
 <div id="section-exercise-5c" class="section level2">
 <h2><strong>Exercise 5c:</strong></h2>
-<p>To test your new function(s), generate bootstrap confidence intervals around the regression parameters for your tree biomass regression. Compare these bootstrapped confidence intervals with the standard confidence intervals given by R in the “lm()” function. Are there any important differences? Explain your answer in your Word document. As always, please use your Word document submission to raise any points of confusion or ask me questions!</p>
+<p>To test your new function(s), generate bootstrapped confidence intervals around the regression parameters for your tree biomass regression. Compare these bootstrapped confidence intervals with the standard confidence intervals given by R in the “lm()” function. Are there any important differences? Explain your answer in your Word document. As always, please use your Word document submission to raise any points of confusion or ask me questions!</p>
 <p>You can use this “sandbox” (below) to develop and test your function!</p>
 <div class="tutorial-exercise" data-label="q5c" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,n_stats=2,responsevar=&quot;Volume&quot;)
+<pre class="text"><code>BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar=&quot;Volume&quot;)
 
 confint.lm(lm(Volume~Girth,trees))    # compare with lm() </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
@@ -876,13 +909,14 @@ learnr:::store_exercise_cache("q1a", list(setup = NULL, chunks = list(list(label
     code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
     "  pass_if_equal(y=.solution(trees$Height),x=.result(trees$Height))", 
     "  fail()", "})"), chunk_opts = list(label = "q1a-check")), 
-    solution = structure(c("", "######################", "# LAB 1 (possible) answers", 
+    solution = structure(c("", "######################", "# LAB 1 answer key (lots of other possibilities)", 
     "######################", "", "#############", "## exercise 1a", 
     "", "CoefVar <- function(vector){    ", "  cv <- sd(vector,na.rm=TRUE)/mean(vector,na.rm=TRUE)", 
-    "  return(cv)     ", "}", "", ""), chunk_opts = list(label = "q1a-solution", 
-        echo = FALSE)), options = list(eval = FALSE, echo = TRUE, 
-        results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
-        prompt = FALSE, comment = NA, highlight = FALSE, strip.white = TRUE, 
+    "  return(cv)     ", "}", "#CoefVar(c(2,3,4,3,2,3,4))   # test your function", 
+    ""), chunk_opts = list(label = "q1a-solution", echo = FALSE)), 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, strip.white = TRUE, 
         size = "normalsize", background = "#F7F7F7", cache = 0, 
         cache.path = "LAB1_cache/html/", cache.vars = NULL, cache.lazy = TRUE, 
         dependson = NULL, autodep = FALSE, cache.rebuild = FALSE, 
@@ -912,7 +946,7 @@ output$`tutorial-exercise-q1b-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q1b", list(setup = NULL, chunks = list(list(label = "q1b", code = "\nDrawLine <- function(x,y){\n    # [add code here!]\n}\nDrawLine(trees$Height,trees$Volume)\n", 
+learnr:::store_exercise_cache("q1b", list(setup = NULL, chunks = list(list(label = "q1b", code = "\nDrawLine <- function(x,y){\n    # [add code here!]\n}\n#DrawLine(trees$Height,trees$Volume)\n", 
     opts = list(label = "\"q1b\"", exercise = "TRUE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
     "  fail_if(any(is.na(.result)), \"You shouldn't have missing values.\")", 
@@ -941,7 +975,7 @@ learnr:::store_exercise_cache("q1b", list(setup = NULL, chunks = list(list(label
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         label = "q1b", exercise = TRUE, code = c("", "DrawLine <- function(x,y){", 
-        "    # [add code here!]", "}", "DrawLine(trees$Height,trees$Volume)", 
+        "    # [add code here!]", "}", "#DrawLine(trees$Height,trees$Volume)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q1b, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
@@ -954,10 +988,10 @@ output$`tutorial-exercise-q1c-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q1c", list(setup = NULL, chunks = list(list(label = "q1c", code = "xvec <- c(1:10)\nyvec <- rnorm(length(xvec),c(2:6,7:3),2)     # you can use these vectors for testing the function\nDrawLine2 <- function(x,y,smooth=F,span=1){    # note the default values (the ones set using equal sign)\n    # [add code here!]\n}\n", 
+learnr:::store_exercise_cache("q1c", list(setup = NULL, chunks = list(list(label = "q1c", code = "xvec <- c(1:10)\nyvec <- rnorm(length(xvec),c(2:6,7:3),2)     # you can use these vectors for testing the function\nDrawLine2 <- function(x,y,smooth=F,span=1){    # note the default values (the ones set using equal sign)\n    # [add code here!]\n}\n# DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.5)    # test using the old faithful eruptions data\n", 
     opts = list(label = "\"q1c\"", exercise = "TRUE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
-    "  pass_if(all(.result(faithful$waiting,faithful$eruptions,F)==.solution(faithful$waiting,faithful$eruptions,F)))", 
+    "  fail_if(!all(.result(faithful$waiting,faithful$eruptions,F)==.solution(faithful$waiting,faithful$eruptions,F)),\"check your result with smooth=FALSE\")", 
     "  pass_if(all(.result(faithful$waiting,faithful$eruptions,T,0.1)$fitted==.solution(faithful$waiting,faithful$eruptions,T,0.1)$fitted))", 
     "  fail()", "})"), chunk_opts = list(label = "q1c-check")), 
     solution = structure(c("", "#############", "## exercise 1c", 
@@ -987,8 +1021,8 @@ learnr:::store_exercise_cache("q1c", list(setup = NULL, chunks = list(list(label
         label = "q1c", exercise = TRUE, code = c("xvec <- c(1:10)", 
         "yvec <- rnorm(length(xvec),c(2:6,7:3),2)     # you can use these vectors for testing the function", 
         "DrawLine2 <- function(x,y,smooth=F,span=1){    # note the default values (the ones set using equal sign)", 
-        "    # [add code here!]", "}", ""), out.width.px = 624, 
-        out.height.px = 384, params.src = "q1c, exercise=TRUE", 
+        "    # [add code here!]", "}", "# DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.5)    # test using the old faithful eruptions data", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "q1c, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
@@ -1000,10 +1034,12 @@ output$`tutorial-exercise-q1d-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q1d", list(setup = NULL, chunks = list(list(label = "q1d", code = "CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){\n    # [add code here!]\n}\nCLTdemo(n.samples=5000,sample.size=4,min=10,max=20)\n", 
+learnr:::store_exercise_cache("q1d", list(setup = NULL, chunks = list(list(label = "q1d", code = "CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){\n    # [add code here!]\n}\n# CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)\n", 
     opts = list(label = "\"q1d\"", exercise = "TRUE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
-    "  pass()", "})"), chunk_opts = list(label = "q1d-check")), 
+    "  fail_if(!.result$method==\"Shapiro-Wilk normality test\",\"Make sure your function returns the results from the Shapiro-Wilk normality test!\")", 
+    "  pass_if(near(.result$statistic,.solution$statistic,0.0006))", 
+    "  fail()", "})"), chunk_opts = list(label = "q1d-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
         prompt = FALSE, comment = NA, highlight = FALSE, strip.white = TRUE, 
@@ -1023,8 +1059,42 @@ learnr:::store_exercise_cache("q1d", list(setup = NULL, chunks = list(list(label
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         label = "q1d", exercise = TRUE, code = c("CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){", 
-        "    # [add code here!]", "}", "CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)", 
+        "    # [add code here!]", "}", "# CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q1d, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "paged"), engine = "r"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-1e-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-1e-code-editor`)), session)
+output$`tutorial-exercise-1e-output` <- renderUI({
+  `tutorial-exercise-1e-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache("1e", list(setup = NULL, chunks = list(list(label = "1e", code = "   # use this space if it's helpful\n", 
+    opts = list(label = "\"1e\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, strip.white = TRUE, 
+        size = "normalsize", background = "#F7F7F7", cache = 0, 
+        cache.path = "LAB1_cache/html/", cache.vars = NULL, cache.lazy = TRUE, 
+        dependson = NULL, autodep = FALSE, cache.rebuild = FALSE, 
+        fig.keep = "high", fig.show = "asis", fig.align = "default", 
+        fig.path = "LAB1_files/figure-html/", dev = "png", dev.args = NULL, 
+        dpi = 192, fig.ext = "png", fig.width = 6.5, fig.height = 4, 
+        fig.env = "figure", fig.cap = NULL, fig.scap = NULL, 
+        fig.lp = "fig:", fig.subcap = NULL, fig.pos = "", out.width = 624, 
+        out.height = NULL, out.extra = NULL, fig.retina = 2, 
+        external = TRUE, sanitize = FALSE, interval = 1, aniopts = "controls,loop", 
+        warning = TRUE, error = FALSE, message = TRUE, render = NULL, 
+        ref.label = NULL, child = NULL, engine = "r", split = FALSE, 
+        include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "1e", exercise = TRUE, code = c("   # use this space if it's helpful", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "1e, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
@@ -1036,7 +1106,7 @@ output$`tutorial-exercise-q1f-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q1f", list(setup = NULL, chunks = list(list(label = "q1f", code = "\nCLTdemo2 <- function(n.samples=1000,sample.size=10,...){\n    # [add code here!]\n}\nCLTdemo2(n.samples=5000,sample.size=4,...)\n", 
+learnr:::store_exercise_cache("q1f", list(setup = NULL, chunks = list(list(label = "q1f", code = "\nCLTdemo2 <- function(n.samples=1000,sample.size=10,...){\n    # [add code here!]\n}\n#CLTdemo2(n.samples=5000,sample.size=4,...)\n", 
     opts = list(label = "\"q1f\"", exercise = "TRUE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
@@ -1058,8 +1128,43 @@ learnr:::store_exercise_cache("q1f", list(setup = NULL, chunks = list(list(label
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         label = "q1f", exercise = TRUE, code = c("", "CLTdemo2 <- function(n.samples=1000,sample.size=10,...){", 
-        "    # [add code here!]", "}", "CLTdemo2(n.samples=5000,sample.size=4,...)", 
+        "    # [add code here!]", "}", "#CLTdemo2(n.samples=5000,sample.size=4,...)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q1f, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "paged"), engine = "r"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-regressiontest1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-regressiontest1-code-editor`)), session)
+output$`tutorial-exercise-regressiontest1-output` <- renderUI({
+  `tutorial-exercise-regressiontest1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache("regressiontest1", list(setup = NULL, chunks = list(list(label = "regressiontest1", 
+    code = "# practice space for regression analysis!\n", opts = list(
+        label = "\"regressiontest1\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, strip.white = TRUE, 
+        size = "normalsize", background = "#F7F7F7", cache = 0, 
+        cache.path = "LAB1_cache/html/", cache.vars = NULL, cache.lazy = TRUE, 
+        dependson = NULL, autodep = FALSE, cache.rebuild = FALSE, 
+        fig.keep = "high", fig.show = "asis", fig.align = "default", 
+        fig.path = "LAB1_files/figure-html/", dev = "png", dev.args = NULL, 
+        dpi = 192, fig.ext = "png", fig.width = 6.5, fig.height = 4, 
+        fig.env = "figure", fig.cap = NULL, fig.scap = NULL, 
+        fig.lp = "fig:", fig.subcap = NULL, fig.pos = "", out.width = 624, 
+        out.height = NULL, out.extra = NULL, fig.retina = 2, 
+        external = TRUE, sanitize = FALSE, interval = 1, aniopts = "controls,loop", 
+        warning = TRUE, error = FALSE, message = TRUE, render = NULL, 
+        ref.label = NULL, child = NULL, engine = "r", split = FALSE, 
+        include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "regressiontest1", exercise = TRUE, code = c("# practice space for regression analysis!", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "regressiontest1, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
@@ -1131,35 +1236,6 @@ learnr:::store_exercise_cache("q3prelim", list(setup = NULL, chunks = list(list(
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
-<script type="application/shiny-prerendered" data-context="data">
-
-reshapefunc <- function(df,varname){
-  sample.size <- nrow(df)     # determine sample size 
-
-  reshape_df <- data.frame(                # "reshape" the data frame so each observation gets its own row (standard format)
-    Treatment = rep(c("A","B"),each=sample.size),
-    Value = c(df[,1],df[,2])
-  )
-  
-  names(reshape_df)[2] <- varname   # rename the value column to whatever the user specifies
-  return(reshape_df)
-}
-
-</script>
- 
-<script type="application/shiny-prerendered" data-context="data">
-
-df <- data.frame(
-      TreatmentA = c(105, 118, 119, 112, 109),
-      TreatmentB = c(138, 130, 150, 123, 144)
-    )
-df2<-reshapefunc(df,varname="Mass")
-
-answer4a <- t.test.onetail(dat=df2,group = "Treatment", value = "Mass")
-
-
-</script>
- 
 <script type="application/shiny-prerendered" data-context="server">
 `tutorial-exercise-q4a-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-q4a-code-editor`)), session)
 output$`tutorial-exercise-q4a-output` <- renderUI({
@@ -1168,15 +1244,36 @@ output$`tutorial-exercise-q4a-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q4a", list(setup = NULL, chunks = list(list(label = "q4a", code = "df <- data.frame(\n      TreatmentA = c(105, 118, 119, 112, 109),\n      TreatmentB = c(138, 130, 150, 123, 144)\n    )\ndf2<-reshapefunc(df,varname=\"Mass\")\nt.test.onetail <- function(dat, group, value){\n    # [add code here!]\n}\nt.test.onetail(dat=df2,group = \"Treatment\", value = \"Mass\")\n", 
+learnr:::store_exercise_cache("q4a", list(setup = NULL, chunks = list(list(label = "q4a", code = "population.mean = 4.5\npopulation.sd = 0.9\nmy.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)\n# ztest <- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )  # use function from class..\n\nz.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){\n    # [add code here!]\n}\n#z.test.q4a(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=F )   # test your function\n", 
     opts = list(label = "\"q4a\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
-    "  pass()", "})", "# check_q4a <- function(USER_CODE){", 
-    "#     code <- checkr::for_checkr(USER_CODE)", "#     func_call <- checkr::line_where(code,checkr::insist(F== \"t.test.onetail\",\"Use t.test.onetail() function!\"))", 
-    "#     t1 <- checkr::line_where(func_call, ", "#         checkr::insist(all(V$p_value <= 0.02), ", 
-    "#         \"Sorry, that's not correct\"),", "#         checkr::passif(TRUE, \"Very nice!\"))", 
-    "# }", "# check_q4a(USER_CODE)"), chunk_opts = list(label = "q4a-check")), 
-    solution = NULL, options = list(eval = FALSE, echo = TRUE, 
+    code_check = NULL, error_check = NULL, check = structure(c("population.mean = 4.5", 
+    "population.sd = 0.9", "my.sample = c(5.14,3.27,4.56,3.77,3.34,4.32,3.84,3.19,5.24,4.09)", 
+    "grade_this({", "  fail_if(!names(.result)%in%c(\"null_dist\",\"p_value\",\"observed_mean\"),\"check the list names for your returned object\")", 
+    "  fail_if(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T )$observed_mean!=mean(my.sample),\"sample mean is incorrect\") ", 
+    "  pass_if(near(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value,", 
+    "               .solution(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value, 0.05))", 
+    "  fail()", "})", ""), chunk_opts = list(label = "q4a-check")), 
+    solution = structure(c("", "###############", "# Question 4a", 
+    "", "z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){", 
+    "  ", "  #############", "  # Compute the sample statistic", 
+    "  #############", "  ", "  observed_mean <- mean(sample)", 
+    "  ", "  sample.size <- length(observed_mean)   # compute sample size", 
+    "", "  #################", "  # Generate SAMPLING DISTRIBUTION", 
+    "  #################", "  ", "  reps <- 1000                 # set the number of replicate samples", 
+    "  null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution", 
+    "  ", "  for(i in 1:reps){            # for each replicate... ", 
+    "    nullsamp <- rnorm(10,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       ", 
+    "    null_dist[i] <- mean(nullsamp)           # compute and store the sample produced under the null hypothesis", 
+    "  }", "  ", "  if(onetail==T){", "    more.extreme <- length(which(null_dist<=observed_mean))       # how many of these samples are more extreme than the sample statistic?", 
+    "    p_value <- more.extreme/reps", "  }else{", "    obs_dev <- abs(observed_mean-pop.mean)", 
+    "    low <- pop.mean-obs_dev       # limit to extremeness in low body mass", 
+    "    high <- pop.mean+obs_dev       # limit to extremeness in high body mass", 
+    "    more.extreme <- length(which((null_dist<=low)|(null_dist>=high)))", 
+    "    p_value <- more.extreme/reps", "  }", " ", "  ", "  to_return <- list()   # initialize object to return", 
+    "  ", "  to_return$null_dist <- null_dist", "  to_return$p_value <- p_value", 
+    "  to_return$observed_mean <- observed_mean", "  ", "  return(to_return)", 
+    "", "}", "", ""), chunk_opts = list(label = "q4a-solution", 
+        echo = FALSE)), options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
         prompt = FALSE, comment = NA, highlight = FALSE, strip.white = TRUE, 
         size = "normalsize", background = "#F7F7F7", cache = 0, 
@@ -1194,25 +1291,13 @@ learnr:::store_exercise_cache("q4a", list(setup = NULL, chunks = list(list(label
         include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q4a", exercise = TRUE, code = c("df <- data.frame(", 
-        "      TreatmentA = c(105, 118, 119, 112, 109),", "      TreatmentB = c(138, 130, 150, 123, 144)", 
-        "    )", "df2<-reshapefunc(df,varname=\"Mass\")", "t.test.onetail <- function(dat, group, value){", 
-        "    # [add code here!]", "}", "t.test.onetail(dat=df2,group = \"Treatment\", value = \"Mass\")", 
+        label = "q4a", exercise = TRUE, code = c("population.mean = 4.5", 
+        "population.sd = 0.9", "my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)", 
+        "# ztest <- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )  # use function from class..", 
+        "", "z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){", 
+        "    # [add code here!]", "}", "#z.test.q4a(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=F )   # test your function", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q4a, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
-</script>
- 
-<script type="application/shiny-prerendered" data-context="data">
-
-df <- data.frame(
-      TreatmentA = c(1135, 1128, 1139, 1122, 1126),
-      TreatmentB = c(1915, 69, 3143, 53, 1818)
-    )
-df2<-reshapefunc(df,varname="Mass")
-    
-answer4b <- t.test.vardif(dat=df2,group = "Treatment", value = "Mass")
-
-
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -1223,14 +1308,15 @@ output$`tutorial-exercise-q4b-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q4b", list(setup = NULL, chunks = list(list(label = "q4b", code = "df <- data.frame(\n      TreatmentA = c(1135, 1128, 1139, 1122, 1126),\n      TreatmentB = c(1915, 69, 3143, 53, 1818)\n    )\ndf2<-reshapefunc(df,varname=\"Mass\")\n    \nt.test.vardif <- function(dat, group, value){\n    # [add code here!]\n}\nt.test.vardif(dat=df2,group = \"Treatment\", value = \"Mass\")\n", 
+learnr:::store_exercise_cache("q4b", list(setup = NULL, chunks = list(list(label = "q4b", code = "null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)\nmy.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)\n# ztest <- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )  # use function from class..\n\nz.test.q4b <- function(sample, null.data){\n    # [add code here!]\n}\n#z.test.q4b(sample = my.sample, null.data )   # test your function\n", 
     opts = list(label = "\"q4b\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
-    "  pass()", "})", "# check_q4b <- function(USER_CODE){", 
-    "#     code <- checkr::for_checkr(USER_CODE)", "#     func_call <- checkr::line_where(code,checkr::insist(F== \"t.test.vardif\",\"Use t.test.vardif() function!\"))", 
-    "#     t1 <- checkr::line_where(func_call, ", "#         checkr::insist(all((V$p_value >=  (answer4b$p_value-0.2))&(V$p_value <=  (answer4b$p_value+0.2))), ", 
-    "#         \"Sorry, that's not correct\"),", "#         checkr::passif(TRUE, \"Bravo!\"))", 
-    "# }", "# check_q4b(USER_CODE)"), chunk_opts = list(label = "q4b-check")), 
+    code_check = NULL, error_check = NULL, check = structure(c("null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28)", 
+    "my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)", 
+    "grade_this({", "  fail_if(!names(.result)%in%c(\"null_dist\",\"p_value\",\"observed_mean\"),\"check the list names for your returned object\")", 
+    "  fail_if(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T )$observed_mean!=mean(my.sample),\"sample mean is incorrect\") ", 
+    "  pass_if(near(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value,", 
+    "               .solution(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value, 0.05))", 
+    "  fail()", "})", ""), chunk_opts = list(label = "q4b-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
         prompt = FALSE, comment = NA, highlight = FALSE, strip.white = TRUE, 
@@ -1249,74 +1335,13 @@ learnr:::store_exercise_cache("q4b", list(setup = NULL, chunks = list(list(label
         include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q4b", exercise = TRUE, code = c("df <- data.frame(", 
-        "      TreatmentA = c(1135, 1128, 1139, 1122, 1126),", 
-        "      TreatmentB = c(1915, 69, 3143, 53, 1818)", "    )", 
-        "df2<-reshapefunc(df,varname=\"Mass\")", "    ", "t.test.vardif <- function(dat, group, value){", 
-        "    # [add code here!]", "}", "t.test.vardif(dat=df2,group = \"Treatment\", value = \"Mass\")", 
+        label = "q4b", exercise = TRUE, code = c("null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)", 
+        "my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)", 
+        "# ztest <- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )  # use function from class..", 
+        "", "z.test.q4b <- function(sample, null.data){", "    # [add code here!]", 
+        "}", "#z.test.q4b(sample = my.sample, null.data )   # test your function", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q4b, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
-</script>
- 
-<script type="application/shiny-prerendered" data-context="data">
-
-df <- data.frame(
-      TreatmentA = c(135, 128, 139, 122, 126,rep(NA,3)),
-      TreatmentB = c(315, 69, 143, 53, 818,4,55,190)
-    )
-df2<-reshapefunc(df,varname="Mass")
-answer4c <- t.test.ndif(dat=df2,group = "Treatment", value = "Mass")
-
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-q4c-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-q4c-code-editor`)), session)
-output$`tutorial-exercise-q4c-output` <- renderUI({
-  `tutorial-exercise-q4c-result`()
-})
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q4c", list(setup = NULL, chunks = list(list(label = "q4c", code = "df <- data.frame(\n  TreatmentA = c(135, 128, 139, 122, 126,rep(NA,3)),\n  TreatmentB = c(315, 69, 143, 53, 818,4,55,190)\n)\ndf2<-reshapefunc(df,varname=\"Mass\")\n    \nt.test.ndif <- function(dat, group, value){\n    # [add code here!]\n}\nt.test.ndif(dat=df2,group = \"Treatment\", value = \"Mass\")\n", 
-    opts = list(label = "\"q4c\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
-    "  pass()", "})", "# check_q4c <- function(USER_CODE){", 
-    "#     code <- checkr::for_checkr(USER_CODE)", "#     func_call <- checkr::line_where(code,checkr::insist(F== \"t.test.ndif\",\"Use t.test.ndif() function!\"))", 
-    "#     t1 <- checkr::line_where(func_call, ", "#         checkr::insist(all((V$p_value >=  (answer4c$p_value-0.15))&(V$p_value <=  (answer4c$p_value+0.15))), ", 
-    "#         \"Sorry, that's not correct\"),", "#         checkr::passif(TRUE, \"Bravo!\"))", 
-    "# }", "# check_q4c(USER_CODE)"), chunk_opts = list(label = "q4c-check")), 
-    solution = NULL, options = list(eval = FALSE, echo = TRUE, 
-        results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
-        prompt = FALSE, comment = NA, highlight = FALSE, strip.white = TRUE, 
-        size = "normalsize", background = "#F7F7F7", cache = 0, 
-        cache.path = "LAB1_cache/html/", cache.vars = NULL, cache.lazy = TRUE, 
-        dependson = NULL, autodep = FALSE, cache.rebuild = FALSE, 
-        fig.keep = "high", fig.show = "asis", fig.align = "default", 
-        fig.path = "LAB1_files/figure-html/", dev = "png", dev.args = NULL, 
-        dpi = 192, fig.ext = "png", fig.width = 6.5, fig.height = 4, 
-        fig.env = "figure", fig.cap = NULL, fig.scap = NULL, 
-        fig.lp = "fig:", fig.subcap = NULL, fig.pos = "", out.width = 624, 
-        out.height = NULL, out.extra = NULL, fig.retina = 2, 
-        external = TRUE, sanitize = FALSE, interval = 1, aniopts = "controls,loop", 
-        warning = TRUE, error = FALSE, message = TRUE, render = NULL, 
-        ref.label = NULL, child = NULL, engine = "r", split = FALSE, 
-        include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
-        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
-        exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q4c", exercise = TRUE, code = c("df <- data.frame(", 
-        "  TreatmentA = c(135, 128, 139, 122, 126,rep(NA,3)),", 
-        "  TreatmentB = c(315, 69, 143, 53, 818,4,55,190)", ")", 
-        "df2<-reshapefunc(df,varname=\"Mass\")", "    ", "t.test.ndif <- function(dat, group, value){", 
-        "    # [add code here!]", "}", "t.test.ndif(dat=df2,group = \"Treatment\", value = \"Mass\")", 
-        ""), out.width.px = 624, out.height.px = 384, params.src = "q4c, exercise=TRUE", 
-        fig.num = 0, exercise.df_print = "paged"), engine = "r"))
-</script>
- 
-<script type="application/shiny-prerendered" data-context="data">
-
-df <- mtcars[,c(1,3,4,6)]
-answer5a <- coefficients(lm(df$mpg~df$hp))[2]
-
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -1327,14 +1352,11 @@ output$`tutorial-exercise-q5a-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q5a", list(setup = NULL, chunks = list(list(label = "q5a", code = "df <- mtcars[,c(1,3,4,6)]\n   \nRegressionCoefs <- function(df,responsevar){\n    # [add code here!]\n}\nRegressionCoefs(df,\"mpg\")\n", 
+learnr:::store_exercise_cache("q5a", list(setup = NULL, chunks = list(list(label = "q5a", code = "df <- mtcars[,c(1,3,4,6)]\n   \nRegressionCoefs <- function(df,responsevar){\n    # [add code here!]\n}\n# RegressionCoefs(df,\"mpg\")\n", 
     opts = list(label = "\"q5a\"", exercise = "TRUE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
-    "  pass()", "})", "# check_q5a <- function(USER_CODE){", 
-    "#     code <- checkr::for_checkr(USER_CODE)", "#     func_call <- checkr::line_where(code,checkr::insist(F== \"RegressionCoefs\",\"Use RegressionCoefs() function!\"))", 
-    "#     t1 <- checkr::line_where(func_call, ", "#         checkr::insist(any((V ==  answer5a)), ", 
-    "#         \"Sorry, that's not correct\"),", "#         checkr::passif(TRUE, \"Bravo!\"))", 
-    "# }", "# check_q5a(USER_CODE)"), chunk_opts = list(label = "q5a-check")), 
+    "  pass_if(all(.result(df=trees,responsevar=\"Volume\")==.solution(df=trees,responsevar=\"Volume\")))", 
+    "  fail()", "})", ""), chunk_opts = list(label = "q5a-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
         prompt = FALSE, comment = NA, highlight = FALSE, strip.white = TRUE, 
@@ -1355,24 +1377,31 @@ learnr:::store_exercise_cache("q5a", list(setup = NULL, chunks = list(list(label
         exercise.error.check.code = "gradethis_error_checker()", 
         label = "q5a", exercise = TRUE, code = c("df <- mtcars[,c(1,3,4,6)]", 
         "   ", "RegressionCoefs <- function(df,responsevar){", 
-        "    # [add code here!]", "}", "RegressionCoefs(df,\"mpg\")", 
+        "    # [add code here!]", "}", "# RegressionCoefs(df,\"mpg\")", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q5a, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="data">
 
-df <- mtcars[,c(1,3,4,6)]
-responsevar="mpg"
-answer5b <- BootCoefs(
-              df=df,
-              statfunc=RegressionCoefs,
-              n_samples=1000,
-              n_stats=3,
-              responsevar=responsevar
-            )
+#############
+## exercise 5a
 
-#answer5b <- round(confint(lm(df$mpg~df$disp))[2,],2)[1]
+RegressionCoefs <- function(df=trees,responsevar="Volume"){    # univariate models only- interaction and multiple regression not implemented here
+  response <- df[,responsevar]       # extract the response variable
+  names <- names(df)                  
+  coefs <- numeric(length(names))        # named storage vector
+  names(coefs) <- names(df)               
+  coefs <- coefs[names(coefs)!=responsevar]           # assume that all columns that are not the response variable are possible predictor variables
+  i=names(coefs)[1]
+  for(i in names(coefs)){         # loop through predictors
+      predictor <- df[,i]                  # extract this predictor
+      model <- lm(response~predictor)       # regress response on predictor
+      coefs[i] <- coefficients(model)["predictor"]       # extract slope term
+  }
+  return(coefs)     
+}
+
 
 </script>
  
@@ -1384,14 +1413,17 @@ output$`tutorial-exercise-q5b-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q5b", list(setup = NULL, chunks = list(list(label = "q5b", code = "df <- mtcars[,c(1,3,4,6)]\nresponsevar=\"mpg\"\n\nboot_sample <- function(df=trees,statfunc=Rsquared,n_samples=1000,n_stats=2,responsevar=\"Volume\"){\n  indices <- c(1:nrow(df))\n  output <- matrix(NA,nrow=n_samples,ncol=n_stats)        # storage object- to store a single bootstrapped sample from the original data\n  \n  for(i in 1:n_samples){              # for each bootstrap replicate:\n    boot_rows <- sample(indices,size=nrow(df),replace=T)         # randomly sample observations with replacement\n    newdf <- df[boot_rows,]                       # dataframe of bootstrapped observations\n    output[i,] <- statfunc(newdf,responsevar)                 # generate statistics from the bootstrapped sample  (e.g., compute Rsquared after regressing y on all possible x variables)\n  }\n  return(output)\n}\n\nBootCoefs <- function(df,statfunc,n_samples,n_stats,responsevar){\n    # [add code here!]\n}\nBootCoefs(df=df,statfunc=RegressionCoefs,\n              n_samples=1000,n_stats=3,responsevar=responsevar)\n", 
+learnr:::store_exercise_cache("q5b", list(setup = NULL, chunks = list(list(label = "q5b", code = "df <- mtcars[,c(1,3,4,6)]\nresponsevar=\"mpg\"\n\n # note: this is copied from the lecture code...\nboot_sample <- function(df,statfunc,n_samples,responsevar=\"Volume\"){\n  indices <- c(1:nrow(df))\n  output <- matrix(NA,nrow=n_samples,ncol=ncol(df)-1)        # storage object- to store a single bootstrapped sample from the original data\n  \n  for(i in 1:n_samples){              # for each bootstrap replicate:\n    boot_rows <- sample(indices,size=nrow(df),replace=T)         # randomly sample observations with replacement\n    newdf <- df[boot_rows,]                       # dataframe of bootstrapped observations\n    output[i,] <- statfunc(newdf,responsevar)                 # generate statistics from the bootstrapped sample  (e.g., compute Rsquared after regressing y on all possible x variables)\n  }\n  return(output)\n}\n\nBootCoefs <- function(df,statfunc,n_samples,responsevar){\n    # [add code here!]\n}\nBootCoefs(df=df,statfunc=RegressionCoefs,\n              n_samples=1000,responsevar=responsevar)\n", 
     opts = list(label = "\"q5b\"", exercise = "TRUE"), engine = "r")), 
-    code_check = NULL, error_check = NULL, check = structure(c("grade_this({", 
-    "  pass()", "})", "# check_q5b <- function(USER_CODE){", 
-    "#     code <- checkr::for_checkr(USER_CODE)", "#     func_call <- checkr::line_where(code,checkr::insist(F== \"BootCoefs\",\"Use BootCoefs() function!\"))", 
-    "#     t1 <- checkr::line_where(func_call, ", "#         checkr::insist(all((V[1,3] >=  (answer5b[1,3]-0.2))&(V[1,3] <=  (answer5b[1,3]+0.2))), ", 
-    "#         \"Sorry, that's not correct\"),", "#         checkr::passif(TRUE, \"Delightful!\"))", 
-    "# }", "# check_q5b(USER_CODE)"), chunk_opts = list(label = "q5b-check")), 
+    code_check = NULL, error_check = NULL, check = structure(c("df <- ", 
+    "responsevar=", "grade_this({", "  fail_if(dim(.result(df=trees,", 
+    "          statfunc=RegressionCoefs,", "          n_samples=1000,", 
+    "          responsevar=\"Volume\"))!=c(2,3),", "          \"check the dimension of the matrix that is returned\")", 
+    "  pass_if(near(.result(df=mtcars[,c(1,3,4,6)],", "          statfunc=RegressionCoefs,", 
+    "          n_samples=1000,", "          responsevar=\"mpg\"),", 
+    "          .solution(df=mtcars[,c(1,3,4,6)],", "          statfunc=RegressionCoefs,", 
+    "          n_samples=1000,", "          responsevar=\"mpg\"),0.2)", 
+    "          )", "  fail()", "})", ""), chunk_opts = list(label = "q5b-check")), 
     solution = NULL, options = list(eval = FALSE, echo = TRUE, 
         results = "markup", tidy = FALSE, tidy.opts = NULL, collapse = FALSE, 
         prompt = FALSE, comment = NA, highlight = FALSE, strip.white = TRUE, 
@@ -1411,15 +1443,16 @@ learnr:::store_exercise_cache("q5b", list(setup = NULL, chunks = list(list(label
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
         label = "q5b", exercise = TRUE, code = c("df <- mtcars[,c(1,3,4,6)]", 
-        "responsevar=\"mpg\"", "", "boot_sample <- function(df=trees,statfunc=Rsquared,n_samples=1000,n_stats=2,responsevar=\"Volume\"){", 
-        "  indices <- c(1:nrow(df))", "  output <- matrix(NA,nrow=n_samples,ncol=n_stats)        # storage object- to store a single bootstrapped sample from the original data", 
+        "responsevar=\"mpg\"", "", " # note: this is copied from the lecture code...", 
+        "boot_sample <- function(df,statfunc,n_samples,responsevar=\"Volume\"){", 
+        "  indices <- c(1:nrow(df))", "  output <- matrix(NA,nrow=n_samples,ncol=ncol(df)-1)        # storage object- to store a single bootstrapped sample from the original data", 
         "  ", "  for(i in 1:n_samples){              # for each bootstrap replicate:", 
         "    boot_rows <- sample(indices,size=nrow(df),replace=T)         # randomly sample observations with replacement", 
         "    newdf <- df[boot_rows,]                       # dataframe of bootstrapped observations", 
         "    output[i,] <- statfunc(newdf,responsevar)                 # generate statistics from the bootstrapped sample  (e.g., compute Rsquared after regressing y on all possible x variables)", 
-        "  }", "  return(output)", "}", "", "BootCoefs <- function(df,statfunc,n_samples,n_stats,responsevar){", 
+        "  }", "  return(output)", "}", "", "BootCoefs <- function(df,statfunc,n_samples,responsevar){", 
         "    # [add code here!]", "}", "BootCoefs(df=df,statfunc=RegressionCoefs,", 
-        "              n_samples=1000,n_stats=3,responsevar=responsevar)", 
+        "              n_samples=1000,responsevar=responsevar)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q5b, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
@@ -1432,7 +1465,7 @@ output$`tutorial-exercise-q5c-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("q5c", list(setup = NULL, chunks = list(list(label = "q5c", code = "\nBootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,n_stats=2,responsevar=\"Volume\")\n\nconfint.lm(lm(Volume~Girth,trees))    # compare with lm() \n", 
+learnr:::store_exercise_cache("q5c", list(setup = NULL, chunks = list(list(label = "q5c", code = "\nBootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar=\"Volume\")\n\nconfint.lm(lm(Volume~Girth,trees))    # compare with lm() \n", 
     opts = list(label = "\"q5c\"", exercise = "TRUE"), engine = "r")), 
     code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
@@ -1453,14 +1486,14 @@ learnr:::store_exercise_cache("q5c", list(setup = NULL, chunks = list(list(label
         include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q5c", exercise = TRUE, code = c("", "BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,n_stats=2,responsevar=\"Volume\")", 
+        label = "q5c", exercise = TRUE, code = c("", "BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar=\"Volume\")", 
         "", "confint.lm(lm(Volume~Girth,trees))    # compare with lm() ", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q5c, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
-{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["i18n"]},{"type":"character","attributes":{},"value":["1.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/i18n"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["i18next.min.js","tutorial-i18n-init.js"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["<script id=\"i18n-cstm-trns\" type=\"application/json\">{\"language\":\"en\",\"resources\":{\"en\":{\"translation\":{\"button\":{\"runcode\":\"Run Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Hint\",\"hint_plural\":\"Hints\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Next Hint\",\"hintprev\":\"Previous Hint\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copy to Clipboard\",\"startover\":\"Start Over\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continue\",\"submitanswer\":\"Submit Answer\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Previous Topic\",\"nexttopic\":\"Next Topic\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Try Again\"},\"text\":{\"startover\":\"Start Over\",\"areyousure\":\"Are you sure you want to start over? (all exercise progress will be reset)\",\"youmustcomplete\":\"You must complete the\",\"exercise\":\"exercise\",\"exercise_plural\":\"exercises\",\"inthissection\":\"in this section before continuing.\",\"code\":\"Code\",\"enginecap\":\"{{engine}} $t(text.code)\",\"quiz\":\"Quiz\"}}},\"fr\":{\"translation\":{\"button\":{\"runcode\":\"Lancer le Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Indication\",\"hint_plural\":\"Indications\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Indication Suivante\",\"hintprev\":\"Indication Précédente\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copier dans le Presse-papier\",\"startover\":\"Recommencer\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuer\",\"submitanswer\":\"Soumettre\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Chapitre Précédent\",\"nexttopic\":\"Chapitre Suivant\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Réessayer\"},\"text\":{\"startover\":\"Recommencer\",\"areyousure\":\"Êtes-vous certains de vouloir recommencer? (La progression sera remise à zéro)\",\"youmustcomplete\":\"Vous devez d'abord compléter\",\"exercise\":\"l'exercice\",\"exercise_plural\":\"des exercices\",\"inthissection\":\"de cette section avec de continuer.\",\"code\":\"Code\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\"}}},\"es\":{\"translation\":{\"button\":{\"runcode\":\"Ejecutar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Pista\",\"hint_plural\":\"Pistas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Siguiente pista\",\"hintprev\":\"Pista anterior\",\"solution\":\"Solución\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar al portapapeles\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar respuesta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tema anterior\",\"nexttopic\":\"Tema siguiente\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Volver a intentar\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"¿De verdad quieres empezar de nuevo? (todo el progreso del ejercicio se perderá)\",\"youmustcomplete\":\"Debes completar\",\"exercise\":\"el ejercicio\",\"exercise_plural\":\"los ejercicios\",\"inthissection\":\"en esta sección antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Cuestionario\"}}},\"pt\":{\"translation\":{\"button\":{\"runcode\":\"Executar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Dica\",\"hint_plural\":\"Dicas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Próxima dica\",\"hintprev\":\"Dica anterior\",\"solution\":\"Solução\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar para a área de transferência\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar resposta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tópico anterior\",\"nexttopic\":\"Próximo tópico\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tentar novamente\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"Tem certeza que deseja começar novamente? (todo o progresso feito será perdido)\",\"youmustcomplete\":\"Você deve completar\",\"exercise\":\"o exercício\",\"exercise_plural\":\"os exercícios\",\"inthissection\":\"nesta seção antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\"}}},\"tr\":{\"translation\":{\"button\":{\"runcode\":\"Çalistirma Kodu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Ipucu\",\"hint_plural\":\"Ipuçlari\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Sonraki Ipucu\",\"hintprev\":\"Önceki Ipucu\",\"solution\":\"Çözüm\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Pano'ya Kopyala\",\"startover\":\"Bastan Baslamak\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Devam et\",\"submitanswer\":\"Cevabi onayla\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Önceki Konu\",\"nexttopic\":\"Sonraki Konu\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tekrar Deneyin\"},\"text\":{\"startover\":\"Bastan Baslamak\",\"areyousure\":\"Bastan baslamak istediginizden emin misiniz? (tüm egzersiz ilerlemesi kaybolacak)\",\"youmustcomplete\":\"Tamamlamalisin\",\"exercise\":\"egzersiz\",\"exercise_plural\":\"egzersizler\",\"inthissection\":\"devam etmeden önce bu bölümde\",\"code\":\"Kod\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Sinav\"}}},\"emo\":{\"translation\":{\"button\":{\"runcode\":\"<U+0001F3C3>\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"<U+0001F4A1>\",\"hint_plural\":\"$t(button.hint)\",\"hinttitle\":\"$t(button.hint)\",\"solution\":\"<U+0001F3AF>\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"<U+0001F4CB>\",\"startover\":\"<U+23EE>\",\"startovertitle\":\"Start Over\",\"continue\":\"<U+2705>\",\"submitanswer\":\"<U+0001F197>\",\"submitanswertitle\":\"Submit Answer\",\"previoustopic\":\"<U+2B05>\",\"nexttopic\":\"<U+27A1>\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"<U+0001F501>\"},\"text\":{\"startover\":\"<U+23EE>\",\"areyousure\":\"<U+0001F914>\",\"youmustcomplete\":\"<U+26A0><U+FE0F> <U+0001F449> <U+0001F9D1><U+200D><U+0001F4BB>\",\"exercise\":\"\",\"exercise_plural\":\"\",\"inthissection\":\"\",\"code\":\"<U+0001F4BB>\",\"enginecap\":\"$t(text.code) {{engine}}\"}}},\"eu\":{\"translation\":{\"button\":{\"runcode\":\"Kodea egikaritu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Laguntza\",\"hint_plural\":\"Laguntza\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Aurreko laguntza\",\"hintprev\":\"Hurrengo laguntza\",\"solution\":\"Ebazpena\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Arbelean kopiatu\",\"startover\":\"Berrabiarazi\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Jarraitu\",\"submitanswer\":\"Erantzuna bidali\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Aurreko atala\",\"nexttopic\":\"Hurrengo atala\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Berriro saiatu\"},\"text\":{\"startover\":\"Berrabiarazi\",\"areyousure\":\"Berriro hasi nahi duzu? (egindako lana galdu egingo da)\",\"youmustcomplete\":\"Aurrera egin baino lehen atal honetako\",\"exercise\":\"ariketa egin behar duzu.\",\"exercise_plural\":\"ariketak egin behar dituzu.\",\"inthissection\":\"\",\"code\":\"Kodea\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Galdetegia\"}}}}}<\/script>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]}]}
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["i18n"]},{"type":"character","attributes":{},"value":["1.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/i18n"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["i18next.min.js","tutorial-i18n-init.js"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["<script id=\"i18n-cstm-trns\" type=\"application/json\">{\"language\":\"en\",\"resources\":{\"en\":{\"translation\":{\"button\":{\"runcode\":\"Run Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Hint\",\"hint_plural\":\"Hints\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Next Hint\",\"hintprev\":\"Previous Hint\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copy to Clipboard\",\"startover\":\"Start Over\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continue\",\"submitanswer\":\"Submit Answer\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Previous Topic\",\"nexttopic\":\"Next Topic\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Try Again\"},\"text\":{\"startover\":\"Start Over\",\"areyousure\":\"Are you sure you want to start over? (all exercise progress will be reset)\",\"youmustcomplete\":\"You must complete the\",\"exercise\":\"exercise\",\"exercise_plural\":\"exercises\",\"inthissection\":\"in this section before continuing.\",\"code\":\"Code\",\"enginecap\":\"{{engine}} $t(text.code)\",\"quiz\":\"Quiz\"}}},\"fr\":{\"translation\":{\"button\":{\"runcode\":\"Lancer le Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Indication\",\"hint_plural\":\"Indications\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Indication Suivante\",\"hintprev\":\"Indication Précédente\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copier dans le Presse-papier\",\"startover\":\"Recommencer\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuer\",\"submitanswer\":\"Soumettre\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Chapitre Précédent\",\"nexttopic\":\"Chapitre Suivant\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Réessayer\"},\"text\":{\"startover\":\"Recommencer\",\"areyousure\":\"Êtes-vous certains de vouloir recommencer? (La progression sera remise à zéro)\",\"youmustcomplete\":\"Vous devez d'abord compléter\",\"exercise\":\"l'exercice\",\"exercise_plural\":\"des exercices\",\"inthissection\":\"de cette section avec de continuer.\",\"code\":\"Code\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\"}}},\"es\":{\"translation\":{\"button\":{\"runcode\":\"Ejecutar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Pista\",\"hint_plural\":\"Pistas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Siguiente pista\",\"hintprev\":\"Pista anterior\",\"solution\":\"Solución\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar al portapapeles\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar respuesta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tema anterior\",\"nexttopic\":\"Tema siguiente\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Volver a intentar\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"¿De verdad quieres empezar de nuevo? (todo el progreso del ejercicio se perderá)\",\"youmustcomplete\":\"Debes completar\",\"exercise\":\"el ejercicio\",\"exercise_plural\":\"los ejercicios\",\"inthissection\":\"en esta sección antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Cuestionario\"}}},\"pt\":{\"translation\":{\"button\":{\"runcode\":\"Executar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Dica\",\"hint_plural\":\"Dicas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Próxima dica\",\"hintprev\":\"Dica anterior\",\"solution\":\"Solução\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar para a área de transferência\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar resposta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tópico anterior\",\"nexttopic\":\"Próximo tópico\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tentar novamente\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"Tem certeza que deseja começar novamente? (todo o progresso feito será perdido)\",\"youmustcomplete\":\"Você deve completar\",\"exercise\":\"o exercício\",\"exercise_plural\":\"os exercícios\",\"inthissection\":\"nesta seção antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\"}}},\"tr\":{\"translation\":{\"button\":{\"runcode\":\"Çalistirma Kodu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Ipucu\",\"hint_plural\":\"Ipuçlari\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Sonraki Ipucu\",\"hintprev\":\"Önceki Ipucu\",\"solution\":\"Çözüm\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Pano'ya Kopyala\",\"startover\":\"Bastan Baslamak\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Devam et\",\"submitanswer\":\"Cevabi onayla\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Önceki Konu\",\"nexttopic\":\"Sonraki Konu\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tekrar Deneyin\"},\"text\":{\"startover\":\"Bastan Baslamak\",\"areyousure\":\"Bastan baslamak istediginizden emin misiniz? (tüm egzersiz ilerlemesi kaybolacak)\",\"youmustcomplete\":\"Tamamlamalisin\",\"exercise\":\"egzersiz\",\"exercise_plural\":\"egzersizler\",\"inthissection\":\"devam etmeden önce bu bölümde\",\"code\":\"Kod\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Sinav\"}}},\"emo\":{\"translation\":{\"button\":{\"runcode\":\"<U+0001F3C3>\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"<U+0001F4A1>\",\"hint_plural\":\"$t(button.hint)\",\"hinttitle\":\"$t(button.hint)\",\"solution\":\"<U+0001F3AF>\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"<U+0001F4CB>\",\"startover\":\"<U+23EE>\",\"startovertitle\":\"Start Over\",\"continue\":\"<U+2705>\",\"submitanswer\":\"<U+0001F197>\",\"submitanswertitle\":\"Submit Answer\",\"previoustopic\":\"<U+2B05>\",\"nexttopic\":\"<U+27A1>\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"<U+0001F501>\"},\"text\":{\"startover\":\"<U+23EE>\",\"areyousure\":\"<U+0001F914>\",\"youmustcomplete\":\"<U+26A0><U+FE0F> <U+0001F449> <U+0001F9D1><U+200D><U+0001F4BB>\",\"exercise\":\"\",\"exercise_plural\":\"\",\"inthissection\":\"\",\"code\":\"<U+0001F4BB>\",\"enginecap\":\"$t(text.code) {{engine}}\"}}},\"eu\":{\"translation\":{\"button\":{\"runcode\":\"Kodea egikaritu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Laguntza\",\"hint_plural\":\"Laguntza\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Aurreko laguntza\",\"hintprev\":\"Hurrengo laguntza\",\"solution\":\"Ebazpena\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Arbelean kopiatu\",\"startover\":\"Berrabiarazi\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Jarraitu\",\"submitanswer\":\"Erantzuna bidali\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Aurreko atala\",\"nexttopic\":\"Hurrengo atala\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Berriro saiatu\"},\"text\":{\"startover\":\"Berrabiarazi\",\"areyousure\":\"Berriro hasi nahi duzu? (egindako lana galdu egingo da)\",\"youmustcomplete\":\"Aurrera egin baino lehen atal honetako\",\"exercise\":\"ariketa egin behar duzu.\",\"exercise_plural\":\"ariketak egin behar dituzu.\",\"inthissection\":\"\",\"code\":\"Kodea\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Galdetegia\"}}}}}<\/script>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.10"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9011"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9011"]}]}]}
 </script>
 <!--/html_preserve-->
 <!--html_preserve-->

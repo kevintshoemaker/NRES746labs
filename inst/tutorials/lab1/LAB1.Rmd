@@ -1,16 +1,26 @@
 ---
 title: "Lab 1"
 author: "NRES 746"
-date: "Fall 2019"
-output: learnr::tutorial
+date: "Fall 2021"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
+# editor_options:
+#   preview: viewer
+description: "Getting started with writing statistical algorithms in R!"
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(checkr)
-tutorial_options(exercise.timelimit = 60, exercise.checker = checkr::check_for_learnr)
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(gradethis)
+gradethis_setup(
+  pass.praise = TRUE,
+  fail.encourage = TRUE,
+  fail.hint = TRUE
+)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r echo=FALSE}
@@ -40,33 +50,35 @@ In this course we will rely heavily on the R programming language for statistica
 
 ## Lab 1 details
 
-Specifically, this lab will provide a basic introduction to the R programming Language and the use of R to perform statistics and programming tasks. Some of the materials from this lab (especially the regression example) were borrowed/modified from the previous instructor for this course (P. Weisberg). 
+Specifically, this lab will provide a basic introduction to the R programming Language and the use of R to perform statistics and programming tasks. 
 
-As with all lab reports, your answers will either take the form of R functions or short written responses. The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab1.R". So my submission would be "kevin_shoemaker_lab1.R". _Please include only the requested functions in your submitted R script_. You will probably complete the lab exercises using a main script (that includes all your work), and then save a reduced copy (with only the requested functions) for submission. 
+As with all lab reports, your answers will either take the form of R functions or short written responses. The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab1.R". So my submission would be "kevin_shoemaker_lab1.R". _Please include only the requested functions in your submitted R script_. You will probably complete the lab exercises using a main script (that includes all your work), and then save a reduced copy (with only the requested functions) for submission.
 
-Please submit the R script and the Word document via WebCampus by midnight on the due date (one week after the final lab session allocated for this topic -- here, Sep. 11). You can work in groups but submit the materials individually. One student in each group should be an 'R guru' if at all possible!
+Before submitting your code, please clear your environment, run your script and make sure that the script only defines functions within your global environment. Your script should generate no additional objects (eg, data frames). 
 
-Please provide any requested written answers as a Word document in WebCampus- keep your responses as brief as possible! Also, I will not be asgining yr scroes bsased on spellin, grammmer or the propreiety orf yur senstence cosnstrujctin.
+Please submit the R script and the Word document via WebCampus by midnight on the due date (one week after the final lab session allocated for this topic). You can work in groups but submit the materials individually. One student in each group should be an 'R guru' if at all possible!
 
-This lab exercise will extend over two laboratory periods (Aug. 27 and Sep. 3), with your R script and Word document due Sept. 10.
+Please provide any requested written answers as a Word document in WebCampus- keep your responses as brief as possible! Also, I will not be asgining yoru scroes bsased on sepelling, grammmer or the propreiety orf yur senstence cosnstrujctin.
+
+This lab exercise will extend over two laboratory periods (Aug. 24 and 31), with your R script and Word document due Sept. 7.
 
 ## Let's get started!
 
 1. Go to website [http://cran.r-project.org/](http://cran.r-project.org/). This is the source for downloading the free, public-domain R software and where you can access R packages, find help, access the user community, etc. If you haven't already installed R, do so now! 
-2. Open the Rstudio software ([https://www.rstudio.com](https://www.rstudio.com). Change the working directory to a convenient directory (e.g.,  a subfolder called 'Lab 1' in your main course directory). NOTE- if you set up an Rstudio "project" (.Rproj extension) in this directory, the working directory is set automatically each time you load the project! I recommend you set up an R studio project for this course. 
+2. Open the Rstudio software ([https://www.rstudio.com](https://www.rstudio.com)-- and install if you haven't done so already. Change the working directory to a convenient directory (e.g.,  a subfolder called 'Lab 1' in your main course directory). NOTE- if you set up an Rstudio "project" (.Rproj extension) in this directory, the working directory is set automatically each time you load the project! I recommend you set up an R studio project for this course (and maybe a separate one for your final project, when that comes around). 
 3. Open a new, blank R script window in Rstudio. Using comments (anything preceded by a pound sign is not interpreted by R and can be used to provide human-readable notes and commentary so your code is more readable), add a header to the script to indicate that this is lab 1- include your name and the course number in the header.
 4. Save the script to your working directory, using the naming convention: "[your first name]_[your last name]_lab1.R", all lower-case. So my script would be named: "kevin_shoemaker_lab1.R". You will be submitting this script when you have finished all the exercises. Again, please include only the requested functions in your submitted R script.  
 5. While you're at it, also start a new Word document to record your written responses to the lab exercises (I will indicate where I expect a written response in Word vs. an R function). There is no specific naming convention for your Word documents.
 
 ## Take some time to get more familiar with R
 
-From the R manual, ['Introduction to R'](http://cran.r-project.org/doc/manuals/R-intro.html) you will implement all the steps in Appendix A, located [here](http://cran.r-project.org/doc/manuals/R-intro.html#A-sample-session). This takes you far but without much explanation-- it is a way to jump into the deep end of the pool. Alternatively, or in addition, go to the [Links](http://naes.unr.edu/shoemaker/teaching/NRES-746/Links.html) page and pick a tutortial to run through (e.g., the Datacamp introductory R course). You can also check out the materials from [UNR's R "bootcamp"](http://naes.unr.edu/shoemaker/teaching/R-Bootcamp/index.html). Before you move on, make sure you have a basic understanding of how to work with R and RStudio. If you are working with someone who has used R before, don't be afraid to ask questions! Also, take your time with this- you might want to use the entire lab period on this if you have never used R before.
+From the R manual, ['Introduction to R'](http://cran.r-project.org/doc/manuals/R-intro.html) you will implement all the steps in Appendix A, located [here](http://cran.r-project.org/doc/manuals/R-intro.html#A-sample-session). This takes you far but without much explanation-- it is a way to jump into the deep end of the pool. Alternatively, or in addition, go to the [Links](https://kevintshoemaker.github.io/NRES-746/Links.html) page and pick a tutorial to run through (e.g., the Datacamp introductory R course). You can also check out the materials from [UNR's R "bootcamp"](https://kevintshoemaker.github.io/R-Bootcamp/). Before you move on, make sure you have a basic understanding of how to work with R and RStudio. If you are working with someone who has used R before, don't be afraid to ask questions! Also, take your time with this- you might want to use the entire lab period on this if you have never used R before.
 
-Another useful introductory R tutorial can be found [here](http://www.nceas.ucsb.edu/files/scicomp/Dloads/RProgramming/BestFirstRTutorial.pdf), courtesy of [NCEAS](https://www.nceas.ucsb.edu/). Please take the time to complete this tutorial, including going through the exercises.   
+Another useful introductory R tutorial can be found [here](https://gsp.humboldt.edu/olm/R/Tutorials/BestFirstRTutorial.pdf), courtesy of [NCEAS](https://www.nceas.ucsb.edu/). Please take the time to complete this tutorial, including going through the exercises.   
 
 If you already have basic R expertise, this is your opportunity to help your peers to develop the level of comfort and familiarity with R that they will need to perform data analysis and programming tasks in this course.     
 
-Depending on whether you are already familiar with R, you may also find the remainder of this document useful as you work your way through the course (and there are many other good introductory R resources available online... let me know if there is one you particularly like and I will add it to the course website ([Links page](http://naes.unr.edu/shoemaker/teaching/NRES-746/Links.html)). As you work your way through the tutorial(s) (on your own pace), please ask the instructor or your peers if you are uncertain about anything.  
+Depending on whether you are already familiar with R, you may also find the remainder of this document useful as you work your way through the course (and there are many other good introductory R resources available online... let me know if there is one you particularly like and I will add it to the course website ([Links page](https://kevintshoemaker.github.io/NRES-746/Links.html)). As you work your way through the tutorial(s) (on your own pace), please ask the instructor or your peers if you are uncertain about anything.  
 
 ## Interactive lab exercises!
 
@@ -78,21 +90,18 @@ Basically, all you need to do here is write 'sum(vector)' where it says '[add co
 
 NOTE: you don't need to submit this as part of your lab report! This is just practice...
 
-```{r functest-solution}
-myvec <- c(1:4)    # you don't need to modify this line- and if you do, revert before you submit since you'll get the wrong answer otherwise!!
-myfunc <- function(vector){
-    sum(vector)
-}
-myfunc(myvec)    
-
-```
 
 ```{r functest, exercise=TRUE}
-myvec <- c(1:4)    # you don't need to modify this line- and if you do, revert before you submit since you'll get the wrong answer otherwise!!
 myfunc <- function(vector){
     # [add code here!]
 }
-myfunc(myvec)   
+
+```
+
+```{r functest-solution}
+myfunc <- function(vector){
+    sum(vector)
+}
 
 ```
 
@@ -100,29 +109,95 @@ myfunc(myvec)
 **Hint:** You may want to use the `sum()` function.
 </div>
 
-```{r functest-check}
-myvec <- c(1:4)
-check_functest <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F=="myfunc","Use function 'myfunc()'"))
-    checkr::line_where(func_call, checkr::insist(V==10, "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
-}
-check_functest(USER_CODE)
 
-# check_functest <- function(user_code){
-#   test_result(user_code)
-# }
-# check_functest(grader_args)
+```{r functest-check}
+grade_this({
+  pass_if_equal(y=.solution(3:5),x=.result(3:5))
+  fail()
+})
+
+```
+
+```{r echo=FALSE, eval=FALSE}
+
+this.grader <- grade_this({
+  pass_if_equal(y=.solution(1:3),x=.result(1:3))
+  fail()
+}
+)
+
+.solution <- {myfunc <- function(vector){
+    sum(vector)
+}}
+
+.result <- {myfunc <- function(vector){
+    sum(vector)
+}}
+
+grade_this_code()(mock_this_exercise(
+    .user_code = !!.result,            # double exclamation just runs an expression
+    .solution_code = !!.solution      # aha this is why you need double exclamations... 
+  )
+)
+
+
+this.grader(mock_this_exercise(
+    .user_code     = !!.result, # user submitted code
+    .solution_code = !!.solution  # from -solution chunk
+  ))
+
+
+this.grader2(mock_this_exercise(
+    .user_code     = "myfunc <- function(vector){sum(vector)}", # user submitted code
+    .solution_code = "myfunc <- function(vector){sum(vector)}"  # from -solution chunk
+  ))
+
+
+
+
+this.grader <- grade_this({
+    pass_if_equal()
+    fail()
+}
+)
+
+this.grader(mock_this_exercise(
+    .user_code     = "sum(2:3)", # user submitted code
+    .solution_code = "sum(1:3)"  # from -solution chunk
+  ))
+
+grade_this(pass_if(!!.solution(3:4),!!.result(3:4)),
+    fail())(mock_this_exercise(
+    .user_code = !!.result,
+    .solution_code = !!.solution      # this still does not work...
+  )
+)
+
+
+grade_this({
+  fail_if(2==2,"you suck!")
+  pass_if(2==3,"you fail")
+  fail()
+})(
+  mock_this_exercise(
+    .user_code     = "sqrt(log(2))", # user submitted code
+    .solution_code = "sqrt(log(1))"  # from -solution chunk
+  )
+)
 
 ```
 
 
 ## Demonstration: Central Limit Theorem (CLT)
-To gain some familiarity with using R scripts and developing algorithms, complete the following exercise (you don't need to submit this demo as part of your lab write-up BUT you will be asked to use this code as part of exercise 1 (below):  
+To gain some familiarity with using R scripts and developing algorithms, complete the following exercise (you don't need to submit this demo as part of your lab write-up BUT you will be asked to use this code as part of exercise 1 (below).
+
+Remember that you may want to have two scripts for this and other labs. The first script contains all the code you built to learn new concepts, develop and test code for answering the questions, etc. The second script is the one you will submit, and only contains the functions you defined as part of each lab. I recommend putting the second script (for submission) together after you finish the lab (just before submitting). 
 
 ## Complete the following steps:
-1. Review the meaning of the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which implies that the mean of a sufficiently large number of independent random variables (small samples from a much larger *population* of interest) will have a *sampling distribution* that is approximately normally distributed, regardless of whether the underlying data distribution is normally distributed.
-2. The following code for illustrating the Central Limit Theorem was inspired by Teetor, Paul. 2011. R Cookbook. O-Reilly Media, Inc. (p. 45), with several modifications. Type (or paste) the following code into your R script window (or Rstudio script window):         
+
+Review the meaning of the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which implies that the mean of a sufficiently large number of independent random variables (small samples from a much larger *population* of interest) will have a *sampling distribution* that is approximately normally distributed, regardless of whether the underlying data distribution is normally distributed.
+
+Type (or paste) the following code into your R script window (or RStudio script window):         
 
 ```{r results='hide'}
 
@@ -130,9 +205,9 @@ To gain some familiarity with using R scripts and developing algorithms, complet
 # CENTRAL LIMIT THEOREM demonstration
 ####################
 
-lots <- 100000       # number approximating infinity      
+infinity <- 100000       # number approximating infinity      
 
-N_IND_SAMPLES <- 1000       # number of indepenent random samples to draw from the specified distribution
+N_SAMPLES <- 1000       # number of independent random samples to draw from the specified distribution
 SAMPLESIZE <- 10          # sample size of each independent random sample
 
 
@@ -140,18 +215,18 @@ SAMPLESIZE <- 10          # sample size of each independent random sample
 #  Define the random number distribution. Here, we will use a "uniform" random number generator with a min of 10 and max of 20.   
 TRUEMIN <- 10            
 TRUEMAX <- 20      
-datafountain <- runif(lots,TRUEMIN,TRUEMAX)      # here we define the full set of possible random numbers to draw random samples from (the population of potential data)
+data_population <- runif(infinity,TRUEMIN,TRUEMAX)      # here we define the full set of possible random numbers to draw random samples from (the population of potential data). We assume this is uniformly distributed
 
 #######
 # Draw multiple samples from the pool (population) of possible data.  
 
-samplemean <- numeric(N_IND_SAMPLES)     # set up storage vector
-for(i in 1:N_IND_SAMPLES){      # for each replicate (independent random sample)
-  sample <- sample(datafountain,SAMPLESIZE)   # draw an independent random sample from the population of interest
+samplemean <- numeric(N_SAMPLES)     # set up storage vector
+for(i in 1:N_SAMPLES){      # for each replicate (independent random sample)
+  sample <- sample(data_population,SAMPLESIZE)   # draw an independent random sample from the population of interest
   samplemean[i] <- mean(sample)    # compute and record the sample mean
 }
 
-hist(datafountain,freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of sample means
+hist(data_population,freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of sample means
 hist(samplemean,freq=F,add=T,col="red")    # overlay the distribution of the underlying data from which we are drawing samples.
 legend("topleft",fill=c("white","red"),legend=c("data population","sample means"),bty="n")     # add a legend to the plot
 
@@ -165,14 +240,14 @@ legend("topleft",fill=c("white","red"),legend=c("data population","sample means"
 
 ```
 
-source("H:\\Courses\\NRES746\\Lab1\\CentralLimitTheorem.R")     # load the R script!
+source("CentralLimitTheorem.R")     # load the R script!
 
 ```
 
-**NOTE**: The pound (#) sign used above allows the R programmer to insert comments adjacent to snippets of code, which facilitates readability of code (and lets the programmer remember later on what he/she was thinking when coding things a certain way!). It is good practice, especially for the beginning programmer, to comment every line so as to describe its precise meaning, including all variables and functions. Make sure you fully understand the commented code for the central limit theorem demonstration above!
+**NOTE**: The pound (#) sign used above allows the R programmer to insert comments adjacent to snippets of code, which facilitates readability of code (and lets the programmer remember later on what he/she was thinking when coding things a certain way!). It is good practice to comment every line so as to describe its precise meaning, including all variables and functions. Make sure you fully understand the commented code for the central limit theorem demonstration above!
 
 
-Here is an interactive window you can use to play around with the CLT code:
+Here is an interactive window you can use to play around with the CLT code (or even better, just open another RStudio instance and explore the code there!):
 
 ```{r cltdemo1, exercise=TRUE}
 
@@ -217,7 +292,7 @@ In addition, run a *Shapiro-Wilk normality test*, which tests the null hypothesi
 ```
 
 
-Again, here is an interactive window you can use to play around with the CLT code. 
+Again, here is an interactive window you can use to play around with the CLT code (or just use another instance of RStudio). 
 
 ```{r cltdemo2, exercise=TRUE}
 
@@ -234,18 +309,34 @@ So... what can you conclude from these tests? Can you conclude that the distribu
 
 ## Exercise 1: home-made functions!
 
+Finally we have arrived at the ACTUAL lab exercises. Remember you don't need to submit any of the work up to this point...
+
 For the first part of this lab, you are asked to write several functions (and submit them as part of your lab script, of course!). The functions increase in order of complexity!
 
-You should now know how to construct functions in R. If you don't, go back to the [NCEAS tutorial](https://www.nceas.ucsb.edu/files/scicomp/Dloads/RProgramming/BestFirstRTutorial.pdf) and review the section on writing functions.
+You should now know how to construct functions in R. If you don't, go back to the [NCEAS tutorial](https://gsp.humboldt.edu/olm/R/Tutorials/BestFirstRTutorial.pdf) and review the section on writing functions.
 
 ## **Exercise 1a** (for R script) 
 
 Write an R function called "CoefVar()" that takes a numeric vector (named 'vector' within the function but could have any name outside the function) as input, and computes (and returns) its coefficient of variation (CV; standard deviation as a proportion of the mean). To make sure it works, apply your function to the 'Height' vector in the 'trees' dataset that installs with R as sample data:
 
-```{r answer1a, echo=FALSE}
+You can use this "sandbox" (below) to develop and test your function! You can test your function in the 'sandbox' below, but when you submit, make sure you delete all code except for the function itself (but comments are okay). 
+
+```{r q1a, exercise=TRUE}
+
+CoefVar <- function(vector){
+    # [add code here!]
+}
+
+```
+
+<div id="q1a-hint">
+**Hint:** You probably want to use the 'sd()' and 'mean()' functions.
+</div>
+
+```{r q1a-solution, echo=FALSE}
 
 ######################
-# LAB 1 (possible) answers
+# LAB 1 answer key (lots of other possibilities)
 ######################
 
 #############
@@ -255,19 +346,13 @@ CoefVar <- function(vector){
   cv <- sd(vector,na.rm=TRUE)/mean(vector,na.rm=TRUE)
   return(cv)     
 }
-
-
-```
-
-```{r test1a, echo=FALSE, context='data'}
-
-answer1a <- CoefVar(trees$Height)    # run your new function!
-answer1a
+#CoefVar(c(2,3,4,3,2,3,4))   # test your function
 
 ```
 
+You can use the following code to test your function using the built-in 'trees' dataset. 
 
-```{r eval=FALSE}
+```{r test1a, eval=FALSE}
 
 ############
 # Explore the "trees" dataset
@@ -283,54 +368,13 @@ CoefVar(trees$Height)    # run your new function!
 ```
 
 
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q1a, exercise=TRUE}
-test <- trees$Height
-CoefVar <- function(vector){
-    # [add code here!]
-}
-CoefVar(test)   # note that the name of the vector can be different inside and outside the function. The name of the
-                   # vector inside the function is just a placeholder for any vector the user wants to compute a cv for
-
-```
-
-<div id="q1a-hint">
-**Hint:** You probably want to use the 'sd()' and 'mean()' functions.
-</div>
-
 ```{r q1a-check}
-test <- trees$Height
-check_q1a <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "CoefVar","Use CoefVar() function!"))
-    t1 <- checkr::line_where(func_call, checkr::insist(all(V==answer1a), "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
-}
-check_q1a(USER_CODE)
+grade_this({
+  pass_if_equal(y=.solution(trees$Height),x=.result(trees$Height))
+  fail()
+})
 ```
 
-```{r playwithcheckr, eval=FALSE, echo=FALSE}
-
-code <- checkr::for_checkr(quote({test <- trees$Height;CoefVar <- function(vector){sd(vector)/mean(vector)};CoefVar(vector=test)}))
-code
-func_call <- line_calling(code, CoefVar, message = "Use CoefVar() to construct the model.")
-checkr::line_where(code, checkr::insist(V==answer1a, "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
-check(func_call, checkr::insist(dplyr::near(V,answer1a,tol=0.001), 
-        message="Your solution is {{V}}. This is not the correct result"),
-        checkr::passif(TRUE, "Great job!"))
-
-
-```
-
-```{r playwithtestthis1, eval=FALSE, echo=FALSE}
-
-check_result(pass_if(answer1a),grader_args=list(user_quo = quo({test <- trees$Height;CoefVar <-            function(vector){sd(vector)/mean(vector)};CoefVar(vector=test)})))
-
-test_result(grader_args=list(user_quo = quo({a=10;a}),solution_quo=quo(10)))    # use this syntax!
-
-
-
-```
 
 ## * **Exercise 1b** (for R script) 
 
@@ -347,10 +391,25 @@ Write a function called "DrawLine()" for drawing a regression line through a sca
     + add a regression line to the scatter plot (HINT: use the "abline()" function)
 
 + **return**:  
-    + coefs = a vector of length 2, storing the intercept and slope of the linear relationship
+    + coefs = a vector of length 2, storing the intercept and slope of the linear relationship (in that order)
 
 
-```{r answer1b, echo=FALSE}
+You can use this "sandbox" (below) to develop and test your function! Again, remember to comment out everything except for your "DrawLine" function definition prior to submitting (you can test the function using the "run" button). 
+
+```{r q1b, exercise=TRUE}
+
+DrawLine <- function(x,y){
+    # [add code here!]
+}
+#DrawLine(trees$Height,trees$Volume)
+
+```
+
+<div id="q1b-hint">
+**Hint:** You may want to use the `coef()` function.
+</div>
+
+```{r q1b-solution, echo=FALSE}
 
 #############
 ## exercise 1b
@@ -361,62 +420,29 @@ DrawLine <- function(x,y){
   coefs <- coef(mod)
   abline(mod)
   return(coefs)
-  
 }
 
-
 ```
 
-```{r test1b, echo=FALSE, fig.keep='none', context='data'}
+As a test, apply this function to the 'Height' (x axis) and 'Volume' (yaxis) vectors in the 'trees' dataset, and then to the 'waiting' (x axis) and 'eruptions' (y axis) vectors in the 'faithful' dataset.
 
-answer1b <- DrawLine(trees$Height,trees$Volume)    # run your new function!
-
-DrawLine(faithful$waiting,faithful$eruptions)    # test using the old faithful eruptions data
-
-
-
-```
-
-Apply this function to the 'Height' (x axis) and 'Volume' (y axis) vectors in the 'trees' dataset, and then to the 'waiting' (x axis) and 'eruptions' (y axis) vectors in the 'faithful' dataset.
-
-```{r eval=FALSE}
+```{r test1b, eval=FALSE}
 
 ?faithful
-
 summary(faithful)
 
-faithful$eruptions
-faithful$waiting
+DrawLine(faithful$waiting,faithful$eruptions)    # test your function using the old faithful eruptions data
 
 ```
 
-
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q1b, exercise=TRUE}
-
-DrawLine <- function(x,y){
-    # [add code here!]
-}
-DrawLine(trees$Height,trees$Volume)
-
-```
-
-<div id="q1b-hint">
-**Hint:** You may want to use the `coef()` function.
-</div>
 
 ```{r q1b-check}
-
-check_q1b <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine","Use DrawLine() function!"))
-    t1 <- checkr::line_where(func_call, checkr::insist(all(V==answer1b), "Your solution is {{V}}. This is not the correct result"),checkr::passif(TRUE, "Great job!"))
-}
-check_q1b(USER_CODE)
-
+grade_this({
+  fail_if(any(is.na(.result)), "You shouldn't have missing values.")
+  pass_if(all(.result(faithful$waiting,faithful$eruptions)==.solution(faithful$waiting,faithful$eruptions)))
+  fail()
+})
 ```
-
 
 
 ## * **Exercise 1c** (for R script) 
@@ -431,7 +457,7 @@ Write a function called "DrawLine2()" for (optionally) drawing a "smoothed" regr
 
 + **suggested algorithm**:   
     + with the x and y coordinates, first produce a scatterplot (HINT: use the "plot()" function)
-    + if smooth is FALSE, then proceed to draw a straight line as before
+    + if smooth is FALSE, then proceed to draw a straight line as before (and return the coefficients)
     + if smooth is TRUE, use the "scatter.smooth()" function to plot a smoothed, locally-weighted regression of the y variable on the x variable. Make sure you use the "span" argument!
     + if smooth is TRUE, use the "loess()" function to record the same smoothed, locally-weighted regression of the y variable on the x variable. Again, make sure you use the "span" argument!
 
@@ -439,7 +465,24 @@ Write a function called "DrawLine2()" for (optionally) drawing a "smoothed" regr
     + out = the loess model (the output produced by running "loess()" (or the slope and intercept from the linear regression, if smooth=FALSE) 
         
 
-```{r answer1c, echo=FALSE}
+You can use this "sandbox" (below) to develop and test your function!
+
+```{r q1c, exercise=TRUE}
+xvec <- c(1:10)
+yvec <- rnorm(length(xvec),c(2:6,7:3),2)     # you can use these vectors for testing the function
+DrawLine2 <- function(x,y,smooth=F,span=1){    # note the default values (the ones set using equal sign)
+    # [add code here!]
+}
+# DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.5)    # test using the old faithful eruptions data
+
+```
+
+<div id="q1c-hint">
+**Hint:** You may want to use the `scatter.smooth()` function to draw the curve and the 'loess()' function to build the model.
+</div>
+
+
+```{r q1c-solution, echo=FALSE}
 
 #############
 ## exercise 1c
@@ -459,94 +502,30 @@ DrawLine2 <- function(x,y,smooth=TRUE,span=1){
 
 ```
 
-```{r test1c, echo=FALSE, context='data', warning=FALSE, quietly=T,fig.keep='none',results=FALSE}
+Try testing your function using the trees and faithful datasets!
+
+```{r test1c, eval=FALSE}
 xvec <- c(1:10)
-set.seed(100) 
 yvec <- rnorm(length(xvec),c(2:6,7:3),2)
 answer1c <- DrawLine2(xvec,yvec,smooth=T,span=0.5)    # run your new function!
 
 DrawLine2(x=trees$Height,y=trees$Volume,smooth=F,span=NA)
 
-DrawLine2(faithful$waiting,faithful$eruptions,span=.5)    # test using the old faithful eruptions data
+DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.5)    # test using the old faithful eruptions data
 
-DrawLine2(faithful$waiting,faithful$eruptions,span=.1)
-
-```
-
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q1c, exercise=TRUE}
-xvec <- c(1:10)
-set.seed(100)    # don't change this line, or the answer checking function won't work!
-yvec <- rnorm(length(xvec),c(2:6,7:3),2)
-DrawLine2 <- function(x,y,smooth=F,span=1){
-    # [add code here!]
-}
-DrawLine2(xvec,yvec,smooth=T,span=0.5)
+DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.1)
 
 ```
 
-<div id="q1c-hint">
-**Hint:** You may want to use the `scatter.smooth()` function to draw the curve and the 'loess()' function to build the model.
-</div>
 
 ```{r q1c-check}
-check_q1c <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine2","Use DrawLine2() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all(V$fitted == answer1c$fitted), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Fantastic!"))
-}
-check_q1c(USER_CODE)
+grade_this({
+  fail_if(!all(.result(faithful$waiting,faithful$eruptions,F)==.solution(faithful$waiting,faithful$eruptions,F)),"check your result with smooth=FALSE")
+  pass_if(all(.result(faithful$waiting,faithful$eruptions,T,0.1)$fitted==.solution(faithful$waiting,faithful$eruptions,T,0.1)$fitted))
+  fail()
+})
 ```
 
-
-
-```{r playwithcheckr2, eval=FALSE, echo=FALSE}
-
-code <- checkr::for_checkr(quote({xvec <- c(1:10)
-                          set.seed(100)    # don't change this line, or the answer checking function won't work!
-                          yvec <- rnorm(length(xvec),c(2:6,7:3),2)
-                          DrawLine2 <- function(x,y,smooth=F,span=1){
-                              plot(y~x)
-                              if(smooth==FALSE){
-                                mod <- lm(y~x)
-                                coefs <- coef(mod)
-                                abline(coefs)
-                              }else{
-                                coefs <- loess(y~x,span=span)
-                                scatter.smooth(y~x,span=span)
-                              }
-                              return(coefs)    
-                          }
-                          DrawLine2(xvec,yvec,smooth=T,span=0.5)}))
-code
-#func_call <- line_calling(code, DrawLine2, message = "Use DrawLine2() to construct the model.")
-func_call <- checkr::line_where(code,checkr::insist(F== "DrawLine2","Use DrawLine2() to construct the model."))
-#func_call <- line_binding(code, DrawLine2, message = "Use DrawLine2() to construct the model.")
-t1 <- checkr::line_where(func_call, 
-        checkr::insist(all(V$fitted == answer1c$fitted) , "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Great job!"))
-
-
-code <- checkr::for_checkr(quote(lm(mpg ~ hp, data= mtcars)))
-code
-lm_line <- line_calling(code, lm, message = "Use lm() to construct the model.")
-lm_call <- arg_calling(lm_line, lm)
-t1 <- data_arg(lm_call, 
-                 checkr::insist(identical(V, mtcars), 
-                        "Your data argument {{E}} was not `mtcars`."),
-                 message = "You didn't supply a `data = ` argument to `lm()`.")
-
-# t1 <- checkr::line_where(code,checkr::insist(V %same_as% answer1c, message = "Sorry, try again!"))
-# checkr::passif(any(func_call$values[[length(func_call$values)]]$fitted==answer1c$fitted),"Right!")
-# #t1 <- checkr::line_where(func_call, checkr::insist(V==8.49, "Sorry, this is not the correct result"),checkr::passif(TRUE, "Fantastic!"))
-
-
-
-```
 
 ## **Exercise 1d** (for R script) 
 
@@ -563,10 +542,24 @@ Write a function called "CLTdemo()" based on the central limit theorem (CLT) dem
     + generate side-by-side plots of the histogram of sample means (left) and a quantile-quantile plot to test for normality.
 
 + **return**:  
-    + out = the shapiro-wilks normality test results (the output produced by running "shapiro.test()")  
+    + out = the Shapiro-Wilks normality test results (the output produced by running "shapiro.test()")  
     
-        
-```{r answer1d, echo=FALSE}
+
+You can use this "sandbox" (below) to develop and test your function! As always, remember to comment out everything except for the requested function prior to submitting.
+
+```{r q1d, exercise=TRUE}
+CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
+    # [add code here!]
+}
+# CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)
+
+```
+
+<div id="q1d-hint">
+**Hint:** Use the CLT Demo code from earlier in Lab 1! 
+</div>
+
+```{r 1d-solution, echo=FALSE}
 
 #############
 ## exercise 1d
@@ -577,8 +570,6 @@ Write a function called "CLTdemo()" based on the central limit theorem (CLT) dem
 
 
 CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
-  lots <- 100000       # number approximating infinity      
-  datafountain <- runif(lots,min,max)      # here we define the full set of possible random numbers to draw random samples from (the population of potential data)
   
   #######
   # Draw multiple samples from the pool (population) of possible data.  
@@ -586,14 +577,14 @@ CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
   samplemean <- numeric(n.samples)     # set up storage vector
   i=1
   for(i in 1:n.samples){      # for each replicate (independent random sample)
-    sample <- sample(datafountain,sample.size)   # draw an independent random sample from the population of interest
-    samplemean[i] <- mean(sample)    # compute and record the sample mean
+    sample <- runif(sample.size,min,max)   # draw an independent random sample from the population of interest
+    samplemean[i] <- mean(sample)    # record the sample mean
   }
   
   
   par(mfrow=c(1,2))
-  hist(datafountain,freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of sample means
-  hist(samplemean,freq=F,add=T,col="red")    # overlay the distribution of the underlying data from which we are drawing samples.
+  hist(runif(1000,min,max),freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of underlying data
+  hist(samplemean,freq=F,add=T,col="red")    # overlay the distribution of the sample means (sampling distribution).
   legend("topleft",fill=c("white","red"),legend=c("data population","sample means"),bty="n")
   qqnorm(samplemean)
   
@@ -603,50 +594,40 @@ CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
   return(out)
 }
 
-
-
 ```
 
-```{r test1d, echo=FALSE, eval=FALSE, context='data', warning=FALSE, quietly=T,fig.keep='none',results=FALSE}
+
+```{r test1d, eval=FALSE}
 
 answer1d <- CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)    # run your new function!
 
 
 ```
 
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q1d, exercise=TRUE}
-CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
-    # [add code here!]
-}
-CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)
-
-```
-
-<div id="q1d-hint">
-**Hint:** Use the CLT Demo code from earlier in Lab 1! 
-</div>
 
 ```{r q1d-check}
-check_q1d <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "CLTdemo","Use CLTdemo() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(V$p.value <= 0.01, 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Fantastic!"))
-}
-check_q1d(USER_CODE)
+grade_this({
+  fail_if(!.result$method=="Shapiro-Wilk normality test","Make sure your function returns the results from the Shapiro-Wilk normality test!")
+  pass_if(near(.result$statistic,.solution$statistic,0.0006))
+  fail()
+})
 ```
 
 
 ## **Exercise 1e**  (for Word doc)
 
-Finally, test the function out for different parameter combinations to make sure it works! See if you can use this function to develop a reasonable rule for how big a sample size is necessary to ensure that the sample mean is normally distributed given that the underlying data population is distributed along a uniform distribution. *Please include your answer in your Word document*- and please justify your answer! [note: you don't need to write new code to answer this question, I am just looking for a thoughtful response, not a definitive answer! And just a few sentences is fine.]
+Finally, test the CLT function out for different parameter combinations to make sure it works! See if you can use this function to develop a reasonable rule for how large a sample size is necessary to ensure that the sample mean is normally distributed given that the underlying data population is a uniform distribution. *Please include your answer in your Word document*- and please justify your answer! [note: I am just looking for a thoughtful response, not a definitive answer! And just a few sentences is fine.]
+
+You can use the following interactive R window for testing if that is helpful:
+
+```{r 1e, exercise=TRUE}
+   # use this space if it's helpful
+
+```
+
     
 
-```{r answer1e, echo=FALSE, eval=FALSE}
+```{r solution1e, echo=FALSE, eval=FALSE}
 
 ##############
 # Exercise 1e
@@ -672,14 +653,11 @@ par(mfrow=c(1,1))
 names(prop) <- sizes
 barplot(prop,xlab="sample size",ylab="Normality rejected (proportion)")
 
-
-
-
 ```
 
-## **Exercise 1f (optional)**
+## **Exercise 1f (optional, not for submission)**
 
-Optionally, Modify your CLTdemo() function (e.g., call it "CLTdemo2()") to try a different underlying data distribution (other than uniform). If you really want to test the limits of the CLT, try creating your own highly non-standard distribution and seeing if the CLT still holds (spoiler alert: it does!). For example:
+Optionally, Modify your CLTdemo() function (e.g., call it "CLTdemo2()") to try a different underlying data distribution (other than uniform). If you really want to test the limits of the CLT, try creating your own highly non-standard distribution and seeing if the result you obtained in exercise 1e still holds. For example:
     
 
 ```{r}
@@ -696,14 +674,14 @@ datafountain <- rlocodist(lots)
 hist(datafountain, main="non-standard made-up distribution")
 ```
 
-You can use this "sandbox" (below) to develop and test your function!
+You can use this "sandbox" (below) to develop and test your function! Remember, you do not need to submit this function as part of your submitted r script. 
 
 ```{r q1f, exercise=TRUE}
 
 CLTdemo2 <- function(n.samples=1000,sample.size=10,...){
     # [add code here!]
 }
-CLTdemo2(n.samples=5000,sample.size=4,...)
+#CLTdemo2(n.samples=5000,sample.size=4,...)
 
 ```
 
@@ -729,6 +707,8 @@ newsum()    # use default value!
 
 ```
 
+Try setting some alternative default values and re-running the function with and without arguments until you are sure you understand how default values work! 
+
 ## Multiple Regression 1: Air Quality Data 
 
 The following is a refresher on performing multiple regression analyses in R:
@@ -745,7 +725,7 @@ library(help = "datasets")    # list of sample datasets that come with R
 
 2. Examine the 'airquality' dataset (use the 'head' and 'summary' functions). Note that there are *missing values* where ozone concentration data and solar radiation data were not collected.  
 
-3. We could ignore the missing values and just go ahead with our regression analysis, since the default response of the "lm()" ('linear model') function is to omit cases with missing values in any of the specified parameters. However, to avoid problems later, we will omit them by constructing a new, 'cleaned' dataset as follows:
+3. We could ignore the missing values and just go ahead with our regression analysis, since the default response of the "lm()" ('linear model') function is to omit cases with missing values in any of the specified parameters. However, to avoid problems later, we will omit them explicitly by constructing a new, 'cleaned' dataset as follows:
 
 ```{r}
 
@@ -760,8 +740,10 @@ air.cleaned <- na.omit(airquality)    # remove rows with missing data
 ```{r include=FALSE}
 
 model1 <- lm(Ozone~Solar.R+Wind+Temp,data=air.cleaned)
+summary(model1)
 
 ```
+
 
 ```{r}
 
@@ -779,6 +761,17 @@ NOTE: see [this website](https://data.library.virginia.edu/diagnostic-plots/) fo
 
 If no one in your group knows why you are doing any of this or what it all means, ask the instructor! That’s why he’s hanging around the lab…  
 
+
+Here is a practice R window in case it is helpful:
+
+```{r regressiontest1, exercise=TRUE}
+# practice space for regression analysis!
+
+```
+
+
+
+
 6. Consider the possibility that there may be an important interaction effect between solar radiation and temperature on influencing ozone concentrations. Explore that with a simple scatter plot where symbol size is scaled to ozone concentration:
 
 ```{r}
@@ -786,7 +779,9 @@ If no one in your group knows why you are doing any of this or what it all means
 symbols(air.cleaned$Temp, air.cleaned$Solar.R, circles=air.cleaned$Ozone/100, ylab="Solar Radiation", xlab="Temperature", main="Interaction Plot", inches=FALSE)
 
        # alternatively...
-coplot(air.cleaned$Ozone~air.cleaned$Temp|air.cleaned$Solar.R,rows=1)
+coplot(air.cleaned$Ozone~air.cleaned$Temp|air.cleaned$Solar.R,rows=1)  # the pipe operator can be read "conditional on"
+
+       # alternatively, you can use ggplot- which you probably already know better than your instructor! 
 
 
 ```
@@ -813,7 +808,7 @@ anova(model1, model2, test="F")   # how would you run an LRT test instead?
 
 ```
 
-You can use this "sandbox" (below) to play around with multiple regression in R!
+You can use this "sandbox" (below) to play around with multiple regression in R! You don't need to include any of this code in your submission. 
 
 ```{r q2prelim, exercise=TRUE}
 
@@ -824,12 +819,11 @@ You can use this "sandbox" (below) to play around with multiple regression in R!
 
 ## Exercise 2: regression in R (written responses)
 
-Very briefly answer the following questions in your Word document:  
+Very briefly (in ) answer the following questions in your Word document:  
 
-* **Exercise 2a**	On average, by how much does ozone concentration increase (or decrease) for each 10-unit increase in temperature? Use the 'no interaction' model from part 4 above to answer this question.    
+* **Exercise 2a**	By how much (and in what direction) is ozone concentration expected to change if temperature increased from 26 to 30 degrees Celsius? Assume that solar radiation stays constant at 200 lang and wind speed stays constant at 9 mph. Be careful with the units for temperature! Make sure to use the 'interaction' model (model2) from part 7 above to answer this question. Please briefly explain (in your Word document) how you got your answer.    
 
-*	**Exercise 2b** What is the hypothesis that the *p*-values for the individual regression coefficients are designed to test?  
-
+*	**Exercise 2b** What is the null hypothesis that the *p*-values for the individual regression coefficients are designed to test?  
 
 
 ## Multiple Regression 2: Noble fir data
@@ -837,7 +831,7 @@ For this exercise, we will use tree data from a forest in the western Oregon Cas
 
 We will fit a multiple linear regression model that predicts forest tree biomass as a function of environmental variables (including a mix of continuous and categorical predictors) and stand age.
 
-Obtain the TreeData.csv file from the "Data Sets" tab (or just download [here](http://naes.unr.edu/shoemaker/teaching/NRES-746/TreeData.csv))- save it to your working directory.
+Obtain the TreeData.csv file from the "Data Sets" tab (or just download [here](https://kevintshoemaker.github.io/NRES-746/TreeData.csv))- save it to your working directory.
 
 This describes a subset of forest inventory data from the Douglas-fir forests of western Oregon (n = 90, 0.1-ha sites).
 
@@ -905,6 +899,7 @@ with(NobleFir.df,
 
 ```
 
+Note the 'with' function above- this function essentially makes all columns in a data frame part of the global environment- that is, the commands you enclose in a 'with' function can refer to the columns in the data frame as if they were part of the global environment. This is a safe way to replicate the 'attach' function in R (which I recommend you never use!).   
 
 You can use this "sandbox" (below) to play around with this example in R!
 
@@ -918,10 +913,9 @@ You can use this "sandbox" (below) to play around with this example in R!
 
 Answer the following questions (with brief justification) in your Word document:
 
-* **Exercise 3a** Can forest biomass be reliably predicted by topographic variables and stand age? Explain your reasoning.     
-* **Exercise 3b** Is there spatial variation in model goodness of fit? Explain your reasoning.  
-* **Exercise 3c** Which of the environmental influences are most important in predicting forest biomass? Explain your reasoning.     
-
+* **Exercise 3a** Can forest biomass be reliably predicted by topographic variables and stand age? Explain your reasoning.      
+* **Exercise 3b** Is there spatial variation in model goodness of fit (i.e., on the residual error)? Use your visual assessment of regression errors (residuals) across space to answer this question. Explain your reasoning.    
+* **Exercise 3c** Which of the environmental influences you included in your model are most important in predicting forest biomass? Explain your reasoning.     
 
 ## Exercise 4: Algorithmic (brute force) t-test
 
@@ -930,202 +924,91 @@ Review the "brute-force t-test" code from the ["Why focus on algorithms" lecture
 ```{r answer4a0, echo=FALSE}
 
 #############
-# CHALLENGE 4: brute force t-tests!
+# CHALLENGE 4: brute force z-tests!
 #############
 
 ##### from lecture...
 
-t.test.algorithm <- function(dat = reshape_df, group = "Treatment", value = "Mass" ){
+z.test.algorithm <- function(sample, pop.mean, pop.sd){
   
   #############
   # Compute the sample statistic
   #############
   
-  indexA <- which(dat[,group]=="A")     # rows representing treatment A
-  indexB <- which(dat[,group]=="B")     # rows representing treatment B
-  observed_dif <- mean(dat[indexA,value]) - mean(dat[indexB,value])
+  observed_mean <- mean(sample)
   
-  sample.size <- length(indexA)
-  
-  #############
-  # Simulate the STATISTICAL POPULATION under the null hypothesis
-  #############
-  
-  lots <- 1000000  # large number approximating infinity 
-  
-  popMean_null <- mean(dat[,value])           # assume groups A and B come from a population with common mean 
-  popSD_null <- sd(dat[,value])                      # and common standard deviation... 
-  popData_null <- rnorm(n=lots,mean=popMean_null,sd=popSD_null)    # the statistical "population" of interest (under null model w no treatment effect)
+  sample.size <- length(observed_mean)   # compute sample size
 
   #################
-  # Repeat sampling process (sampling from population) using a FOR loop
+  # Generate SAMPLING DISTRIBUTION
   #################
   
-  reps <- 1000                 # set the number of replicates
-  null_difs <- numeric(reps)       # initialize a storage structure to hold one anomaly (sampling error) per replicate
+  reps <- 1000                 # set the number of replicate samples
+  null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
   
   for(i in 1:reps){            # for each replicate... 
-    sampleA <- sample(popData_null,size=sample.size)      # draw a sample assuming no treatment effect       
-    sampleB <- sample(popData_null,size=sample.size)      # draw a sample assuming no treatment effect (again!)
-    null_difs[i] <- mean(sampleA)-mean(sampleB)           # compute and store the sampling error produced under the null hypothesis
+    nullsamp <- rnorm(10,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
+    null_dist[i] <- mean(nullsamp)           # compute and store the samples produced under the null hypothesis
   }
   
-  ordered_difs <- sort(abs(null_difs))       # sort the vector of sampling errors 
-  higher_anomaly <- length(which(ordered_difs>=abs(observed_dif)))       # how many of these sampling errors equal or exceed the sample statistic?
-  p_value <- higher_anomaly/reps
+  more.extreme <- length(which(null_dist<=observed_mean))       # how many of these samples equal or exceed the sample statistic?
+  p_value <- more.extreme/reps
   
   to_return <- list()   # initialize object to return
   
-  to_return$null_difs <- null_difs
+  to_return$null_dist <- null_dist
   to_return$p_value <- p_value
-  to_return$observed_dif <- observed_dif
+  to_return$observed_mean <- observed_mean
   
   return(to_return)
 
 }
 
+# population.mean = 4.5
+# population.sd = 0.9
+# my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+# ztest <- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )
 
 ```
 
 
 ## Exercise 4a
 
-What if we wanted to run a *one-tailed t-test*? That is, what if our alternative hypothesis were that lizards in treatment group "A" would tend to have lower body mass than treatment group "B"? Modify the function ("t.test.algorithm()") to do this! Name your new function "t.test.onetail()". 
+What if we wanted to run a *two-tailed z-test*? That is, what if our alternative hypothesis were that salmon fed on the new vegetarian diet could plausibly be larger or smaller than those fed on the conventional diet after one year? Modify the function ("z.test.algorithm()") with a new argument that allows for both one and two-tailed tests! Name your new function "z.test.q4a()". 
+To convince yourself that your new function works, try running your function for a (made-up) case where the observed body mass for those fed on the new diet are generally higher than the expected body mass for those fed on the conventional diet after one year -- the opposite of your (alternative) hypothesis!
 
-To convince yourself that your new function works, try running your function for a case where the "group A" body mass data are generally higher than group B- the opposite of your (alternative) hypothesis!
-
-NOTE: you may get tangled up with the null hypothesis/p-value concept, which is admittedly a difficult concept! A p-value always assumes the null hypothesis is true (given the null hypothesis is true, a p-value gives the probability of obtaining a test statistic that lends as much or more support to the alternative hypothesis than the observed test statistic). The alternative hypothesis for the 1-tailed test is that the mean for treatment A is less than the mean for treatment B. The null hypothesis, as always, is that there is no difference between treatments. Therefore, if you hypothesize that A (which is actually much larger) is less than B, then the p-value should reflect a near-complete inability to reject the null hypothesis (very high p-value) -- that is, nearly all possible datasets generated under the null hypothesis lend as much or more support to the idea that A is less than B than the observed data!   
-
-
-```{r answer4a, echo=FALSE}
-
-###############
-# Question 4a
-
-t.test.onetail <- function(dat = reshape_df, group = "Treatment", value = "Mass" ){
-  
-  #############
-  # Compute the sample statistic
-  #############
-  
-  indexA <- which(dat[,group]=="A")     # rows representing treatment A
-  indexB <- which(dat[,group]=="B")     # rows representing treatment B
-  observed_dif <- mean(dat[indexB,value]) - mean(dat[indexA,value])
-  
-  sample.size <- length(indexA)
-  
-  #############
-  # Simulate the STATISTICAL POPULATION under the null hypothesis
-  #############
-  
-  lots <- 1000000  # large number approximating infinity 
-  
-  popMean_null <- mean(dat[,value])           # assume groups A and B come from a population with common mean 
-  popSD_null <- sd(dat[,value])                      # and common standard deviation... 
-  popData_null <- rnorm(n=lots,mean=popMean_null,sd=popSD_null)    # the statistical "population" of interest (under null model w no treatment effect)
-
-  #################
-  # Repeat sampling process (sampling from population) using a FOR loop
-  #################
-  
-  reps <- 1000                 # set the number of replicates
-  null_difs <- numeric(reps)       # initialize a storage structure to hold one anomaly (sampling error) per replicate
-  
-  for(i in 1:reps){            # for each replicate... 
-    sampleA <- sample(popData_null,size=sample.size)      # draw a sample assuming no treatment effect       
-    sampleB <- sample(popData_null,size=sample.size)      # draw a sample assuming no treatment effect (again!)
-    null_difs[i] <- mean(sampleB)-mean(sampleA)           # compute and store the sampling error produced under the null hypothesis
-  }
-  
-  ordered_difs <- sort(null_difs)       # sort the vector of sampling errors 
-  higher_anomaly <- length(which(ordered_difs>=observed_dif))       # how many of these sampling errors equal or exceed the sample statistic?
-  p_value <- higher_anomaly/reps
-  
-  to_return <- list()   # initialize object to return
-  
-  to_return$null_difs <- null_difs
-  to_return$p_value <- p_value
-  to_return$observed_dif <- observed_dif
-  
-  return(to_return)
-
-}
-
-
-```
-
-
-```{r test4a1}
-
-df <- data.frame(
-  TreatmentA = c(175, 168, 168, 190, 156, 181, 182, 175, 174, 179),
-  TreatmentB = c(185, 169, 173, 173, 188, 186, 175, 174, 179, 180) 
-)
-
-```
-
-Note that we need to reshape the data frame before entering it into our function. Since this we will need to do this again, let's make a function to do this!
-
-```{r test4a2, context="data", echo=TRUE}
-
-reshapefunc <- function(df,varname){
-  sample.size <- nrow(df)     # determine sample size 
-
-  reshape_df <- data.frame(                # "reshape" the data frame so each observation gets its own row (standard format)
-    Treatment = rep(c("A","B"),each=sample.size),
-    Value = c(df[,1],df[,2])
-  )
-  
-  names(reshape_df)[2] <- varname   # rename the value column to whatever the user specifies
-  return(reshape_df)
-}
-
-```
-
-```{r test4a3}
-
-dfnew <- reshapefunc(df,"Mass")
-
-ttest_onetail <- t.test.onetail(dat=dfnew,group = "Treatment", value = "Mass" )
-ttest_onetail$p_value
-
-ttest_twotail <- t.test.algorithm(dat=dfnew,group = "Treatment", value = "Mass" )    # try two-tailed test
-ttest_twotail$p_value
-
-t.test(df$TreatmentA,df$TreatmentB,alternative = "less")          # compare with true t-test
-t.test(df$TreatmentA,df$TreatmentB,alternative = "two.sided")
-
-
-```
-
-```{r test4a4, echo=FALSE, context='data'}
-
-df <- data.frame(
-      TreatmentA = c(105, 118, 119, 112, 109),
-      TreatmentB = c(138, 130, 150, 123, 144)
-    )
-df2<-reshapefunc(df,varname="Mass")
-
-answer4a <- t.test.onetail(dat=df2,group = "Treatment", value = "Mass")
-
-
-
-```
+NOTE: you may get tangled up with the null hypothesis/p-value concept, which is admittedly a difficult concept! A p-value always assumes the null hypothesis is true (given the null hypothesis is true, a p-value gives the probability of obtaining a test statistic as or more extreme than the observed test statistic). The alternative hypothesis for the 1-tailed test is that the population mean for the treatment group is less than the population mean for conventional farm-raised salmon. The alternative hypothesis for the 2-tailed test is that the population mean for the treatment group is less than or greater than the population mean for conventional farm-raised salmon. The null hypothesis, as always, is that there is no difference.  
 
 Include your function in your submitted r script!
+
+This function should be specified as follows:
+
++ **input**:        
+    + sample = a vector of observed sample values
+    + pop.mean = a scalar value representing the expected mean value under the null hypothesis       
+    + pop.sd = a scalar value representing the population standard deviation under the null hypothesis    
+    + onetail = a logical TRUE or FALSE to indicate whether or not to perform a one-tailed test or a two-tailed test
+
++ **suggested algorithm**:   
+    + See lecture for example z-test function
+    + To implement the two-sided test, you need to define what 'extreme' means in both directions. You might first define the absolute difference between the population mean and the sample mean. Then define 'more extreme' as any sample mean that falls further away from the population mean in either direction (larger or smaller than the population mean).  
+    + Use an "if-else" statement to accommodate both a one-tailed and a two-tailed test. 
+
++ **return**:    
+    + to_return = a list with three elements: "null_dist", representing the sampling distribution for sample means under the null hypothesis, "p_value", representing the p-value, and "observed_mean", representing the mean of the observed sample.              
 
 You can use this "sandbox" (below) to develop and test your function!
 
 ```{r q4a, exercise=TRUE}
-df <- data.frame(
-      TreatmentA = c(105, 118, 119, 112, 109),
-      TreatmentB = c(138, 130, 150, 123, 144)
-    )
-df2<-reshapefunc(df,varname="Mass")
-t.test.onetail <- function(dat, group, value){
+population.mean = 4.5
+population.sd = 0.9
+my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+# ztest <- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )  # use function from class..
+
+z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
     # [add code here!]
 }
-t.test.onetail(dat=df2,group = "Treatment", value = "Mass")
+#z.test.q4a(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=F )   # test your function
 
 ```
 
@@ -1134,75 +1017,50 @@ t.test.onetail(dat=df2,group = "Treatment", value = "Mass")
 </div>
 
 
-```{r q4a-check}
-check_q4a <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.onetail","Use t.test.onetail() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all(V$p_value <= 0.02), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Very nice!"))
-}
-check_q4a(USER_CODE)
-```
-
-
-
-## Exercise 4b
-
-What if we wanted to *relax* the assumption of equal variances? That is, what if our null hypothesis were that each treatment group has the same mean, but they could differ in variance? Modify the function ("t.test.algorithm()") to do this! To enable automated grading, please name your new function "t.test.vardif()". To convince yourself that your new function works, try running the following code:
-
-```{r answer4b, echo=FALSE}
+```{r q4a-solution, echo=FALSE}
 
 ###############
-# A possible answer to question 4b
+# Question 4a
 
-t.test.vardif <- function(dat = df.vardif2, group = "Treatment", value = "Mass" ){
+z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
   
   #############
   # Compute the sample statistic
   #############
   
-  indexA <- which(dat[,group]=="A")     # rows representing treatment A
-  indexB <- which(dat[,group]=="B")     # rows representing treatment B
-  observed_dif <- mean(dat[indexA,value]) - mean(dat[indexB,value])
+  observed_mean <- mean(sample)
   
-  sample.size <- length(indexA)
-  
-  varA <- sd(dat[indexA,value])    # estimate variance of each group separately
-  varB <- sd(dat[indexB,value])
-  
-  #############
-  # Simulate the STATISTICAL POPULATION under the null hypothesis
-  #############
-  
-  lots <- 1000000  # large number approximating infinity 
-  
-  popMean_null <- mean(dat[,value])           # assume groups A and B come from a population with common mean 
-  popData_nullA <- rnorm(n=lots,mean=popMean_null,sd=varA)    # the statistical "population" of interest (under null model w no treatment effect but allowing variances to differ)
-  popData_nullB <- rnorm(n=lots,mean=popMean_null,sd=varB)    # the statistical "population" of interest (under null model w no treatment effect but allowing variances to differ)
+  sample.size <- length(observed_mean)   # compute sample size
+
   #################
-  # Repeat sampling process (sampling from population) using a FOR loop
+  # Generate SAMPLING DISTRIBUTION
   #################
   
-  reps <- 1000                 # set the number of replicates
-  null_difs <- numeric(reps)       # initialize a storage structure to hold one anomaly (sampling error) per replicate
+  reps <- 1000                 # set the number of replicate samples
+  null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
   
   for(i in 1:reps){            # for each replicate... 
-    sampleA <- sample(popData_nullA,size=sample.size)      # draw a sample assuming no treatment effect       
-    sampleB <- sample(popData_nullB,size=sample.size)      # draw a sample assuming no treatment effect (again!)
-    null_difs[i] <- mean(sampleB)-mean(sampleA)           # compute and store the sampling error produced under the null hypothesis
+    nullsamp <- rnorm(10,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
+    null_dist[i] <- mean(nullsamp)           # compute and store the sample produced under the null hypothesis
   }
   
-  ordered_difs <- sort(abs(null_difs))       # sort the vector of sampling errors 
-  higher_anomaly <- length(which(ordered_difs>=abs(observed_dif)))       # how many of these sampling errors equal or exceed the sample statistic?
-  p_value <- higher_anomaly/reps
+  if(onetail==T){
+    more.extreme <- length(which(null_dist<=observed_mean))       # how many of these samples are more extreme than the sample statistic?
+    p_value <- more.extreme/reps
+  }else{
+    obs_dev <- abs(observed_mean-pop.mean)
+    low <- pop.mean-obs_dev       # limit to extremeness in low body mass
+    high <- pop.mean+obs_dev       # limit to extremeness in high body mass
+    more.extreme <- length(which((null_dist<=low)|(null_dist>=high)))
+    p_value <- more.extreme/reps
+  }
+ 
   
   to_return <- list()   # initialize object to return
   
-  to_return$null_difs <- null_difs
+  to_return$null_dist <- null_dist
   to_return$p_value <- p_value
-  to_return$observed_dif <- observed_dif
+  to_return$observed_mean <- observed_mean
   
   return(to_return)
 
@@ -1212,154 +1070,120 @@ t.test.vardif <- function(dat = df.vardif2, group = "Treatment", value = "Mass" 
 ```
 
 
-```
+Test your function using some alternative sample data values. For example:
 
-ttest_vardif <- t.test.vardif(dat=df.vardif)
+```{r test4a, eval=FALSE}
 
-```
+population.mean = 4.5
+population.sd = 0.9
+my.sample = c(5.14,3.27,4.56,3.77,3.34,4.32,3.84,3.19,5.24,4.09)
+z.test.q4a(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=F )
 
-where "df.vardif" is the following dataframe (where variance differs dramatically between the two groups):
-
-```{r test4b1}
-
-###########
-# Test data for unequal variances (prior to reshaping)...
-
-df.vardif <- data.frame(
-  TreatmentA = c(135, 128, 139, 122, 126, 121, 128, 135, 134, 129),
-  TreatmentB = c(215, 69, 143, 153, 218, 186, 125, 98, 271, 340)
-)
-
-summary(df.vardif)    # summarize!
+   # also try using the code from lecture to compare against a "real" z-test!
 
 ```
 
-Now we can test our new t-test function!
 
-```{r test4b2, eval=FALSE, echo=FALSE}
-
-df.vardif2 <- reshapefunc(df.vardif,"Mass")
-
-ttest_vardif <- t.test.vardif(dat=df.vardif2, group = "Treatment", value = "Mass")    # test new function
-ttest_vardif$p_value
-
-ttest_varequal <- t.test.algorithm(dat=df.vardif2)    # versus original function
-ttest_varequal$p_value
-
-t.test(df.vardif$TreatmentA,df.vardif$TreatmentB, var.equal = FALSE, alternative="two.sided")   # versus built-in function
-
-
+```{r q4a-check}
+population.mean = 4.5
+population.sd = 0.9
+my.sample = c(5.14,3.27,4.56,3.77,3.34,4.32,3.84,3.19,5.24,4.09)
+grade_this({
+  fail_if(!names(.result)%in%c("null_dist","p_value","observed_mean"),"check the list names for your returned object")
+  fail_if(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T )$observed_mean!=mean(my.sample),"sample mean is incorrect") 
+  pass_if(near(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value,
+               .solution(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value, 0.05))
+  fail()
+})
 
 ```
 
-```{r test4b3, echo=FALSE, context='data'}
 
-df <- data.frame(
-      TreatmentA = c(1135, 1128, 1139, 1122, 1126),
-      TreatmentB = c(1915, 69, 3143, 53, 1818)
-    )
-df2<-reshapefunc(df,varname="Mass")
-    
-answer4b <- t.test.vardif(dat=df2,group = "Treatment", value = "Mass")
 
+## Exercise 4b 
+
+Now, what if we had access to a large set of samples under the null hypothesis AND that we would like to relax the assumption that the data follow a normal distribution under the null hypothesis?
+
+In this exercise, you are asked to modify the brute-force z-test function so that you generate your sampling distribution by simply sampling from the known data set under the null hypothesis. To do this you can use the 'sample' function in R. For this purpose you should sample with replacement. Here is an example:
+
+```{r eval=FALSE}
+null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)
+sample(null.data,10,replace=T)    # use the sample function to sample from a large vector with replacement
 
 ```
+
+
+For this problem, let's go back to the original null hypothesis: that salmon raised on the new diet will be smaller (lower mass) than those raised on conventional diet after one year. 
 
 Include your function in your submitted r script!
+
+This function should be named 'z.test.q4b' and should be specified as follows:
+
++ **input**:    
+    + sample = a vector of observed sample values
+    + null.data = a vector of observed sample values under the null hypothesis
+
++ **suggested algorithm**:   
+    + Instead of sampling from a normal distribution to simulate samples under the null hypothesis, use the 'sample' function to sample directly from the null data distribution.    
+
++ **return**:    
+    + to_return = a list with three elements: "null_dist", representing the sampling distribution for sample means under the null hypothesis, "p_value", representing the p-value, and "observed_mean", representing the mean of the observed sample.              
 
 You can use this "sandbox" (below) to develop and test your function!
 
 ```{r q4b, exercise=TRUE}
-df <- data.frame(
-      TreatmentA = c(1135, 1128, 1139, 1122, 1126),
-      TreatmentB = c(1915, 69, 3143, 53, 1818)
-    )
-df2<-reshapefunc(df,varname="Mass")
-    
-t.test.vardif <- function(dat, group, value){
+null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)
+my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+# ztest <- z.test.algorithm(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd )  # use function from class..
+
+z.test.q4b <- function(sample, null.data){
     # [add code here!]
 }
-t.test.vardif(dat=df2,group = "Treatment", value = "Mass")
+#z.test.q4b(sample = my.sample, null.data )   # test your function
 
 ```
 
-<div id="q4b-hint">
+<div id="q4a-hint">
 **Hint:** No hints ... yet!
 </div>
 
 
-```{r q4b-check}
-check_q4b <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.vardif","Use t.test.vardif() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all((V$p_value >=  (answer4b$p_value-0.2))&(V$p_value <=  (answer4b$p_value+0.2))), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Bravo!"))
-}
-check_q4b(USER_CODE)
-```
-
-
-
-## Exercise 4c 
-
-Modify the above function ("t.test.vardif()") to allow for unequal sample sizes AND unequal variances. That is, our null hypothesis is the same (equal treatment means, potentially unequal variances), but now we enable each treatment group to have different sample sizes! To enable automated grading, please name your new function "t.test.ndif()". To convince yourself that your new function works, try running the following code:
-
-```{r answer4c, echo=FALSE}
+```{r 4b-solution, echo=FALSE}
 
 ###############
-# A possible answer to question 4c
+# Question 4b
 
-t.test.ndif <- function(dat = df.ndif2, group = "Treatment", value = "Mass" ){
+z.test.q4b <- function(sample=my.sample, null.data){
   
   #############
   # Compute the sample statistic
   #############
   
-  levs <- levels(dat[,group])
+  observed_mean <- mean(sample)
   
-  indexA <- which(dat[,group]==levs[1])     # rows representing treatment A
-  indexB <- which(dat[,group]==levs[2])     # rows representing treatment B
-  observed_dif <- mean(dat[indexA,value],na.rm=TRUE) - mean(dat[indexB,value],na.rm=T)
-  
-  sample.size <- tapply(dat[,value],dat[,group],function(t) length(which(!is.na(t))))
+  sample.size <- length(observed_mean)   # compute sample size
 
-  
-  varA <- sd(dat[indexA,value],na.rm = T)    # estimate variance of each group separately
-  varB <- sd(dat[indexB,value],na.rm=T)
-  
-  #############
-  # Simulate the STATISTICAL POPULATION under the null hypothesis
-  #############
-  
-  lots <- 1000000  # large number approximating infinity 
-  
-  popMean_null <- mean(dat[,value],na.rm=TRUE)           # assume groups A and B come from a population with common mean 
-  popData_nullA <- rnorm(n=lots,mean=popMean_null,sd=varA)    # the statistical "population" of interest (under null model w no treatment effect but allowing variances to differ)
-  popData_nullB <- rnorm(n=lots,mean=popMean_null,sd=varB)    # the statistical "population" of interest (under null model w no treatment effect but allowing variances to differ)
   #################
-  # Repeat sampling process (sampling from population) using a FOR loop
+  # Generate SAMPLING DISTRIBUTION
   #################
   
-  reps <- 1000                 # set the number of replicates
-  null_difs <- numeric(reps)       # initialize a storage structure to hold one anomaly (sampling error) per replicate
+  reps <- 1000                 # set the number of replicate samples
+  null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
   
   for(i in 1:reps){            # for each replicate... 
-    sampleA <- sample(popData_nullA,size=sample.size[1])      # draw a sample assuming no treatment effect       
-    sampleB <- sample(popData_nullB,size=sample.size[2])      # draw a sample assuming no treatment effect (again!)
-    null_difs[i] <- mean(sampleB)-mean(sampleA)           # compute and store the sampling error produced under the null hypothesis
+    nullsamp <- sample(null.data,sample.size,replace=T)      # draw a sample assuming no treatment effect       
+    null_dist[i] <- mean(nullsamp)           # compute and store the sample produced under the null hypothesis
   }
   
-  ordered_difs <- sort(abs(null_difs))       # sort the vector of sampling errors 
-  higher_anomaly <- length(which(ordered_difs>=abs(observed_dif)))       # how many of these sampling errors equal or exceed the sample statistic?
-  p_value <- higher_anomaly/reps
+  
+  more.extreme <- length(which(null_dist<=observed_mean))       # how many of these samples are more extreme than the sample statistic?
+  p_value <- more.extreme/reps
   
   to_return <- list()   # initialize object to return
   
-  to_return$null_difs <- null_difs
+  to_return$null_dist <- null_dist
   to_return$p_value <- p_value
-  to_return$observed_dif <- observed_dif
+  to_return$observed_mean <- observed_mean
   
   return(to_return)
 
@@ -1368,85 +1192,30 @@ t.test.ndif <- function(dat = df.ndif2, group = "Treatment", value = "Mass" ){
 
 ```
 
-```
 
-ttest_ndif <- t.test.ndif(dat=df.ndif)
+Test your function using some alternative sample data vectors. For example:
 
-```
+```{r test4b, eval=FALSE}
 
-where "df.ndif" is the following dataframe:
-
-```{r test4c1}
-
-###########
-# Test data for unequal sample sizes (before reshaping)...
-
-df.ndif <- data.frame(
-  TreatmentA = c(135, 128, 139, 122, 126, 121, 128, 135, 134, 129, 134, 125, 130, 132, 125),
-  TreatmentB = c(98, 271, 340, rep(NA,times=12))
-)
-
-summary(df.ndif)    # summarize!
+null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)
+my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+z.test.q4b(sample = my.sample, null.data )
 
 ```
 
-```{r test4c2, eval=FALSE, echo=FALSE}
 
-df.ndif2 <- reshapefunc(df.ndif,"Mass")
-
-ttest_ndif <- t.test.ndif(dat=df.ndif2)    # test new function
-ttest_ndif$p_value
-
-```
-
-```{r test4c3, echo=FALSE, context='data'}
-
-df <- data.frame(
-      TreatmentA = c(135, 128, 139, 122, 126,rep(NA,3)),
-      TreatmentB = c(315, 69, 143, 53, 818,4,55,190)
-    )
-df2<-reshapefunc(df,varname="Mass")
-answer4c <- t.test.ndif(dat=df2,group = "Treatment", value = "Mass")
+```{r q4b-check}
+null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28)
+my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+grade_this({
+  fail_if(!names(.result)%in%c("null_dist","p_value","observed_mean"),"check the list names for your returned object")
+  fail_if(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T )$observed_mean!=mean(my.sample),"sample mean is incorrect") 
+  pass_if(near(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value,
+               .solution(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value, 0.05))
+  fail()
+})
 
 ```
-
-Note: data frames require that all columns have the same number of elements. If one vector (column) is shorter than the others, R *recycles* the shorter vector, repeating the vector until it is the same length as the longer vector. To avoid this unwanted behavior, we can use the "NA" designation to tell R that no data exist. However, you will have to modify your function to ensure that it can handle missing values! 
-
-Include your function in your submitted r script!
-
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q4c, exercise=TRUE}
-df <- data.frame(
-  TreatmentA = c(135, 128, 139, 122, 126,rep(NA,3)),
-  TreatmentB = c(315, 69, 143, 53, 818,4,55,190)
-)
-df2<-reshapefunc(df,varname="Mass")
-    
-t.test.ndif <- function(dat, group, value){
-    # [add code here!]
-}
-t.test.ndif(dat=df2,group = "Treatment", value = "Mass")
-
-```
-
-<div id="q4c-hint">
-**Hint:** No hints ... yet!
-</div>
-
-
-```{r q4c-check}
-check_q4c <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "t.test.ndif","Use t.test.ndif() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all((V$p_value >=  (answer4c$p_value-0.15))&(V$p_value <=  (answer4c$p_value+0.15))), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Bravo!"))
-}
-check_q4c(USER_CODE)
-```
-
 
 
 ## Exercise 5: Bootstrapping algorithm
@@ -1503,9 +1272,41 @@ Review the bootstrapping code from the ["Why focus on algorithms" lecture](https
 
 ## Exercise 5a
 
-Generate a new R function, called "RegressionCoefs()" that takes a data frame as the first input and the name of the response variable as the second input, and returns the (univariate) regression coefficients ($\beta$) produced by regressing the response variable on each predictor variable (returning a vector of regression coefficients). You can use the "Rsquared()" function (from the lecture) as a reference!
+Generate a new R function, called "RegressionCoefs()" that takes a data frame as the first input parameter and the name of the response variable as the second input parameter, and returns the (univariate) regression coefficients ($\beta$) produced by regressing the response variable on each predictor variable (returning a vector of regression coefficients). You can use the "Rsquared()" function (from the lecture) as a reference!
 
-```{r answer5a, echo=FALSE}
+More specifically, this function should be specified as follows:
+
++ **input**:         
+    + df = a data frame containing with one response variable and one or more predictor variables. All columns that are not the response variable are assumed to be predictor variables.
+    + responsevar = the name of the column that represents the response variable.
+
++ **suggested algorithm**:   
+    + Follow the example from lecture. Store the regression coefficients instead of the R-squared values.  
+
++ **return**:    
+    + coefs = a vector of the regression coefficients for all predictor variables
+    
+    
+Include your function in your submitted r script!
+
+You can use this "sandbox" (below) to develop and test your function! Remember to comment out everything but the function prior to submitting.
+
+```{r q5a, exercise=TRUE}
+df <- mtcars[,c(1,3,4,6)]
+   
+RegressionCoefs <- function(df,responsevar){
+    # [add code here!]
+}
+# RegressionCoefs(df,"mpg")
+
+```
+
+<div id="q5a-hint">
+**Hint:** No hints ... yet!
+</div>
+
+
+```{r 5a-solution, echo=FALSE, context='data'}
 
 #############
 ## exercise 5a
@@ -1528,51 +1329,22 @@ RegressionCoefs <- function(df=trees,responsevar="Volume"){    # univariate mode
 
 ```
 
+You can test your function using the following code:
+
 ```{r test5a, echo=FALSE, eval=FALSE}
 
-RegressionCoefs(df=trees,responsevar="Volume")
+RegressionCoefs(df=trees,responsevar="Volume")   # should return two regression coefficients
 
 ```
-
-```{r test5a2, echo=FALSE, context='data'}
-
-df <- mtcars[,c(1,3,4,6)]
-answer5a <- coefficients(lm(df$mpg~df$hp))[2]
-
-```
-
-
-Include your function in your submitted r script!
-
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q5a, exercise=TRUE}
-df <- mtcars[,c(1,3,4,6)]
-   
-RegressionCoefs <- function(df,responsevar){
-    # [add code here!]
-}
-RegressionCoefs(df,"mpg")
-
-```
-
-<div id="q5a-hint">
-**Hint:** No hints ... yet!
-</div>
 
 
 ```{r q5a-check}
-check_q5a <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "RegressionCoefs","Use RegressionCoefs() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(any((V ==  answer5a)), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Bravo!"))
-}
-check_q5a(USER_CODE)
-```
+grade_this({
+  pass_if(all(.result(df=trees,responsevar="Volume")==.solution(df=trees,responsevar="Volume")))
+  fail()
+})
 
+```
 
 
 ## **Exercise 5b:**      
@@ -1581,26 +1353,61 @@ Generate a new R function, called "BootCoefs()" that meets the following specifi
 
 + **inputs**:    
     + "df" = a data frame that includes the response variable and all possible predictor variables     
-    + "statfunc" = a function for generating summary statistics (regression coefficients) from a data frame (which you already developed in part 1 of this challenge problem)  
-    + "n_samples" = the number of bootstrapped samples to generate    
-    + "n_stats" = the number of predictor variables     
-    + "responseVar" = the name of the response variable    [NOTE: this is optional since it was added after the lab was first assigned!]    
+    + "statfunc" = a function for generating summary statistics (in this case, regression coefficients) from a data frame (which you already developed in part 1 of this challenge problem)    
+    + "n_samples" = the number of bootstrapped samples to generate     
+    + "responseVar" = the name of the response variable    
 
 + **algorithm**:
-    + with the data frame, first use the "boot_sample()" function provided in the lecture to generate summary statistics for multiple bootstrap samples.   
-    + Then, generate confidence intervals for each variable as the 2.5%, 50% and 97.5% quantile of the summary statistic for each predictor variables.
+    + with the data frame, use the "boot_sample()" function provided in the lecture to generate summary statistics for multiple bootstrap samples. You do not need to modify the 'boot_sample()' function for this problem   
+    + Then, generate confidence intervals for each variable as the 2.5%, 50% and 97.5% quantile of the summary statistic for each predictor variable.
 
-+ **return**: a matrix (rows=predictor vars, cols=2.5%, 50%, and 97.5% quantiles). Make sure the rows and columns are labeled properly!
++ **return**: a matrix (rows=predictor vars, cols=2.5%, 50%, and 97.5% quantiles). Try to give the rows and columns proper labels!
+
+Include your function in your submitted r script!
+
+You can use this "sandbox" (below) to develop and test your function!
+
+```{r q5b, exercise=TRUE}
+df <- mtcars[,c(1,3,4,6)]
+responsevar="mpg"
+
+ # note: this is copied from the lecture code...
+boot_sample <- function(df,statfunc,n_samples,responsevar="Volume"){
+  indices <- c(1:nrow(df))
+  output <- matrix(NA,nrow=n_samples,ncol=ncol(df)-1)        # storage object- to store a single bootstrapped sample from the original data
+  
+  for(i in 1:n_samples){              # for each bootstrap replicate:
+    boot_rows <- sample(indices,size=nrow(df),replace=T)         # randomly sample observations with replacement
+    newdf <- df[boot_rows,]                       # dataframe of bootstrapped observations
+    output[i,] <- statfunc(newdf,responsevar)                 # generate statistics from the bootstrapped sample  (e.g., compute Rsquared after regressing y on all possible x variables)
+  }
+  return(output)
+}
+
+BootCoefs <- function(df,statfunc,n_samples,responsevar){
+    # [add code here!]
+}
+BootCoefs(df=df,statfunc=RegressionCoefs,
+              n_samples=1000,responsevar=responsevar)
+
+```
+
+<div id="q5b-hint">
+**Hint:** No hints ... yet!
+</div>
 
 
-```{r answer5b, echo=FALSE}
+
+```{r 5b-solution, echo=FALSE}
 
 #############
 ## exercise 5b
 
-boot_sample <- function(df=trees,statfunc=Rsquared,n_samples=1000,n_stats=2,responsevar="Volume"){
+
+ # note: this is copied from the lecture code...
+boot_sample <- function(df,statfunc,n_samples,responsevar="Volume"){
   indices <- c(1:nrow(df))
-  output <- matrix(NA,nrow=n_samples,ncol=n_stats)        # storage object- to store a single bootstrapped sample from the original data
+  output <- matrix(NA,nrow=n_samples,ncol=ncol(df)-1)        # storage object- to store a single bootstrapped sample from the original data
   
   for(i in 1:n_samples){              # for each bootstrap replicate:
     boot_rows <- sample(indices,size=nrow(df),replace=T)         # randomly sample observations with replacement
@@ -1611,10 +1418,10 @@ boot_sample <- function(df=trees,statfunc=Rsquared,n_samples=1000,n_stats=2,resp
 }
 
 
-BootCoefs <- function(df=trees,statfunc=RegressionCoefs,n_samples=1000,n_stats=2,responsevar="Volume"){    # univariate models only- interaction and multiple regression not implemented here
-  boot <- boot_sample(df=df,statfunc=statfunc,n_samples=n_samples,n_stats=ncol(df)-1,responsevar=responsevar)   # generate test statistics (Rsquared vals) for 1000 bootstrap samples
+BootCoefs <- function(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar="Volume"){    # univariate models only- interaction and multiple regression not implemented here
+  boot <- boot_sample(df=df,statfunc=statfunc,n_samples=n_samples,responsevar=responsevar)   # generate test statistics (Rsquared vals) for 1000 bootstrap samples
   confint <- apply(boot,2,function(t)  quantile(t,c(0.025,0.5,0.975)))       # summarize the quantiles to generate confidence intervals for each predictor variable
-  colnames(confint) <- paste("stat",c(1:n_stats),sep="")
+  colnames(confint) <- paste("stat",c(1:(ncol(df)-1)),sep="")
   return(t(confint))     
 }
 
@@ -1625,81 +1432,52 @@ You can test your function using the following code:
 
 ```{r test5b, eval=FALSE}
 
-BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,n_stats=2,responsevar="Volume")
-
-```
-
-```{r test5b2, echo=FALSE, context="data"}
+BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar="Volume")
 
 df <- mtcars[,c(1,3,4,6)]
 responsevar="mpg"
-answer5b <- BootCoefs(
-              df=df,
-              statfunc=RegressionCoefs,
-              n_samples=1000,
-              n_stats=3,
-              responsevar=responsevar
-            )
-
-#answer5b <- round(confint(lm(df$mpg~df$disp))[2,],2)[1]
+BootCoefs(df=df,
+          statfunc=RegressionCoefs,
+          n_samples=1000,
+          responsevar=responsevar
+)
 
 ```
-
-Include your function in your submitted r script!
-
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q5b, exercise=TRUE}
-df <- mtcars[,c(1,3,4,6)]
-responsevar="mpg"
-
-boot_sample <- function(df=trees,statfunc=Rsquared,n_samples=1000,n_stats=2,responsevar="Volume"){
-  indices <- c(1:nrow(df))
-  output <- matrix(NA,nrow=n_samples,ncol=n_stats)        # storage object- to store a single bootstrapped sample from the original data
-  
-  for(i in 1:n_samples){              # for each bootstrap replicate:
-    boot_rows <- sample(indices,size=nrow(df),replace=T)         # randomly sample observations with replacement
-    newdf <- df[boot_rows,]                       # dataframe of bootstrapped observations
-    output[i,] <- statfunc(newdf,responsevar)                 # generate statistics from the bootstrapped sample  (e.g., compute Rsquared after regressing y on all possible x variables)
-  }
-  return(output)
-}
-
-BootCoefs <- function(df,statfunc,n_samples,n_stats,responsevar){
-    # [add code here!]
-}
-BootCoefs(df=df,statfunc=RegressionCoefs,
-              n_samples=1000,n_stats=3,responsevar=responsevar)
-
-```
-
-<div id="q5b-hint">
-**Hint:** No hints ... yet!
-</div>
 
 
 ```{r q5b-check}
-check_q5b <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "BootCoefs","Use BootCoefs() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(all((V[1,3] >=  (answer5b[1,3]-0.2))&(V[1,3] <=  (answer5b[1,3]+0.2))), 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Delightful!"))
-}
-check_q5b(USER_CODE)
+df <- 
+responsevar=
+grade_this({
+  fail_if(dim(.result(df=trees,
+          statfunc=RegressionCoefs,
+          n_samples=1000,
+          responsevar="Volume"))!=c(2,3),
+          "check the dimension of the matrix that is returned")
+  pass_if(near(.result(df=mtcars[,c(1,3,4,6)],
+          statfunc=RegressionCoefs,
+          n_samples=1000,
+          responsevar="mpg"),
+          .solution(df=mtcars[,c(1,3,4,6)],
+          statfunc=RegressionCoefs,
+          n_samples=1000,
+          responsevar="mpg"),0.2)
+          )
+  fail()
+})
+
 ```
 
 
 ## **Exercise 5c:**      
 
-To test your new function(s), generate bootstrap confidence intervals around the regression parameters for your tree biomass regression. Compare these bootstrapped confidence intervals with the standard confidence intervals given by R in the "lm()" function. Are there any important differences? Explain your answer in your Word document. As always, please use your Word document submission to raise any points of confusion or ask me questions!  
+To test your new function(s), generate bootstrapped confidence intervals around the regression parameters for your tree biomass regression. Compare these bootstrapped confidence intervals with the standard confidence intervals given by R in the "lm()" function. Are there any important differences? Explain your answer in your Word document. As always, please use your Word document submission to raise any points of confusion or ask me questions!  
 
 You can use this "sandbox" (below) to develop and test your function!
 
 ```{r q5c, exercise=TRUE}
 
-BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,n_stats=2,responsevar="Volume")
+BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar="Volume")
 
 confint.lm(lm(Volume~Girth,trees))    # compare with lm() 
 
@@ -1714,7 +1492,7 @@ confint.lm(lm(Volume~Girth,trees))    # compare with lm()
 BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,n_stats=2,responsevar="Volume")
 
 confint.lm(lm(Volume~Girth,trees))    # compare with lm() 
-
+confint.lm(lm(Volume~Height,trees))    # compare with lm() 
 
 
 ###########
@@ -1727,33 +1505,7 @@ confint.lm(lm(Volume~Girth,trees))    # compare with lm()
 
 
 
-```{r eval=FALSE, echo=FALSE}
-#    output:
-#   html_document:
-#     theme: cerulean
-#     toc: yes
-#     toc_float: yes
-#     
-#     
-# {r, echo=FALSE}
-# 
-# shinyApp(
-# 
-#   ui = fluidPage(
-#     textInput("testq", "", value = "", width = NULL,
-#            placeholder = "Your code here"),
-#      verbatimTextOutput("value")
-#   ),
-# 
-#   server = function(input, output) {
-#     
-#     output$phonePlot = renderPlot({
-#       barplot(WorldPhones[,input$region]*1000,
-#               ylab = "Number of Telephones", xlab = "Year")
-#     })
-#   },
-# 
-#   options = list(height = 500)
-# )
-# exercise.setup="setdata1"
-```
+
+
+
+

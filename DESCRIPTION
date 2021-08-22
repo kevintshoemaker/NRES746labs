@@ -10,10 +10,7 @@ License: GNU
 Encoding: UTF-8
 LazyData: true
 Imports:
-    redpen,
-    checkr,
     learnr,
     dplyr
 Remotes:
-    github::lionel-/redpen,
-    github::dtkaplan/checkr
+    github::rstudio/gradethis
