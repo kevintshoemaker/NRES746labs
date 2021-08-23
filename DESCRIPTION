@@ -1,16 +1,16 @@
 Package: NRES746labs
-Type: Package
 Title: NRES 746 interactive labs
 Version: 0.1.0
-Author: Kevin Shoemaker
-Maintainer: Kevin Shoemaker <kshoemaker@cabnr.unr.edu>
-Description: Interactive labs for NRES 746:
-    Advanced Analysis Methods for NRES
-License: GNU
-Encoding: UTF-8
-LazyData: true
+Authors@R: 
+    person(given = "Kevin",
+           family = "Shoemaker",
+           role = c("aut", "cre"),
+           email = "kevinshoemaker@unr.edu")
+Description: This package contains interactive labs for NRES 746:Advanced Analysis Methods for NRES, which are generated as the 'learnr' tutorials.
+License: MIT + file LICENSE
 Imports:
     learnr,
-    dplyr
+    dplyr,
+    gradethis   
 Remotes:
     github::rstudio/gradethis
