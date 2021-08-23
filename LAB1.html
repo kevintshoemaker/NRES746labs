@@ -166,6 +166,34 @@ if (window.hljs) {
 <h2>Complete the following steps:</h2>
 <p>Review the meaning of the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">Central Limit Theorem</a>, which implies that the mean of a sufficiently large number of independent random variables (small samples from a much larger <em>population</em> of interest) will have a <em>sampling distribution</em> that is approximately normally distributed, regardless of whether the underlying data distribution is normally distributed.</p>
 <p>Type (or paste) the following code into your R script window (or RStudio script window):</p>
+<pre class="r"><code>####################
+# CENTRAL LIMIT THEOREM demonstration
+####################
+
+infinity &lt;- 100000       # number approximating infinity      
+
+N_SAMPLES &lt;- 1000       # number of independent random samples to draw from the specified distribution
+SAMPLESIZE &lt;- 10          # sample size of each independent random sample
+
+
+########
+#  Define the random number distribution. Here, we will use a &quot;uniform&quot; random number generator with a min of 10 and max of 20.   
+TRUEMIN &lt;- 10            
+TRUEMAX &lt;- 20      
+data_population &lt;- runif(infinity,TRUEMIN,TRUEMAX)      # here we define the full set of possible random numbers to draw random samples from (the population of potential data). We assume this is uniformly distributed
+
+#######
+# Draw multiple samples from the pool (population) of possible data.  
+
+samplemean &lt;- numeric(N_SAMPLES)     # set up storage vector
+for(i in 1:N_SAMPLES){      # for each replicate (independent random sample)
+  sample &lt;- sample(data_population,SAMPLESIZE)   # draw an independent random sample from the population of interest
+  samplemean[i] &lt;- mean(sample)    # compute and record the sample mean
+}
+
+hist(data_population,freq=F,ylim=c(0,1),main=&quot;&quot;,xlab=&quot;Value&quot;)      # plot out the distribution of sample means
+hist(samplemean,freq=F,add=T,col=&quot;red&quot;)    # overlay the distribution of the underlying data from which we are drawing samples.
+legend(&quot;topleft&quot;,fill=c(&quot;white&quot;,&quot;red&quot;),legend=c(&quot;data population&quot;,&quot;sample means&quot;),bty=&quot;n&quot;)     # add a legend to the plot</code></pre>
 <p><img src="LAB1_files/figure-html/unnamed-chunk-3-1.png" width="624" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Experiment with executing this code in the following four ways:
@@ -194,8 +222,18 @@ source(&quot;CentralLimitTheorem.R&quot;)     # load the R script!
 <ol start="4" style="list-style-type: decimal">
 <li>Now modify your R script to see how closely the <em>distribution of sample means</em> follows a normal distribution. Use a “quantile-quantile” (q-q) plot to visualize how closely the quantiles of the sampling distribution resemble the quantiles of a normal distribution. Use the “qqnorm()” function. To learn more about this function, type:</li>
 </ol>
+<pre class="r"><code>?qqnorm   # learn more about the &quot;qqnorm()&quot; function</code></pre>
 <p>Plot the q-q plot next to the histograms. The plot on the left should be the comparison of histograms (for population distribution and distribution of sample means) shown in the original script (above). The plot on the right should be the q-q plot. To produce side-by-side plots, you will need to add this line of code to the appropriate place in your script:</p>
+<pre class="r"><code>########
+# Set graphical parameters for side by side plotting
+
+par(mfrow=c(1,2)) # sets up two side by side plots as one row and two columns
+
+## or alternatively...
+
+layout(matrix(1:2,nrow=1))</code></pre>
 <p>In addition, run a <em>Shapiro-Wilk normality test</em>, which tests the null hypothesis that a set of numbers (in this case the vector of sample means) indeed comes from a normal distribution (so what does a low p-value mean??). Use the “shapiro.test()” function:</p>
+<pre class="r"><code>?shapiro.test</code></pre>
 <p>Again, here is an interactive window you can use to play around with the CLT code (or just use another instance of RStudio).</p>
 <div class="tutorial-exercise" data-label="cltdemo2" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># [Add code here] </code></pre>
@@ -240,6 +278,16 @@ CoefVar &lt;- function(vector){
 #CoefVar(c(2,3,4,3,2,3,4))   # test your function</code></pre>
 </div>
 <p>You can use the following code to test your function using the built-in ‘trees’ dataset.</p>
+<pre class="r"><code>############
+# Explore the &quot;trees&quot; dataset
+
+?trees
+
+summary(trees)    # learn more about the data
+
+trees$Height    # extract the &quot;Height&quot; column from the trees dataset.
+
+CoefVar(trees$Height)    # run your new function!</code></pre>
 </div>
 <div id="section-exercise-1b-for-r-script" class="section level2">
 <h2>* <strong>Exercise 1b</strong> (for R script)</h2>
@@ -287,6 +335,10 @@ DrawLine &lt;- function(x,y){
 }</code></pre>
 </div>
 <p>As a test, apply this function to the ‘Height’ (x axis) and ‘Volume’ (yaxis) vectors in the ‘trees’ dataset, and then to the ‘waiting’ (x axis) and ‘eruptions’ (y axis) vectors in the ‘faithful’ dataset.</p>
+<pre class="r"><code>?faithful
+summary(faithful)
+
+DrawLine(faithful$waiting,faithful$eruptions)    # test your function using the old faithful eruptions data</code></pre>
 </div>
 <div id="section-exercise-1c-for-r-script" class="section level2">
 <h2>* <strong>Exercise 1c</strong> (for R script)</h2>
@@ -343,6 +395,15 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
 }</code></pre>
 </div>
 <p>Try testing your function using the trees and faithful datasets!</p>
+<pre class="r"><code>xvec &lt;- c(1:10)
+yvec &lt;- rnorm(length(xvec),c(2:6,7:3),2)
+answer1c &lt;- DrawLine2(xvec,yvec,smooth=T,span=0.5)    # run your new function!
+
+DrawLine2(x=trees$Height,y=trees$Volume,smooth=F,span=NA)
+
+DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.5)    # test using the old faithful eruptions data
+
+DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.1)</code></pre>
 </div>
 <div id="section-exercise-1d-for-r-script" class="section level2">
 <h2><strong>Exercise 1d</strong> (for R script)</h2>
@@ -377,6 +438,7 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
 <div id="section-q1d-hint">
 <p><strong>Hint:</strong> Use the CLT Demo code from earlier in Lab 1!</p>
 </div>
+<pre class="r"><code>answer1d &lt;- CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)    # run your new function!</code></pre>
 </div>
 <div id="section-exercise-1e-for-word-doc" class="section level2">
 <h2><strong>Exercise 1e</strong> (for Word doc)</h2>
@@ -390,6 +452,17 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
 <div id="section-exercise-1f-optional-not-for-submission" class="section level2">
 <h2><strong>Exercise 1f (optional, not for submission)</strong></h2>
 <p>Optionally, Modify your CLTdemo() function (e.g., call it “CLTdemo2()”) to try a different underlying data distribution (other than uniform). If you really want to test the limits of the CLT, try creating your own highly non-standard distribution and seeing if the result you obtained in exercise 1e still holds. For example:</p>
+<pre class="r"><code>rlocodist &lt;- function(n){
+  vals &lt;- c(1,7,10,35)         # possible data values
+  probs &lt;- c(1,2,5,0.5)     # relative probability of each data values
+  probs &lt;- probs/sum(probs)    
+  vals[apply(rmultinom(n,1,probs),2,function(t) which(t==1))]     # sample from this made-up distribution
+}
+
+lots=10000
+datafountain &lt;- rlocodist(lots)
+
+hist(datafountain, main=&quot;non-standard made-up distribution&quot;)</code></pre>
 <p><img src="LAB1_files/figure-html/unnamed-chunk-7-1.png" width="624" /></p>
 <p>You can use this “sandbox” (below) to develop and test your function! Remember, you do not need to submit this function as part of your submitted r script.</p>
 <div class="tutorial-exercise" data-label="q1f" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -406,7 +479,14 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
 <div id="section-aside-default-values-in-functions" class="section level2">
 <h2>Aside: default values in functions</h2>
 <p><strong>NOTE:</strong> to set default values, just use the equals sign when specifying your function. For example, say I wanted to write a function that adds numbers in a vector. It might look something like this:</p>
+<pre class="r"><code>newsum &lt;- function(x=c(1,2,4)){
+  sm &lt;- sum(x)
+  return(sm)
+}
+
+newsum(x=c(5:10))   # specify x manually</code></pre>
 <pre><code>## [1] 45</code></pre>
+<pre class="r"><code>newsum()    # use default value!</code></pre>
 <pre><code>## [1] 7</code></pre>
 <p>Try setting some alternative default values and re-running the function with and without arguments until you are sure you understand how default values work!</p>
 </div>
@@ -414,12 +494,27 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
 <h2>Multiple Regression 1: Air Quality Data</h2>
 <p>The following is a refresher on performing multiple regression analyses in R:</p>
 <ol style="list-style-type: decimal">
-<li><p>Type the following for a list of sample datasets that come with the core R package (some of these you have already encountered).</p></li>
+<li>Type the following for a list of sample datasets that come with the core R package (some of these you have already encountered).</li>
+</ol>
+<pre class="r"><code>library(help = &quot;datasets&quot;)    # list of sample datasets that come with R
+
+?airquality</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Examine the ‘airquality’ dataset (use the ‘head’ and ‘summary’ functions). Note that there are <em>missing values</em> where ozone concentration data and solar radiation data were not collected.</p></li>
 <li><p>We could ignore the missing values and just go ahead with our regression analysis, since the default response of the “lm()” (‘linear model’) function is to omit cases with missing values in any of the specified parameters. However, to avoid problems later, we will omit them explicitly by constructing a new, ‘cleaned’ dataset as follows:</p></li>
+</ol>
+<pre class="r"><code>air.cleaned &lt;- na.omit(airquality)    # remove rows with missing data</code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li><p>Conduct a multiple linear regression of ozone concentration as a function of solar radiation, wind and temperature. Use the ‘lm()’ function to conduct an ordinary least squares (OLS) regression analysis.</p></li>
 <li><p>Explore the regression outputs using the ‘summary’ function, and explore regression diagnostics using, e.g. (depending on what you named the regression model object):</p></li>
 </ol>
+<pre class="r"><code>par(mfrow=c(3,2))
+plot(model1, which=c(1:4))   # diagnostic plots (NOTE: the plot function returns these plots by default when the input is a linear regression model)
+
+
+hist(residuals(model1), breaks=10)   # histogram of residuals
+plot(predict(model1) ~ air.cleaned$Ozone)     # plot predicted vs observed- should follow 1:1 line. Examine this for model biases.
+abline(0,1)</code></pre>
 <p><img src="LAB1_files/figure-html/unnamed-chunk-12-1.png" width="624" /></p>
 <p>NOTE: see <a href="https://data.library.virginia.edu/diagnostic-plots/">this website</a> for more information on the diagnostic plots produced by lm().</p>
 <p>If no one in your group knows why you are doing any of this or what it all means, ask the instructor! That’s why he’s hanging around the lab…</p>
@@ -431,12 +526,21 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
 <ol start="6" style="list-style-type: decimal">
 <li>Consider the possibility that there may be an important interaction effect between solar radiation and temperature on influencing ozone concentrations. Explore that with a simple scatter plot where symbol size is scaled to ozone concentration:</li>
 </ol>
-<p><img src="LAB1_files/figure-html/unnamed-chunk-13-1.png" width="624" /><img src="LAB1_files/figure-html/unnamed-chunk-13-2.png" width="624" /></p>
+<pre class="r"><code>symbols(air.cleaned$Temp, air.cleaned$Solar.R, circles=air.cleaned$Ozone/100, ylab=&quot;Solar Radiation&quot;, xlab=&quot;Temperature&quot;, main=&quot;Interaction Plot&quot;, inches=FALSE)</code></pre>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-13-1.png" width="624" /></p>
+<pre class="r"><code>       # alternatively...
+coplot(air.cleaned$Ozone~air.cleaned$Temp|air.cleaned$Solar.R,rows=1)  # the pipe operator can be read &quot;conditional on&quot;</code></pre>
+<p><img src="LAB1_files/figure-html/unnamed-chunk-13-2.png" width="624" /></p>
+<pre class="r"><code>       # alternatively, you can use ggplot- which you probably already know better than your instructor! </code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Now fit a second model that includes the interaction between solar radiation and temperature. Use the following formula to fit the interaction:</p></li>
+<li>Now fit a second model that includes the interaction between solar radiation and temperature. Use the following formula to fit the interaction:</li>
+</ol>
+<pre class="r"><code>formula2 &lt;- &quot;Ozone ~ Wind + Solar.R * Temp&quot;   # you can name formulas...</code></pre>
+<ol start="8" style="list-style-type: decimal">
 <li><p>Explore regression outputs for the second model in the same way as you did for the first model without the interaction term.</p></li>
 <li><p>Conduct an ‘F Test’ (or a Likelihood Ratio Test, LRT, if you prefer…) to formally test whether the more complex model (including the interaction term) fits the data significantly better than the reduced model (with fewer parameters) that lacks the interaction term. Recall that the <span class="math inline">\(R^2\)</span> value is inadequate for this purpose because <span class="math inline">\(R^2\)</span> will always increase with additional parameters! Use the following syntax,</p></li>
 </ol>
+<pre class="r"><code>anova(model1, model2, test=&quot;F&quot;)   # how would you run an LRT test instead?</code></pre>
 <p>You can use this “sandbox” (below) to play around with multiple regression in R! You don’t need to include any of this code in your submission.</p>
 <div class="tutorial-exercise" data-label="q2prelim" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># your code here</code></pre>
@@ -478,14 +582,22 @@ DrawLine2 &lt;- function(x,y,smooth=TRUE,span=1){
 <li>SlopePos: slope position, a categorical variable (i.e. factor) with three values: Valley, Slope and Ridge.</li>
 </ul>
 <p>This is a comma-delimited (.csv) file, which is a common file format for importing data into R. Import the data into R as a data frame (R’s version of an excel spreadsheet), using the following command:</p>
+<pre class="r"><code>NobleFir.df &lt;- read.csv(&quot;TreeData.csv&quot;)</code></pre>
 <p>Inspect the resulting data object. Summarize it using the ‘summary()’ and ‘plot()’ functions.</p>
 <p>Obtain a correlation matrix for biomass and the four numeric predictor variables using the ‘cor()’ function and by subscripting column locations on the data frame (ask instructor for explanation of syntax if needed):</p>
+<pre class="r"><code>cor(NobleFir.df[,c(2,4,7:9)])</code></pre>
 <p>Are any of the predictor variables highly correlated?</p>
 <p>Calculate <em>Box Plots</em> for the continuous predictor variables (excluding x and y coordinates) according to sites with or without noble fir. Use the ‘boxplot()’ function. What clear relationships, if any, emerge for how sites with and without noble fir differ with regard to their environmental setting? For example:</p>
 <p><img src="LAB1_files/figure-html/unnamed-chunk-19-1.png" width="624" /></p>
 <p>Use multiple linear regression to model <em>A. procera</em> biomass as a function of predictor variables (excluding spatial coordinates), using the same approach for regression fitting and diagnostics as we did previously.</p>
 <p>Re-run the regression to obtain standardized regression coefficients, allowing direct comparison of effect sizes for the continuous predictor variables (since all variables are then transformed to standard deviate units, i.e. mean centered on zero with standard deviation of one). The ‘scale’ function provides an easy way to implement this.</p>
+<pre class="r"><code>Biomass_std.lm &lt;- with(NobleFir.df,     # using the &quot;with()&quot; statement, we don&#39;t need to keep referencing the name of the data frame.
+  lm(scale(Biomass) ~ scale(elev) + scale(Northeastness) + scale(Slope) + SlopePos + scale(StandAge))
+)</code></pre>
 <p>Visually assess whether regression errors (residuals) are spatially autocorrelated using the ‘symbols’ function:</p>
+<pre class="r"><code>with(NobleFir.df,
+  symbols(x,y,circles=abs(residuals(Biomass_std.lm)), inches=0.3, ylab=&quot;Northing&quot;, xlab=&quot;Easting&quot;, main=&quot;Errors from Biomass Regression Model&quot;)
+)</code></pre>
 <p><img src="LAB1_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
 <p>Note the ‘with’ function above- this function essentially makes all columns in a data frame part of the global environment- that is, the commands you enclose in a ‘with’ function can refer to the columns in the data frame as if they were part of the global environment. This is a safe way to replicate the ‘attach’ function in R (which I recommend you never use!).</p>
 <p>You can use this “sandbox” (below) to play around with this example in R!</p>
@@ -602,11 +714,19 @@ z.test.q4a &lt;- function(sample, pop.mean, pop.sd, onetail=T){
 }</code></pre>
 </div>
 <p>Test your function using some alternative sample data values. For example:</p>
+<pre class="r"><code>population.mean = 4.5
+population.sd = 0.9
+my.sample = c(5.14,3.27,4.56,3.77,3.34,4.32,3.84,3.19,5.24,4.09)
+z.test.q4a(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=F )
+
+   # also try using the code from lecture to compare against a &quot;real&quot; z-test!</code></pre>
 </div>
 <div id="section-exercise-4b" class="section level2">
 <h2>Exercise 4b</h2>
 <p>Now, what if we had access to a large set of samples under the null hypothesis AND that we would like to relax the assumption that the data follow a normal distribution under the null hypothesis?</p>
 <p>In this exercise, you are asked to modify the brute-force z-test function so that you generate your sampling distribution by simply sampling from the known data set under the null hypothesis. To do this you can use the ‘sample’ function in R. For this purpose you should sample with replacement. Here is an example:</p>
+<pre class="r"><code>null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)
+sample(null.data,10,replace=T)    # use the sample function to sample from a large vector with replacement</code></pre>
 <p>For this problem, let’s go back to the original null hypothesis: that salmon raised on the new diet will be smaller (lower mass) than those raised on conventional diet after one year.</p>
 <p>Include your function in your submitted r script!</p>
 <p>This function should be named ‘z.test.q4b’ and should be specified as follows:</p>
@@ -641,6 +761,9 @@ z.test.q4b &lt;- function(sample, null.data){
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
 <p>Test your function using some alternative sample data vectors. For example:</p>
+<pre class="r"><code>null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)
+my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+z.test.q4b(sample = my.sample, null.data )</code></pre>
 </div>
 <div id="section-exercise-5-bootstrapping-algorithm" class="section level2">
 <h2>Exercise 5: Bootstrapping algorithm</h2>
@@ -733,6 +856,15 @@ BootCoefs(df=df,statfunc=RegressionCoefs,
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
 <p>You can test your function using the following code:</p>
+<pre class="r"><code>BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar=&quot;Volume&quot;)
+
+df &lt;- mtcars[,c(1,3,4,6)]
+responsevar=&quot;mpg&quot;
+BootCoefs(df=df,
+          statfunc=RegressionCoefs,
+          n_samples=1000,
+          responsevar=responsevar
+)</code></pre>
 </div>
 <div id="section-exercise-5c" class="section level2">
 <h2><strong>Exercise 5c:</strong></h2>
@@ -756,7 +888,7 @@ gradethis_setup(
   fail.encourage = TRUE,
   fail.hint = TRUE
 )
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -780,13 +912,13 @@ session$onSessionEnded(function() {
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(gradethis)", "gradethis_setup(", 
 "  pass.praise = TRUE,", "  fail.encourage = TRUE,", "  fail.hint = TRUE", 
-")", "knitr::opts_chunk$set(echo = FALSE)"), overwrite = FALSE)
+")", "knitr::opts_chunk$set(echo = TRUE)"), overwrite = FALSE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(gradethis)", "gradethis_setup(", 
 "  pass.praise = TRUE,", "  fail.encourage = TRUE,", "  fail.hint = TRUE", 
-")", "knitr::opts_chunk$set(echo = FALSE)"), overwrite = FALSE)
+")", "knitr::opts_chunk$set(echo = TRUE)"), overwrite = FALSE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">

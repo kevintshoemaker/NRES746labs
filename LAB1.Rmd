@@ -20,7 +20,7 @@ gradethis_setup(
   fail.encourage = TRUE,
   fail.hint = TRUE
 )
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r echo=FALSE}
