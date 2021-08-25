@@ -15,6 +15,7 @@ description: "Getting started with writing statistical algorithms in R!"
 ```{r setup, include=FALSE}
 library(learnr)
 library(gradethis)
+library(dplyr)
 gradethis_setup(
   pass.praise = TRUE,
   fail.encourage = TRUE,
@@ -559,7 +560,7 @@ CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
 **Hint:** Use the CLT Demo code from earlier in Lab 1! 
 </div>
 
-```{r 1d-solution, echo=FALSE}
+```{r q1d-solution, echo=FALSE}
 
 #############
 ## exercise 1d
@@ -568,30 +569,25 @@ CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
 # CENTRAL LIMIT THEOREM function
 ####################
 
-
 CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
-  
-  #######
-  # Draw multiple samples from the pool (population) of possible data.  
-  
-  samplemean <- numeric(n.samples)     # set up storage vector
-  i=1
-  for(i in 1:n.samples){      # for each replicate (independent random sample)
-    sample <- runif(sample.size,min,max)   # draw an independent random sample from the population of interest
-    samplemean[i] <- mean(sample)    # record the sample mean
-  }
-  
-  
-  par(mfrow=c(1,2))
-  hist(runif(1000,min,max),freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of underlying data
-  hist(samplemean,freq=F,add=T,col="red")    # overlay the distribution of the sample means (sampling distribution).
-  legend("topleft",fill=c("white","red"),legend=c("data population","sample means"),bty="n")
-  qqnorm(samplemean)
-  
-  
-  out <- shapiro.test(samplemean)
-  
-  return(out)
+
+    infinity <- 100000       # number approximating infinity      
+    data_population <- runif(infinity,min,max)      
+
+     #######
+     # Draw multiple samples from the pool (population) of possible data.  
+
+    samplemean <- numeric(n.samples)     # set up storage vector
+    for(i in 1:n.samples){      # for each replicate (independent random sample)
+      sample <- sample(data_population,sample.size)   # draw an independent random sample from the population of interest
+      samplemean[i] <- mean(sample)    # compute and record the sample mean
+    }
+    
+    layout(matrix(1:2,nrow=1))
+    hist(samplemean)    
+    qqnorm(samplemean)
+    toret <- shapiro.test(samplemean)
+    return(toret)
 }
 
 ```
@@ -607,8 +603,9 @@ answer1d <- CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)    # run your ne
 
 ```{r q1d-check}
 grade_this({
-  fail_if(!.result$method=="Shapiro-Wilk normality test","Make sure your function returns the results from the Shapiro-Wilk normality test!")
-  pass_if(near(.result$statistic,.solution$statistic,0.0006))
+  fail_if(!.result(n.samples=5000,sample.size=4,min=2,max=10)$method=="Shapiro-Wilk normality test","Make sure your function returns the results from the Shapiro-Wilk normality test!")
+  pass_if(near(.result(n.samples=5000,sample.size=4,min=2,max=10)$statistic,
+               .solution(n.samples=5000,sample.size=4,min=2,max=10)$statistic,0.0006))
   fail()
 })
 ```
@@ -917,11 +914,11 @@ Answer the following questions (with brief justification) in your Word document:
 * **Exercise 3b** Is there spatial variation in model goodness of fit (i.e., on the residual error)? Use your visual assessment of regression errors (residuals) across space to answer this question. Explain your reasoning.    
 * **Exercise 3c** Which of the environmental influences you included in your model are most important in predicting forest biomass? Explain your reasoning.     
 
-## Exercise 4: Algorithmic (brute force) t-test
+## Exercise 4: Algorithmic (brute force) z-test
 
-Review the "brute-force t-test" code from the ["Why focus on algorithms" lecture](https://kevintshoemaker.github.io/NRES-746/LECTURE1.html). Then complete the following exercises: 
+Review the "brute-force z-test" code from the ["Why focus on algorithms" lecture](https://kevintshoemaker.github.io/NRES-746/LECTURE1.html). Then complete the following exercises: 
 
-```{r answer4a0, echo=FALSE}
+```{r solutionq4a0, echo=FALSE}
 
 #############
 # CHALLENGE 4: brute force z-tests!
@@ -995,7 +992,10 @@ This function should be specified as follows:
     + Use an "if-else" statement to accommodate both a one-tailed and a two-tailed test. 
 
 + **return**:    
-    + to_return = a list with three elements: "null_dist", representing the sampling distribution for sample means under the null hypothesis, "p_value", representing the p-value, and "observed_mean", representing the mean of the observed sample.              
+    + to_return = a list with three elements: 
+        "null_dist", representing the sampling distribution for sample means under the null hypothesis,     
+        "p_value", representing the p-value, and       
+        "observed_mean", representing the mean of the observed sample.                   
 
 You can use this "sandbox" (below) to develop and test your function!
 
@@ -1084,12 +1084,17 @@ z.test.q4a(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,on
 ```
 
 
-```{r q4a-check}
+```{r q4adata, context='data'}
 population.mean = 4.5
 population.sd = 0.9
 my.sample = c(5.14,3.27,4.56,3.77,3.34,4.32,3.84,3.19,5.24,4.09)
+```
+
+
+```{r q4a-check}
+
 grade_this({
-  fail_if(!names(.result)%in%c("null_dist","p_value","observed_mean"),"check the list names for your returned object")
+  fail_if(!names(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T ))%in%c("null_dist","p_value","observed_mean"),"check the list names for your returned object")
   fail_if(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T )$observed_mean!=mean(my.sample),"sample mean is incorrect") 
   pass_if(near(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value,
                .solution(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value, 0.05))
@@ -1148,7 +1153,7 @@ z.test.q4b <- function(sample, null.data){
 </div>
 
 
-```{r 4b-solution, echo=FALSE}
+```{r q4b-solution, echo=FALSE}
 
 ###############
 # Question 4b
@@ -1203,15 +1208,19 @@ z.test.q4b(sample = my.sample, null.data )
 
 ```
 
-
-```{r q4b-check}
+```{r q4bdata, context='data'}
 null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28)
 my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
+```
+
+
+```{r q4b-check}
+
 grade_this({
-  fail_if(!names(.result)%in%c("null_dist","p_value","observed_mean"),"check the list names for your returned object")
-  fail_if(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T )$observed_mean!=mean(my.sample),"sample mean is incorrect") 
-  pass_if(near(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value,
-               .solution(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value, 0.05))
+  fail_if(!names(.result(sample = my.sample, null.data=null.data))%in%c("null_dist","p_value","observed_mean"),"check the list names for your returned object")
+  fail_if(.result(sample = my.sample, null.data=null.data)$observed_mean!=mean(my.sample),"sample mean is incorrect") 
+  pass_if(near(.result(sample = my.sample, null.data=null.data)$p_value,
+               .solution(sample = my.sample, null.data=null.data)$p_value, 0.05))
   fail()
 })
 
@@ -1306,7 +1315,7 @@ RegressionCoefs <- function(df,responsevar){
 </div>
 
 
-```{r 5a-solution, echo=FALSE, context='data'}
+```{r q5a-solution, echo=FALSE, context='data'}
 
 #############
 ## exercise 5a
@@ -1336,7 +1345,6 @@ You can test your function using the following code:
 RegressionCoefs(df=trees,responsevar="Volume")   # should return two regression coefficients
 
 ```
-
 
 ```{r q5a-check}
 grade_this({
@@ -1398,7 +1406,7 @@ BootCoefs(df=df,statfunc=RegressionCoefs,
 
 
 
-```{r 5b-solution, echo=FALSE}
+```{r q5b-solution, echo=FALSE}
 
 #############
 ## exercise 5b
@@ -1444,10 +1452,28 @@ BootCoefs(df=df,
 
 ```
 
+```{r q5bdata, context='data'}
+
+RegressionCoefs <- function(df=trees,responsevar="Volume"){    # univariate models only- interaction and multiple regression not implemented here
+  response <- df[,responsevar]       # extract the response variable
+  names <- names(df)                  
+  coefs <- numeric(length(names))        # named storage vector
+  names(coefs) <- names(df)               
+  coefs <- coefs[names(coefs)!=responsevar]           # assume that all columns that are not the response variable are possible predictor variables
+  i=names(coefs)[1]
+  for(i in names(coefs)){         # loop through predictors
+      predictor <- df[,i]                  # extract this predictor
+      model <- lm(response~predictor)       # regress response on predictor
+      coefs[i] <- coefficients(model)["predictor"]       # extract slope term
+  }
+  return(coefs)     
+}
+
+
+```
+
 
 ```{r q5b-check}
-df <- 
-responsevar=
 grade_this({
   fail_if(dim(.result(df=trees,
           statfunc=RegressionCoefs,

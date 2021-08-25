@@ -1,1 +1,4 @@
-5a-solution.RData
+q4adata.RData
+q4bdata.RData
+q5a-solution.RData
+q5bdata.RData
