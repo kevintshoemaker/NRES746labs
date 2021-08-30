@@ -816,7 +816,7 @@ You can use this "sandbox" (below) to play around with multiple regression in R!
 
 ## Exercise 2: regression in R (written responses)
 
-Very briefly (in ) answer the following questions in your Word document:  
+Very briefly (but in complete sentences) answer the following questions in your Word document:  
 
 * **Exercise 2a**	By how much (and in what direction) is ozone concentration expected to change if temperature increased from 26 to 30 degrees Celsius? Assume that solar radiation stays constant at 200 lang and wind speed stays constant at 9 mph. Be careful with the units for temperature! Make sure to use the 'interaction' model (model2) from part 7 above to answer this question. Please briefly explain (in your Word document) how you got your answer.    
 
@@ -873,7 +873,7 @@ boxplot(NobleFir.df$Northeastness~NobleFir.df$ABPR, xlab="Presence of Noble Fir"
 ```
 
 
-Use multiple linear regression to model *A. procera* biomass as a function of predictor variables (excluding spatial coordinates), using the same approach for regression fitting and diagnostics as we did previously.  
+Use multiple linear regression to model tree biomass as a function of predictor variables (excluding spatial coordinates), using the same approach for regression fitting and diagnostics as we did previously.  
 
 Re-run the regression to obtain standardized regression coefficients, allowing direct comparison of effect sizes for the continuous predictor variables (since all variables are then transformed to standard deviate units, i.e. mean centered on zero with standard deviation of one). The 'scale' function provides an easy way to implement this.
 
@@ -971,7 +971,7 @@ z.test.algorithm <- function(sample, pop.mean, pop.sd){
 
 ## Exercise 4a
 
-What if we wanted to run a *two-tailed z-test*? That is, what if our alternative hypothesis were that salmon fed on the new vegetarian diet could plausibly be larger or smaller than those fed on the conventional diet after one year? Modify the function ("z.test.algorithm()") with a new argument that allows for both one and two-tailed tests! Name your new function "z.test.q4a()". 
+What if we wanted to run a *two-tailed z-test*? That is, what if our alternative hypothesis were that salmon fed on the new vegetarian diet could plausibly be larger or smaller than those fed on the conventional diet after one year? Modify the function ("z.test.algorithm()") with a new argument that allows for both one and two-tailed tests! Name your new function "z.test.q4a()".     
 To convince yourself that your new function works, try running your function for a (made-up) case where the observed body mass for those fed on the new diet are generally higher than the expected body mass for those fed on the conventional diet after one year -- the opposite of your (alternative) hypothesis!
 
 NOTE: you may get tangled up with the null hypothesis/p-value concept, which is admittedly a difficult concept! A p-value always assumes the null hypothesis is true (given the null hypothesis is true, a p-value gives the probability of obtaining a test statistic as or more extreme than the observed test statistic). The alternative hypothesis for the 1-tailed test is that the population mean for the treatment group is less than the population mean for conventional farm-raised salmon. The alternative hypothesis for the 2-tailed test is that the population mean for the treatment group is less than or greater than the population mean for conventional farm-raised salmon. The null hypothesis, as always, is that there is no difference.  
