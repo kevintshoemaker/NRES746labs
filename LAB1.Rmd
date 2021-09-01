@@ -654,7 +654,7 @@ barplot(prop,xlab="sample size",ylab="Normality rejected (proportion)")
 
 ## **Exercise 1f (optional, not for submission)**
 
-Optionally, Modify your CLTdemo() function (e.g., call it "CLTdemo2()") to try a different underlying data distribution (other than uniform). If you really want to test the limits of the CLT, try creating your own highly non-standard distribution and seeing if the result you obtained in exercise 1e still holds. For example:
+Optionally, modify your CLTdemo() function (e.g., call it "CLTdemo2()") to try a different underlying data distribution (other than uniform). If you really want to test the limits of the CLT, try creating your own highly non-standard distribution and seeing if the result you obtained in exercise 1e still holds. For example:
     
 
 ```{r}
@@ -765,8 +765,6 @@ Here is a practice R window in case it is helpful:
 # practice space for regression analysis!
 
 ```
-
-
 
 
 6. Consider the possibility that there may be an important interaction effect between solar radiation and temperature on influencing ozone concentrations. Explore that with a simple scatter plot where symbol size is scaled to ozone concentration:
