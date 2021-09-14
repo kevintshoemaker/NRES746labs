@@ -8,9 +8,14 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-#library(checkr)
-tutorial_options(exercise.timelimit = 60, exercise.checker = checkr::check_for_learnr)
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(gradethis)
+library(dplyr)
+gradethis_setup(
+  pass.praise = TRUE,
+  fail.encourage = TRUE,
+  fail.hint = TRUE
+)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
@@ -613,7 +618,7 @@ Develop a function called "GetPower()" that evaluates the statistical power to d
     + alpha: acceptable type-I error rate below which we are confident to make the call that a population is declining.  
 
 + **suggested algorithm**:   
-    + Up to you!!!  You can make use of the functions in the "Virtual Ecologist" lecture. 
+    + Up to you!!!  You can make use of the functions from the "Virtual Ecologist" lecture. 
 
 + **return**:    
     + A single floating point (real number) value representing the statistical power to detect a decline under the specified default parameters and alpha level. This represents the percent of replicate data sets for which you correctly reject the null hypothesis of "no decline".  
@@ -747,14 +752,14 @@ GetPower(initabund=1000,nreps=1000,trend=-0.03,years=25,days=1,observers=1,survi
 
 
 ```{r q2.3a-check, echo=F}
-check_q2.3a <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "GetPower","Use GetPower() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(dplyr::near(0.84,sum(V),tol=0.07), "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Wunderbar!"))
-}
-check_q2.3a(USER_CODE)
+# check_q2.3a <- function(USER_CODE){
+#     code <- checkr::for_checkr(USER_CODE)
+#     func_call <- checkr::line_where(code,checkr::insist(F== "GetPower","Use GetPower() function!"))
+#     t1 <- checkr::line_where(func_call, 
+#         checkr::insist(dplyr::near(0.84,sum(V),tol=0.07), "Sorry, that's not correct"),
+#         checkr::passif(TRUE, "Wunderbar!"))
+# }
+# check_q2.3a(USER_CODE)
 ```
 
 
