@@ -437,9 +437,9 @@ DrawLine(faithful$waiting,faithful$eruptions)    # test your function using the 
 ```
 
 
-```{r q1b-check}
+```{r q1b-check, echo=FALSE}
 grade_this({
-  fail_if(any(is.na(.result)), "You shouldn't have missing values.")
+  fail_if(any(is.na(.result(faithful$waiting,faithful$eruptions))), "You shouldn't have missing values.")
   pass_if(all(.result(faithful$waiting,faithful$eruptions)==.solution(faithful$waiting,faithful$eruptions)))
   fail()
 })
@@ -601,7 +601,7 @@ answer1d <- CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)    # run your ne
 ```
 
 
-```{r q1d-check}
+```{r q1d-check, eval=FALSE}
 grade_this({
   fail_if(!.result(n.samples=5000,sample.size=4,min=2,max=10)$method=="Shapiro-Wilk normality test","Make sure your function returns the results from the Shapiro-Wilk normality test!")
   pass_if(near(.result(n.samples=5000,sample.size=4,min=2,max=10)$statistic,

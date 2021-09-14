@@ -45,7 +45,7 @@ Please comment your code thoroughly. Don't be afraid of *for* loops and ineffici
 
 ## Final Projects
 
-If you haven't already, please list your final project information (project title, group members etc.) on our [shared Google sheets document](https://docs.google.com/spreadsheets/d/1aZa31yLtxN5_El95SrbqXFT5eDgm0EmtrJmNcY2jEKA/edit?usp=sharing)
+If you haven't already, please list your final project information (project title, group members etc.) on our [shared Google sheets document](https://docs.google.com/spreadsheets/d/1A0zod4_gKKqNBHOtgNhLcdZlz2JV84pjBv1ajtGcYDc/edit?usp=sharing)
 
 ## Simulating Data in R
 
@@ -55,26 +55,44 @@ First, review the basic approach to simulating data in the ["Virtual Ecologist" 
 
 Simulate data that meet the standard assumptions of univariate linear regression (homoskedasticity, Gaussian/independent residual errors). Then run the "lm()" function on your simulated data and examine how closely the parameter estimates match the "true" parameter value. 
 
-
 ## Exercise 2.1a 
 
-Write a function called "LMDataSim()" for drawing a set of random observations from a defined data generating model that meets all the assumptions of ordinary linear regression. This function should be specified as follows:
+Write a function called "LMDataSim()" for drawing a set of random observations from a data generating model that meets all the assumptions of ordinary linear regression. This function should be specified as follows:
 
 + **input**:         
     + sample.size = a scalar (integer) specifying the number of observations to simulate
     + xlimits = a vector of length 2 specifying the minimum and maximum values of the covariate "x"       
     + coefs = a vector of length 2 specifying (in order) the intercept and slope of the deterministic relationship defining the expected response as a function of "x".    
-    + stdev = a scalar specifying the standard deviation of the residual errors.
+    + stdev = a scalar specifying the standard deviation of the residual errors (which we assume are normally distributed).
 
 + **suggested algorithm**:   
-    + sample random values (size="sample.size") from a uniform distribution (min and max defined by "xlimits") to represent the covariate (use the "runif()" function)    
-    + Use the defined linear model (defined by "coefs") to determine the expected value of the response. 
+    + sample random values (size="sample.size") from a uniform distribution (min and max defined by "xlimits") to represent covariate values (hint: use the "runif()" function)    
+    + Use the linear model defined by the "coefs" variable (response = intercept + slope*covariate) to determine the expected value of the response variable at each covariate value. 
     + Add "noise" to the expected values according to the "stdev" parameter (use the "rnorm()" function)
 
 + **return**:    
-    + out = a data frame with number of rows equal to "sample.size", and two columns. The first column should represent the values of the "x" variable and the second column should represent stochastic observations from the *known* model defined by "coefs" and "stdev"    
+    + out = a data frame with number of rows equal to "sample.size" (number of observations), and two columns: 
+        + the first column, named 'x', should represent the values of the "x" variable 
+        + the second column, named 'y', should represent the simulated values of the response variable (stochastic observations from the *known* model defined by "coefs" and "stdev")         
+    
+    
+Include your function in your submitted r script! Remember to only submit the function, and not any of the code you used to test your function!
 
-```{r answer2.1a, echo=FALSE, context='data'}
+You can use this "sandbox" (below) to develop and test your function!
+
+```{r q2.1a, exercise=TRUE}
+LMDataSim <- function(sample.size,xlimits,coefs,stdev){
+    # [add code here!]
+}
+LMDataSim(sample.size=20,xlimits=c(40,120),coefs=c(5,0.3),stdev=1)
+
+```
+
+<div id="q2.1a-hint">
+**Hint:** No hints ... yet!
+</div>
+
+```{r q2.1a-solution, echo=FALSE, context='data'}
 
 #############
 ## exercise 2.1a
@@ -93,103 +111,107 @@ LMDataSim <- function(sample.size,xlimits,coefs,stdev){
 
 Test your function- for example, using the following code: 
 
-```{r test2.1a}
+```{r test2.1a, eval=FALSE}
 
 LMDataSim(sample.size=10,xlimits=c(40,120),coefs=c(55,-0.09),stdev=6.8)
 
 ```
 
+```{r test2.1a2, eval=FALSE}
 
-```{r test2.1a1, context="data",echo=FALSE}
+temp <- LMDataSim(sample.size=500,xlimits=c(-2,10),coefs=c(10,-0.21),stdev=.1)
 
-temp <- LMDataSim(sample.size=20,xlimits=c(40,120),coefs=c(5,0.3),stdev=1)
-answer1a <- coef(lm(temp$y~temp$x))
-
-```
-
-
-Include your function in your submitted r script!
-
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q2.1a, exercise=TRUE}
-LMDataSim <- function(sample.size,xlimits,coefs,stdev){
-    # [add code here!]
-}
-LMDataSim(sample.size=20,xlimits=c(40,120),coefs=c(5,0.3),stdev=1)
+coef(lm(y~x,data=temp))[2]
 
 ```
 
-<div id="q2.1a-hint">
-**Hint:** No hints ... yet!
-</div>
 
-```{r q2.1a-check, echo=F}
-check_q2.1a <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "LMDataSim","Use LMDataSim() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(abs(sum(coef(lm(V$y~V$x))-c(5,0.3)))<=1.3, 
-        "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Very nice!"))
-}
-check_q2.1a(USER_CODE)
+```{r q2.1a-check, echo=FALSE}
+
+grade_this({
+  fail_if(any(is.na(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1))), "You shouldn't have missing values.")
+  fail_if(!ncol(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1)==2), "your function output should have two columns")
+  fail_if(!names(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1)==2)%in%c("x","y"), "your function output should produce a data frame with columns labeled x and y")
+  pass_if(near(coef(lm(y~x,data=.result(sample.size=100,xlimits=c(-2,10),coefs=c(10,-0.21),stdev=1)))[2],
+              coef(lm(y~x,data=.solution(sample.size=100,xlimits=c(-2,10),coefs=c(10,-0.21),stdev=1)))[2],0.05))
+  fail()
+})
+
 ```
-
 
 
 
 ## Exercise 2.1b
 
-Write a function called "LMVerify_pt1()" for computing how well the coefficients and variance from R's "lm()" function match the known coefficients of the model used to generate the data. This function should be specified as follows:
+Write a function called "LMVerify_pt1()" for computing how well the coefficients and residual variance from R's "lm()" function match the known coefficients of the model used to generate the data. This function should be specified as follows:
 
 + **input**:         
-    + sim.dataset = a data frame representing data simulated from a linear model with known coefficients (and known residual variance).  The first column should represent the values of the "x" variable and the second column should represent stochastic observations from the *known* model defined by "trueparams"
-    + trueparams = a vector of length 3 specifying the intercept, slope, and standard deviation of the residual errors of the known relationship between "x" and the response 
+    + sim.dataset = a data frame representing data simulated from a linear model with known coefficients (and known residual variance).  The first column, labeled 'x', should represent the values of the "x" variable and the second column, labeled 'y', should represent stochastic observations from the *known* model defined by "trueparams". NOTE: the structure of this input argument should match the output produced by your 'LMDataSim' function.           
+    + trueparams = a vector of length 3 specifying the intercept, slope, and standard deviation of the residual errors of the known relationship between "x" and "y"     
     + plot = a logical (TRUE/FALSE) indicating whether or not to produce a plot with regression line and confidence interval 
 
 + **suggested algorithm**:   
-    + Use the "lm()" function to estimate the coefficients and residual standard deviation of the relationships between column 1 and column 2 of "sim.dataset" (regress column 2 on column 1)      
-    + Extract and store the regression coefficients (intercept and slope parameter)     
-    + Extract an estimate of the residual standard deviation of the regression relationship. 
-    + Subtract the known parameter values (intercept, slope, error sd) from the regression parameters.
-    + [if plot=TRUE] Plot the estimated regression line with a 95% confidence interval around the estimated regression line (e.g., computed using the "predict()" function). Overlay the "true" linear relationship (from the known data generating model). Add a legend to differentiate the true linear relationship from the estimated regression line.
-    + Use an "ifelse()" statement to record whether or not the 95% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value (if the 95% confidence interval contains the true value, then TRUE, otherwise FALSE)
+    + Use the "lm()" function to estimate the coefficients and residual error (standard deviation of residuals) of the fitted relationship between column 1 (named 'x') and column 2 (named 'y') of "sim.dataset" (regress y on x)           
+        + Extract the regression coefficients (intercept and slope parameter)     
+        + Extract an estimate of the residual error (standard deviation of residuals). Hint: extract the residuals from the 'lm' object and use the 'sd' function to compute the standard deviation of the residuals. Alternatively, the model summary (produced by running the 'lm' model object through the 'summary' function) has a list element called 'sigma'. This is an estimate of the residual standard deviation.               
+        + Store the fitted parameter values in a single vector object (intercept, slope, error sd).
+    + [if plot==TRUE] Plot the estimated regression line with a 90% confidence interval around the estimated regression line (e.g., computed using the "predict()" function with interval="confidence"). Overlay the true linear relationship (from the known data generating model defined by "trueparams"). Add a legend to your plot to differentiate the true linear relationship from the estimated regression line.
+    + Use an "ifelse()" statement to record whether or not the 90% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value (if the 90% confidence interval contains the true value, then TRUE, otherwise FALSE). You can use the 'confint' function to extract the confidence interval for the slope term.
 
 + **return**:    
-    + out = a list of length 2 with the following elements:   
-        + a vector of length 3 representing (in order) the differences between the known parameters (intercept, slope, error sd) and the estimates from a linear regression model
-        + a logical (TRUE/FALSE) representing whether or not the 95% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value.
+    + out = a list of length 3 with the following elements (with the names indicated below):   
+        + trueparams = a vector of length 3 representing (in order) the known true parameters (intercept, slope, sd of residual error). This should be an exact copy of the input parameter 'trueparams'.   
+        + fittedparams = a vector of length 3 representing the fitted parameters (intercept, slope, sd of residual error) from the linear regression model   
+        + inside = a logical (TRUE/FALSE) representing whether or not the 90% confidence interval around the slope parameter (estimated from the data using the 'lm' function) contains the "true" parameter value.      
+        
+        
+Include your function in your submitted r script!
 
-```{r answer2.1b, echo=FALSE}
+You can use this "sandbox" (below) to develop and test your function!
+
+```{r q2.1b, exercise=TRUE}
+#simdat <- LMDataSim(sample.size=1000,xlimits=c(0,10),coefs=c(0,1),stdev=1)
+LMVerify_pt1 <- function(sim.dataset,trueparams,plot=TRUE){
+    # [add code here!]
+}
+#LMVerify_pt1(sim.dataset = simdat, trueparams = c(0,1,1),plot=FALSE)
+
+```
+
+<div id="q2.1b-hint">
+**Hint:** No hints ... yet!
+</div>
+
+```{r q2.1b-solution, echo=FALSE}
 
 #############
 ## exercise 2.1b
 
 LMVerify_pt1 <- function(sim.dataset,trueparams,plot=T){
   names <- names(sim.dataset)
-  form <- as.formula(sprintf("%s ~ %s",names[2],names[1]) )   # note: this is to make sure the function runs for whatever your column names are!
+  form <- as.formula(sprintf("%s ~ %s",names[2],names[1]) )   # note: this is to make sure the function runs for whatever your column names are. But fine if you hardcoded the names x and y!
   mod <- lm(form,data=sim.dataset)
   coefs <- coefficients(mod)
-  sdest <- sd(residuals(mod))
-  difs <- c(coefs,sdest)-trueparams
-  names(difs) <- c("intercept",names[1],"stdev")
+  sdest <- summary(mod)$sigma
+  coefs <- c(coefs,sdest)
+  names(coefs) <- c("intercept",names[1],"stdev")
   if(plot==T){
-    xl <- range(sim.dataset[,1])*c(0.75,1.25)
+    xl <- range(sim.dataset[,1])*c(0.75,1.25) 
     yl <- range(sim.dataset[,2])*c(0.75,1.25)
     newdata <- data.frame(temp=seq(xl[1],xl[2],0.1))
     names(newdata) <- names[1]
-    ci <- predict(mod,newdata,interval="confidence")
+    ci <- predict(mod,newdata,interval="confidence",level=0.9)
     plot(sim.dataset,ylim=yl,xlim=xl)
     abline(mod,col="green",lwd=3)
     lines(newdata[,1],ci[,"lwr"],col="blue",lty=2)
     lines(newdata[,1],ci[,"upr"],col="blue",lty=2)
   }
-  cislope <- confint(mod,names[1])
+  cislope <- confint(mod,names[1],level=0.9)
   trueslope <- trueparams[2]
   is.inside <- ifelse((trueslope>=cislope[1])&(trueslope<=cislope[2]),TRUE,FALSE)
   out <- list()
-  out$difs <- difs
+  out$trueparams <- trueparams  
+  out$fittedparams <- coefs   
   out$inside <- is.inside
   return(out)
 }
@@ -199,42 +221,35 @@ LMVerify_pt1 <- function(sim.dataset,trueparams,plot=T){
 
 Test your function- for example, using the following code: 
 
-```{r test2.1b}
+```{r test2.1b, eval=FALSE,context="data"}
 
 simdat <- LMDataSim(sample.size=10,xlimits=c(40,120),coefs=c(55,-0.09),stdev=6.8)
 
-LMVerify_pt1(sim.dataset = simdat, trueparams = c(55,-0.09,6.8))
+LMVerify_pt1(sim.dataset = simdat, trueparams = c(55,-0.09,6.8), plot=T)
 
 ```
 
+```{r test2.1b2, eval=FALSE, context="data"}
 
-Include your function in your submitted r script!
+simdat2 <- LMDataSim(sample.size=100,xlimits=c(0,15),coefs=c(40,-2.2),stdev=1.8)
 
-You can use this "sandbox" (below) to develop and test your function!
-
-```{r q2.1b, exercise=TRUE}
-simdat <- LMDataSim(sample.size=1000,xlimits=c(0,10),coefs=c(0,1),stdev=1)
-LMVerify_pt1 <- function(sim.dataset,trueparams,plot=TRUE){
-    # [add code here!]
-}
-LMVerify_pt1(sim.dataset = simdat, trueparams = c(0,1,1),plot=FALSE)
+test <- LMVerify_pt1(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)
 
 ```
-
-<div id="q2.1b-hint">
-**Hint:** No hints ... yet!
-</div>
 
 
 ```{r q2.1b-check,echo=F}
-check_q2.1b <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "LMVerify_pt1","Use LMVerify_pt1() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(dplyr::near(0,sum(V[[1]]),tol=0.09), "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Hallelujah!"))
-}
-check_q2.1b(USER_CODE)
+
+grade_this({
+  fail_if(!length(.result(sim.dataset = simdat, trueparams = c(55,-0.09,6.8), plot=T))==3, "your function output should be a list with three elements")
+  fail_if(!names(.result(sim.dataset = simdat, trueparams = c(55,-0.09,6.8), plot=T))%in%c("trueparams","fittedparams","inside"), "your function output should be a list with three elements with proper names (see instructions)")
+  fail_if(!near(.result(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)$fittedparams["x"],
+              .solution(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)$fittedparams["x"],0.005))
+  pass_if(near(.result(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)$fittedparams["stdev"],
+              .solution(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)$fittedparams["stdev"],0.01))
+  fail()
+})
+
 ```
 
 
@@ -265,10 +280,10 @@ Note that the prediction interval code may occasionally return some warnings- wh
 
 Does the 95% confidence interval around the slope estimate (estimated from simulated data with a sample size of 10) contain the "true" slope parameter value 95% of the time (a frequentist question!). In your Word document, explain how you addressed this question. Did you need more than 100 simulated data sets to answer this question? 
 
-```{r answer1c, eval=FALSE, echo=FALSE}
+```{r answer2.1c, eval=FALSE, echo=FALSE}
 
 #############
-## exercise 1c
+## exercise 2.1c
 
 reps=1000
 trueparams <- c(55,-0.09,6.8)
@@ -342,7 +357,7 @@ How might your results from part 2.1 change if your data simulations DID NOT mee
 
 To test this, you are asked to write an R function to generate data that violates a basic assumption regarding the error distribution of standard linear regression. Specifically, your function should generate "heteroskedastic" data, such that the variance of the residuals depends on the magnitude of the covariate "x". For this exercise, you'll still need to specify a linear relationship (y=ax+b) between your response and predictor - the only difference is that the residual variance is no longer homogeneous.
 
-Some other potential violations of standard assumtions we could also introduce into our data simulations if we wanted to: 
+Some other potential violations of standard assumptions we could also introduce into our data simulations if we wanted to: 
 
 * use a non-normal error distribution      
 * introduce temporal autocorrelation     
@@ -352,17 +367,13 @@ Some other potential violations of standard assumtions we could also introduce i
 
 ## **Exercise 2.2a**. 
 
-In your Word document, please explain how biological or sampling processes could yield data that violate (1) the standard regression assumption of normally distributed residuals and (2) the standard regression assumption of independent observations. Be as brief as possible in your response!   
-
-## **Exercise 2.2b**. 
-
 Write a function called "LMDataSim2()" for drawing a set of random observations from a defined linear relationship that meets all the assumptions of ordinary linear regression *except for homoskedasticity*. This function should be specified as follows:
 
 + **input**:         
-    + sample.size = a scalar (integer) specifying the number of observations to simulate
+    + sample.size = an integer specifying the number of observations to simulate
     + xlimits = a vector of length 2 specifying the minimum and maximum values of the covariate "x"       
     + coefs = a vector of length 2 specifying (in order) the intercept and slope of the relationship between "x" and the expected response   -
-    + sd_coefs = a vector of length 2 specifying (in order) coefficients for a "heteroskedasticity" model specifies standard deviation as a linear function of the covariate "x"
+    + sd_coefs = a vector of length 2 specifying (in order) coefficients for a "heteroskedasticity" model specifies the standard deviation of the residuals as a linear function of the covariate "x" (in this data generating model, the standard deviation of the residuals changes linearly with the covariate "x")
 
 + **suggested algorithm**:   
     + sample random values (size="sample.size") from a uniform distribution (min and max defined by "xlimits") to represent the covariate (use the "runif()" function)    
@@ -370,17 +381,35 @@ Write a function called "LMDataSim2()" for drawing a set of random observations 
     + Use the defined linear model (defined by "sd_coefs") to determine the expected value of the standard deviation of the response.
     + Add "noise" to the expected values according to the "stdev" parameter (use the "rnorm()" function). Note that this should now depend on the covariate "x".
 
-+ **return**:    
-    + out = a data frame with number of rows equal to "sample.size", and two columns. The first column should represent the values of the "x" variable and the second column should represent stochastic observations from the *known* model defined by "coefs" and "stdev"  
-    
++ **return**: 
+    + out = a data frame with number of rows equal to "sample.size" (number of observations), and two columns: 
+        + the first column, named 'x', should represent the values of the "x" variable 
+        + the second column, named 'y', should represent the simulated values of the response variable (stochastic observations from the *known* model defined by "coefs" and "stdev")         
+        
 
-NOTE: make sure that your linear model for stdev does not go negative - this will return "NaN" values (not a number!). 
+NOTE: make sure that your linear model for stdev does not go negative - this will return "NaN" values (not a number!).
+
+Include your function in your submitted r script!
+
+You can use this "sandbox" (below) to develop and test your function!
+
+```{r q2.2a, exercise=TRUE}
+LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){
+    # [add code here!]
+}
+LMDataSim2(sample.size=1000,xlimits=c(0,10),coefs=c(0,0.5),sd_coefs=c(0,0.2))
+
+```
+
+<div id="q2.2b-hint">
+**Hint:** No hints ... yet!
+</div>
 
 
-```{r answer2.2b, echo=FALSE, context='data'}
+```{r q2.2a-solution, echo=FALSE}
 
 #############
-## exercise 2.2b
+## exercise 2.2a
 
 LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){
   xvals <- runif(sample.size,xlimits[1],xlimits[2])
@@ -397,109 +426,49 @@ LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){
 
 Test your function- for example, using the following code: 
 
-```{r test2.2b}
+```{r test2.2a}
 
 test <- LMDataSim2(sample.size=35,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.2,0.04))
 plot(test$x,test$y)
 
 ```
 
-Include your function in your submitted r script!
 
-You can use this "sandbox" (below) to develop and test your function!
 
-```{r q2.2b, exercise=TRUE}
-LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){
-    # [add code here!]
-}
-LMDataSim2(sample.size=1000,xlimits=c(0,10),coefs=c(0,0.5),sd_coefs=c(0,0.2))
-
-```
-
-<div id="q2.2b-hint">
-**Hint:** No hints ... yet!
-</div>
-
-```{r q2.2b-check, echo=F}
-check_q2.2b <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "LMDataSim2","Use LMDataSim2() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(dplyr::near(0.16,coefficients( lm( abs(residuals( lm(V[,2]~V[,1]) ))~V[,1]) )[2],tol=0.06), "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Hot Damn!"))
-}
-check_q2.2b(USER_CODE)
+```{r q2.2a-check, echo=F}
+grade_this({
+  fail_if(any(is.na(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1))), "You shouldn't have missing values.")
+  fail_if(!ncol(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1)==2), "your function output should have two columns")
+  fail_if(!names(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1)==2)%in%c("x","y"), "your function output should produce a data frame with columns labeled x and y")
+  pass_if(near(coef(lm(y~x,data=.result(sample.size=35,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.2,0.04))))[2],
+              coef(lm(y~x,data=.solution(sample.size=35,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.2,0.04))))[2],0.06))
+  fail()
+})
 ```
 
 
 
-
-## **Exercise 2.2c**. 
+## **Exercise 2.2b**. 
 
 Write a function called "LMVerify_pt2()" for computing how well the coefficients from R's "lm()" function match the known coefficients of the model used to generate the data. This function should be specified as follows:
 
-+ **input**:          
-    + sim.dataset = a data frame representing data simulated from a linear model with known coefficients (and known residual variance, with variance dependent on the covariate "x").  The first column should represent the values of the "x" variable and the second column should represent stochastic observations from the *known* model defined by "trueparams"
-    + trueparams = a vector of length 2 specifying the intercept and slope of the known relationship between "x" and the response 
-    + plot = a logical (T/F) indicating whether or not to produce a plot
++ **input**:         
+    + sim.dataset = a data frame representing data simulated from a linear model with known coefficients (and known residual variance).  The first column, labeled 'x', should represent the values of the "x" variable and the second column, labeled 'y', should represent stochastic observations from the *known* model defined by "trueparams". NOTE: the structure of this input argument should match the output produced by your 'LMDataSim' function.           
+    + trueparams = a vector of length 2 specifying the intercept and slope of the known relationship between "x" and "y"  [note: this time we don't include the true residual error, which varies with 'x']          
+    + plot = a logical (TRUE/FALSE) indicating whether or not to produce a plot with regression line and confidence interval 
 
 + **suggested algorithm**:   
-    + Use the "lm()" function to estimate the coefficients of the relationships between column 1 and column 2 of "sim.dataset" (regress column 2 on column 1)      
-    + Extract and store the regression coefficients (intercept and slope parameter)     
-    + Subtract the known parameter values (intercept, slope) from the regression parameters.
-    + [if plot=T] Plot the estimated regression line with a *95% prediction interval* around the estimated regression line (e.g., computed using the "predict()" function). Overlay the "observations" from the known data generating model. 
-    + Use an "ifelse()" statement to record whether or not the 95% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value (if the 95% confidence interval contains the true value, then TRUE, otherwise FALSE)
+    + Use the "lm()" function to estimate the coefficients of the fitted relationship between column 1 (named 'x') and column 2 (named 'y') of "sim.dataset" (regress y on x)       
+        + Extract and store the regression coefficients (intercept and slope parameter)     
+    + [if plot==TRUE] Plot the estimated (fitted) regression line with a *95% prediction interval* around the estimated regression line (e.g., computed using the "predict()" function with interval='prediction'). Overlay the observations from the known data generating model (i.e., from 'sim.dataset').
+    + Use an "ifelse()" statement to record whether or not the 95% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value (if the 95% confidence interval contains the true value, then TRUE, otherwise FALSE). You can use the 'confint' function to extract the confidence interval for the slope term.
 
 + **return**:    
-    + out = a list of length 2 with the following elements:   
-        + a vector of length 2 representing (in order) the differences between the known parameters (intercept, slope) and the estimates from a linear regression model
-        + a logical (TRUE/FALSE) representing whether or not the 95% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value.
-            
-```{r answer2.2c, echo=FALSE}
-
-#############
-## exercise 2.2c
-
-LMVerify_pt2 <- function(sim.dataset,trueparams,plot=T){
-  names <- names(sim.dataset)
-  form <- as.formula(sprintf("%s ~ %s",names[2],names[1]) )   # note: this is to make sure the function runs for whatever your column names are!
-  mod <- lm(form,data=sim.dataset)
-  coefs <- coefficients(mod)
-  difs <- coefs-trueparams
-  names(difs) <- c("intercept",names[1])
-  if(plot==T){
-    xl <- range(sim.dataset[,1])*c(0.75,1.25)
-    yl <- range(sim.dataset[,2])*c(0.75,1.25)
-    newdata <- data.frame(temp=seq(xl[1],xl[2],0.1))
-    names(newdata) <- names[1]
-    ci <- predict(mod,newdata,interval="prediction")
-    plot(sim.dataset,ylim=yl,xlim=xl)
-    abline(mod,col="green",lwd=3)
-    lines(newdata[,1],ci[,"lwr"],col="blue",lty=2)
-    lines(newdata[,1],ci[,"upr"],col="blue",lty=2)
-  }
-  cislope <- confint(mod,names[1])
-  trueslope <- trueparams[2]
-  is.inside <- ifelse((trueslope>=cislope[1])&(trueslope<=cislope[2]),TRUE,FALSE)
-  out <- list()
-  out$difs <- difs
-  out$inside <- is.inside
-  return(out)
-}
-
-```
-
-
-Test your function- for example, using the following code: 
-
-
-```{r test2.2c}
-
-simdat <- LMDataSim2(sample.size=35,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.3,0.05))
-LMVerify_pt2(sim.dataset = simdat, trueparams = c(55,-0.09))
-
-```
-
+    + out = a list of length 3 with the following elements (with the names indicated below):   
+        + trueparams = a vector of length 2 representing (in order) the known true parameters (intercept, slope). This should be an exact copy of the input parameter 'trueparams'.   
+        + fittedparams = a vector of length 2 representing the fitted parameters (intercept, slope) from the linear regression model    
+        + inside = a logical (TRUE/FALSE) representing whether or not the 95% confidence interval around the slope parameter (estimated from the data using the 'lm' function) contains the "true" parameter value.      
+    
 Include your function in your submitted r script!
 
 You can use this "sandbox" (below) to develop and test your function!
@@ -516,17 +485,67 @@ LMVerify_pt2(sim.dataset = simdat, trueparams = c(0,0.5),plot=FALSE)
 <div id="q2.2c-hint">
 **Hint:** No hints ... yet!
 </div>
+            
+```{r q2.2b-solution, echo=FALSE}
+
+#############
+## exercise 2.2b
+
+LMVerify_pt2 <- function(sim.dataset,trueparams,plot=T){
+  names <- names(sim.dataset)
+  form <- as.formula(sprintf("%s ~ %s",names[2],names[1]) )   # note: this is to make sure the function runs for whatever your column names are!
+  mod <- lm(form,data=sim.dataset)
+  coefs <- coefficients(mod)
+  names(coefs) <- c("intercept",names[1])
+  if(plot==T){
+    xl <- range(sim.dataset[,1])*c(0.75,1.25)
+    yl <- range(sim.dataset[,2])*c(0.75,1.25)
+    newdata <- data.frame(temp=seq(xl[1],xl[2],0.1))
+    names(newdata) <- names[1]
+    ci <- predict(mod,newdata,interval="prediction")
+    plot(sim.dataset,ylim=yl,xlim=xl)
+    abline(mod,col="green",lwd=3)
+    lines(newdata[,1],ci[,"lwr"],col="blue",lty=2)
+    lines(newdata[,1],ci[,"upr"],col="blue",lty=2)
+  }
+  cislope <- confint(mod,names[1])
+  trueslope <- trueparams[2]
+  is.inside <- ifelse((trueslope>=cislope[1])&(trueslope<=cislope[2]),TRUE,FALSE)
+  out <- list()
+  out$trueparams <- trueparams
+  out$fittedparams <- coefs
+  out$inside <- is.inside
+  return(out)
+}
+
+```
+
+
+Test your function- for example, using the following code: 
+
+
+```{r test2.2c, context="data"}
+
+simdat3 <- LMDataSim2(sample.size=25,xlimits=c(30,120),coefs=c(55,-0.19),sd_coefs=c(-1.4,0.11))
+LMVerify_pt2(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)
+
+```
+
+
 
 
 ```{r q2.2c-check, echo=F}
-check_q2.2c <- function(USER_CODE){
-    code <- checkr::for_checkr(USER_CODE)
-    func_call <- checkr::line_where(code,checkr::insist(F== "LMVerify_pt2","Use LMVerify_pt2() function!"))
-    t1 <- checkr::line_where(func_call, 
-        checkr::insist(dplyr::near(0,sum(V[[1]]),tol=0.075), "Sorry, that's not correct"),
-        checkr::passif(TRUE, "Rock and Roll!"))
-}
-check_q2.2c(USER_CODE)
+
+grade_this({
+  fail_if(!length(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T))==3, "your function output should be a list with three elements")
+  fail_if(!names(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T))%in%c("trueparams","fittedparams","inside"), "your function output should be a list with three elements with proper names (see instructions)")
+  fail_if(!near(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)$fittedparams["x"],
+              .solution(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)$fittedparams["x"],0.003))
+  pass_if(near(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)$fittedparams["intercept"],
+              .solution(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)$fittedparams["intercept"],0.1))
+  fail()
+})
+
 ```
 
 
@@ -550,7 +569,7 @@ i=1
 for(i in 1:reps){
   simdat <- LMDataSim2(sample.size=20,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.3,0.05))
   temp <- LMVerify_pt2(sim.dataset = simdat, trueparams = c(55,-0.09),plot=F)
-  difs[i] <- temp$difs["x"]
+  difs[i] <- temp$fittedparams[2]-temp$trueparams[2]
 }
 
 hist(difs,xlab="difs between est and true slope")
@@ -559,18 +578,17 @@ mean(difs)  ## this test seems relatively robust to violations of homoskedastici
 ```
 
 
-2. Evaluate *goodness-of-fit* by visualizing the range of data produced by the true model against the prediction interval from the estimated model (generated using the 'lm()' function). In your Word document, please include this figure and describe very briefly how this figure helps you to evaluate goodness-of-fit (could your observed data have been generated by the model?) 
+2. Evaluate *goodness-of-fit* by visualizing the range of data produced by the true model (using a very large sample size) against the prediction interval from the estimated model (generated using the 'lm()' function). See the code and figure below for reference. In your Word document, please describe briefly how this figure helps you to evaluate goodness-of-fit (i.e., could your observed data have been generated by the model? Are there 'red flags' that might make you think that the model is not adequate for representing these data?). 
 
 Here is an example of a goodness-of-fit visualization:
 
-```{r answer2.2d2, echo=FALSE}
+```{r answer2.2d2}
 
 ##  Part 2
 
 simdat_lots <- LMDataSim2(sample.size=10000,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.3,0.05))
 simdat_sample <- LMDataSim2(sample.size=10,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.3,0.05))
-temp <- LMVerify_pt2(sim.dataset = simdat_sample, trueparams = c(55,-0.09),plot=T)
-points(simdat_lots$x,simdat_lots$y,pch=19,cex=0.5,col=gray(0.5))
+temp <- LMVerify_pt2(sim.dataset = simdat_lots, trueparams = c(55,-0.09),plot=T)
 
 
 ```
