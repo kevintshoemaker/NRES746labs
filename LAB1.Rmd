@@ -1028,7 +1028,7 @@ z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
   
   observed_mean <- mean(sample)
   
-  sample.size <- length(observed_mean)   # compute sample size
+  sample.size <- length(sample)   # compute sample size
 
   #################
   # Generate SAMPLING DISTRIBUTION
@@ -1164,7 +1164,7 @@ z.test.q4b <- function(sample=my.sample, null.data){
   
   observed_mean <- mean(sample)
   
-  sample.size <- length(observed_mean)   # compute sample size
+  sample.size <- length(sample)   # compute sample size
 
   #################
   # Generate SAMPLING DISTRIBUTION
@@ -1361,7 +1361,7 @@ Generate a new R function, called "BootCoefs()" that meets the following specifi
     + "df" = a data frame that includes the response variable and all possible predictor variables     
     + "statfunc" = a function for generating summary statistics (in this case, regression coefficients) from a data frame (which you already developed in part 1 of this challenge problem)    
     + "n_samples" = the number of bootstrapped samples to generate     
-    + "responseVar" = the name of the response variable    
+    + "responsevar" = the name of the response variable    
 
 + **algorithm**:
     + with the data frame, use the "boot_sample()" function provided in the lecture to generate summary statistics for multiple bootstrap samples. You do not need to modify the 'boot_sample()' function for this problem   

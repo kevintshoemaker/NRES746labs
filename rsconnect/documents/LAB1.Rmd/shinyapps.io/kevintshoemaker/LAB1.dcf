@@ -5,8 +5,10 @@ account: kevintshoemaker
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1208063
-bundleId: 2421936
+bundleId: 5053740
 url: https://kevintshoemaker.shinyapps.io/LAB1/
-when: 1568756580.61715
+when: 1632177464.89233
+lastSyncTime: 1632177464.89233
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: .gitattributes|.Rbuildignore|.RData|BUGSmodel.txt|BUGSmodel_mm.txt|BUGSmodel_ricker.txt|DESCRIPTION|LAB2.html|LAB2.Rmd|LAB3.html|LAB3.Rmd|LAB3_data/answer3.2a1.cached.RData|LAB3_data/answer3.2a2.cached.RData|LAB3_data/answer3.2a3.cached.RData|LAB3_data/answer3.3a2.cached.RData|LAB3_data/data_chunks_index.txt|LAB4.html|LAB4.Rmd|LAB4_data/answer4.3a1.cached.RData|LAB4_data/data_chunks_index.txt|LAB4_data/unnamed-chunk-5.cached.RData|LAB5.Rmd|myxomodel2.txt|NAMESPACE|NRES746labs_0.1.0.tar.gz|NRES746labs_0.1.0.zip|R/hello.R|R/random.R|README.md|ReedfrogFuncresp.csv|ReedfrogPred.csv|inst|LAB2_data|LAB2_files|LAB3_files|LAB4_files
