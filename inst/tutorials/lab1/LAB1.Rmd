@@ -335,7 +335,25 @@ CoefVar <- function(vector){
 **Hint:** You probably want to use the 'sd()' and 'mean()' functions.
 </div>
 
-```{r q1a-solution, echo=FALSE}
+```{r q1a-solution, echo=FALSE, context="data"}
+
+######################
+# LAB 1 answer key (lots of other possibilities)
+######################
+
+#############
+## exercise 1a
+
+CoefVar <- function(vector){    
+  cv <- sd(vector,na.rm=TRUE)/mean(vector,na.rm=TRUE)
+  return(cv)     
+}
+#CoefVar(c(2,3,4,3,2,3,4))   # test your function
+
+```
+
+
+```{r dataq1a0, echo=FALSE, context="data"}
 
 ######################
 # LAB 1 answer key (lots of other possibilities)
@@ -354,7 +372,7 @@ CoefVar <- function(vector){
 
 You can use the following code to test your function using the built-in 'trees' dataset. 
 
-```{r test1a, eval=FALSE}
+```{r testq1a}
 
 ############
 # Explore the "trees" dataset
@@ -372,7 +390,7 @@ CoefVar(trees$Height)    # run your new function!
 
 ```{r q1a-check}
 grade_this({
-  pass_if_equal(y=.solution(trees$Height),x=.result(trees$Height))
+  pass_if_equal(y=.solution(trees$Height[-4]),x=.result(trees$Height[-4]))
   fail()
 })
 ```
@@ -411,7 +429,22 @@ DrawLine <- function(x,y){
 **Hint:** You may want to use the `coef()` function.
 </div>
 
-```{r q1b-solution, echo=FALSE}
+```{r q1b-solution, echo=FALSE,context="data"}
+
+#############
+## exercise 1b
+
+DrawLine <- function(x,y){  
+  plot(y~x)
+  mod <- lm(y~x)
+  coefs <- coef(mod)
+  abline(mod)
+  return(coefs)
+}
+
+```
+
+```{r dataq1b0, echo=FALSE, context="data"}
 
 #############
 ## exercise 1b
@@ -428,10 +461,10 @@ DrawLine <- function(x,y){
 
 As a test, apply this function to the 'Height' (x axis) and 'Volume' (yaxis) vectors in the 'trees' dataset, and then to the 'waiting' (x axis) and 'eruptions' (y axis) vectors in the 'faithful' dataset.
 
-```{r test1b, eval=FALSE}
+```{r test1b}
 
-?faithful
-summary(faithful)
+# ?faithful
+# summary(faithful)
 
 DrawLine(faithful$waiting,faithful$eruptions)    # test your function using the old faithful eruptions data
 
@@ -484,7 +517,27 @@ DrawLine2 <- function(x,y,smooth=F,span=1){    # note the default values (the on
 </div>
 
 
-```{r q1c-solution, echo=FALSE}
+```{r q1c-solution, echo=FALSE, context="data"}
+
+#############
+## exercise 1c
+
+DrawLine2 <- function(x,y,smooth=TRUE,span=1){  
+  plot(y~x)
+  if(smooth==FALSE){
+    mod <- lm(y~x)
+    coefs <- coef(mod)
+    abline(coefs)
+  }else{
+    coefs <- loess(y~x,span=span)
+    scatter.smooth(y~x,span=span)
+  }
+  return(coefs)     
+}
+
+```
+
+```{r dataq1c0, echo=FALSE, context="data"}
 
 #############
 ## exercise 1c
@@ -506,10 +559,10 @@ DrawLine2 <- function(x,y,smooth=TRUE,span=1){
 
 Try testing your function using the trees and faithful datasets!
 
-```{r test1c, eval=FALSE}
+```{r test1c}
 xvec <- c(1:10)
 yvec <- rnorm(length(xvec),c(2:6,7:3),2)
-answer1c <- DrawLine2(xvec,yvec,smooth=T,span=0.5)    # run your new function!
+DrawLine2(xvec,yvec,smooth=T,span=0.5)    # run your new function!
 
 DrawLine2(x=trees$Height,y=trees$Volume,smooth=F,span=NA)
 
@@ -520,7 +573,7 @@ DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.1)
 ```
 
 
-```{r q1c-check}
+```{r q1c-check, echo=FALSE}
 grade_this({
   fail_if(!all(.result(faithful$waiting,faithful$eruptions,F)==.solution(faithful$waiting,faithful$eruptions,F)),"check your result with smooth=FALSE")
   pass_if(all(.result(faithful$waiting,faithful$eruptions,T,0.1)$fitted==.solution(faithful$waiting,faithful$eruptions,T,0.1)$fitted))
@@ -561,7 +614,7 @@ CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
 **Hint:** Use the CLT Demo code from earlier in Lab 1! 
 </div>
 
-```{r q1d-solution, echo=FALSE}
+```{r q1d-solution, echo=FALSE, context="data"}
 
 #############
 ## exercise 1d
@@ -593,8 +646,34 @@ CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
 
 ```
 
+```{r dataq1d0, echo=FALSE, context="data"}
 
-```{r test1d, eval=FALSE}
+CLTdemo <- function(n.samples=1000,sample.size=10,min=10,max=20){
+
+    infinity <- 100000       # number approximating infinity      
+    data_population <- runif(infinity,min,max)      
+
+     #######
+     # Draw multiple samples from the pool (population) of possible data.  
+
+    samplemean <- numeric(n.samples)     # set up storage vector
+    for(i in 1:n.samples){      # for each replicate (independent random sample)
+      sample <- sample(data_population,sample.size)   # draw an independent random sample from the population of interest
+      samplemean[i] <- mean(sample)    # compute and record the sample mean
+    }
+    
+    layout(matrix(1:2,nrow=1))
+    hist(samplemean)    
+    qqnorm(samplemean)
+    toret <- shapiro.test(samplemean)
+    return(toret)
+}
+
+```
+
+And you can test your code with the following command:
+
+```{r testq1d}
 
 answer1d <- CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)    # run your new function!
 
@@ -602,7 +681,7 @@ answer1d <- CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)    # run your ne
 ```
 
 
-```{r q1d-check, eval=FALSE}
+```{r q1d-check, echo=FALSE}
 grade_this({
   fail_if(!.result(n.samples=5000,sample.size=4,min=2,max=10)$method=="Shapiro-Wilk normality test","Make sure your function returns the results from the Shapiro-Wilk normality test!")
   pass_if(near(.result(n.samples=5000,sample.size=4,min=2,max=10)$statistic,
@@ -618,14 +697,14 @@ Finally, test the CLT function out for different parameter combinations to make 
 
 You can use the following interactive R window for testing if that is helpful:
 
-```{r 1e, exercise=TRUE}
+```{r q1e, exercise=TRUE}
    # use this space if it's helpful
 
 ```
 
     
 
-```{r solution1e, echo=FALSE, eval=FALSE}
+```{r solutionq1e, echo=FALSE, eval=FALSE}
 
 ##############
 # Exercise 1e
@@ -917,7 +996,7 @@ Answer the following questions (with brief justification) in your Word document:
 
 Review the "brute-force z-test" code from the ["Why focus on algorithms" lecture](https://kevintshoemaker.github.io/NRES-746/LECTURE1.html). Then complete the following exercises: 
 
-```{r solutionq4a0, echo=FALSE}
+```{r solutionq4a0, echo=FALSE, context="data"}
 
 #############
 # CHALLENGE 4: brute force z-tests!
@@ -1016,7 +1095,7 @@ z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
 </div>
 
 
-```{r q4a-solution, echo=FALSE}
+```{r q4a-solution, echo=FALSE, context="data"}
 
 ###############
 # Question 4a
@@ -1068,10 +1147,59 @@ z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
 
 ```
 
+```{r dataq4a0, echo=FALSE, context="data"}
+
+z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
+  
+  #############
+  # Compute the sample statistic
+  #############
+  
+  observed_mean <- mean(sample)
+  
+  sample.size <- length(sample)   # compute sample size
+
+  #################
+  # Generate SAMPLING DISTRIBUTION
+  #################
+  
+  reps <- 1000                 # set the number of replicate samples
+  null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
+  
+  for(i in 1:reps){            # for each replicate... 
+    nullsamp <- rnorm(10,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
+    null_dist[i] <- mean(nullsamp)           # compute and store the sample produced under the null hypothesis
+  }
+  
+  if(onetail==T){
+    more.extreme <- length(which(null_dist<=observed_mean))       # how many of these samples are more extreme than the sample statistic?
+    p_value <- more.extreme/reps
+  }else{
+    obs_dev <- abs(observed_mean-pop.mean)
+    low <- pop.mean-obs_dev       # limit to extremeness in low body mass
+    high <- pop.mean+obs_dev       # limit to extremeness in high body mass
+    more.extreme <- length(which((null_dist<=low)|(null_dist>=high)))
+    p_value <- more.extreme/reps
+  }
+ 
+  
+  to_return <- list()   # initialize object to return
+  
+  to_return$null_dist <- null_dist
+  to_return$p_value <- p_value
+  to_return$observed_mean <- observed_mean
+  
+  return(to_return)
+
+}
+
+
+```
+
 
 Test your function using some alternative sample data values. For example:
 
-```{r test4a, eval=FALSE}
+```{r test4a}
 
 population.mean = 4.5
 population.sd = 0.9
@@ -1083,7 +1211,7 @@ z.test.q4a(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,on
 ```
 
 
-```{r q4adata, context='data'}
+```{r dataq4a1, context='data'}
 population.mean = 4.5
 population.sd = 0.9
 my.sample = c(5.14,3.27,4.56,3.77,3.34,4.32,3.84,3.19,5.24,4.09)
@@ -1152,7 +1280,7 @@ z.test.q4b <- function(sample, null.data){
 </div>
 
 
-```{r q4b-solution, echo=FALSE}
+```{r q4b-solution, echo=FALSE, context="data"}
 
 ###############
 # Question 4b
@@ -1197,9 +1325,51 @@ z.test.q4b <- function(sample=my.sample, null.data){
 ```
 
 
+```{r dataq4b0, echo=FALSE, context="data"}
+
+z.test.q4b <- function(sample=my.sample, null.data){
+  
+  #############
+  # Compute the sample statistic
+  #############
+  
+  observed_mean <- mean(sample)
+  
+  sample.size <- length(sample)   # compute sample size
+
+  #################
+  # Generate SAMPLING DISTRIBUTION
+  #################
+  
+  reps <- 1000                 # set the number of replicate samples
+  null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
+  
+  for(i in 1:reps){            # for each replicate... 
+    nullsamp <- sample(null.data,sample.size,replace=T)      # draw a sample assuming no treatment effect       
+    null_dist[i] <- mean(nullsamp)           # compute and store the sample produced under the null hypothesis
+  }
+  
+  
+  more.extreme <- length(which(null_dist<=observed_mean))       # how many of these samples are more extreme than the sample statistic?
+  p_value <- more.extreme/reps
+  
+  to_return <- list()   # initialize object to return
+  
+  to_return$null_dist <- null_dist
+  to_return$p_value <- p_value
+  to_return$observed_mean <- observed_mean
+  
+  return(to_return)
+
+}
+
+
+```
+
+
 Test your function using some alternative sample data vectors. For example:
 
-```{r test4b, eval=FALSE}
+```{r testq4b}
 
 null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28,4.02,3.58,4.03,5.38,5.5,3.07,3.29,3.45,5.25,5.7,1.26,5.28,4.19,4.76,4.2,4.81,2.5)
 my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
@@ -1207,7 +1377,7 @@ z.test.q4b(sample = my.sample, null.data )
 
 ```
 
-```{r q4bdata, context='data'}
+```{r dataq4b2, context='data'}
 null.data=c(2.2,3.86,6.39,4.6,3.43,5.16,4.36,4.22,6.31,4.61,5.13,4.12,4.64,4.03,5.01,7.33,5.35,4.7,2.82,4.87,3.87,5.95,5.28)
 my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
 ```
@@ -1292,7 +1462,7 @@ More specifically, this function should be specified as follows:
     + Follow the example from lecture. Store the regression coefficients instead of the R-squared values.  
 
 + **return**:    
-    + coefs = a vector of the regression coefficients for all predictor variables
+    + coefs = a vector of the regression coefficients (slope terms) for all predictor variables. This should be a vector with one element (slope term) for each predictor variable. The number of elements in your vector should be one fewer than the number of columns in your dataset. 
     
     
 Include your function in your submitted r script!
@@ -1337,9 +1507,32 @@ RegressionCoefs <- function(df=trees,responsevar="Volume"){    # univariate mode
 
 ```
 
+```{r dataq5a0, echo=FALSE, context='data'}
+
+#############
+## exercise 5a
+
+RegressionCoefs <- function(df=trees,responsevar="Volume"){    # univariate models only- interaction and multiple regression not implemented here
+  response <- df[,responsevar]       # extract the response variable
+  names <- names(df)                  
+  coefs <- numeric(length(names))        # named storage vector
+  names(coefs) <- names(df)               
+  coefs <- coefs[names(coefs)!=responsevar]           # assume that all columns that are not the response variable are possible predictor variables
+  i=names(coefs)[1]
+  for(i in names(coefs)){         # loop through predictors
+      predictor <- df[,i]                  # extract this predictor
+      model <- lm(response~predictor)       # regress response on predictor
+      coefs[i] <- coefficients(model)["predictor"]       # extract slope term
+  }
+  return(coefs)     
+}
+
+
+```
+
 You can test your function using the following code:
 
-```{r test5a, echo=FALSE, eval=FALSE}
+```{r testq5a}
 
 RegressionCoefs(df=trees,responsevar="Volume")   # should return two regression coefficients
 
@@ -1405,7 +1598,7 @@ BootCoefs(df=df,statfunc=RegressionCoefs,
 
 
 
-```{r q5b-solution, echo=FALSE}
+```{r q5b-solution, echo=FALSE, context="data"}
 
 #############
 ## exercise 5b
@@ -1435,9 +1628,36 @@ BootCoefs <- function(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsev
 
 ```
 
+
+```{r dataq5b0, echo=FALSE, context="data"}
+
+ # note: this is copied from the lecture code...
+boot_sample <- function(df,statfunc,n_samples,responsevar="Volume"){
+  indices <- c(1:nrow(df))
+  output <- matrix(NA,nrow=n_samples,ncol=ncol(df)-1)        # storage object- to store a single bootstrapped sample from the original data
+  
+  for(i in 1:n_samples){              # for each bootstrap replicate:
+    boot_rows <- sample(indices,size=nrow(df),replace=T)         # randomly sample observations with replacement
+    newdf <- df[boot_rows,]                       # dataframe of bootstrapped observations
+    output[i,] <- statfunc(newdf,responsevar)                 # generate statistics from the bootstrapped sample  (e.g., compute Rsquared after regressing y on all possible x variables)
+  }
+  return(output)
+}
+
+
+BootCoefs <- function(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar="Volume"){    # univariate models only- interaction and multiple regression not implemented here
+  boot <- boot_sample(df=df,statfunc=statfunc,n_samples=n_samples,responsevar=responsevar)   # generate test statistics (Rsquared vals) for 1000 bootstrap samples
+  confint <- apply(boot,2,function(t)  quantile(t,c(0.025,0.5,0.975)))       # summarize the quantiles to generate confidence intervals for each predictor variable
+  colnames(confint) <- paste("stat",c(1:(ncol(df)-1)),sep="")
+  return(t(confint))     
+}
+
+
+```
+
 You can test your function using the following code:
 
-```{r test5b, eval=FALSE}
+```{r test5b}
 
 BootCoefs(df=trees,statfunc=RegressionCoefs,n_samples=1000,responsevar="Volume")
 
@@ -1451,7 +1671,7 @@ BootCoefs(df=df,
 
 ```
 
-```{r q5bdata, context='data'}
+```{r dataq5b1, context='data'}
 
 RegressionCoefs <- function(df=trees,responsevar="Volume"){    # univariate models only- interaction and multiple regression not implemented here
   response <- df[,responsevar]       # extract the response variable
