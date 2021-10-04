@@ -55,7 +55,9 @@ First, take a little time to review the [likelihood lecture](http://kevintshoema
 
 First, load the reed frog predation data from the Bolker book- it can be found [here](http://kevintshoemaker.github.io/NRES-746/ReedfrogPred.csv). Save this file to your working directory.
 
-This dataset represents predation data for *Hyperolius spinigularis* (Vonesh and Bolker 2005). You can read more about this data set in the Bolker book.   
+This dataset represents predation data for *Hyperolius spinigularis* (Vonesh and Bolker 2005). You can read more about this data set in the Bolker book. 
+
+NOTE: if you'd like to follow along, the R script for this demo can be found [here](http://kevintshoemaker.github.io/NRES-746/LAB3demo.R) 
 
 ```{r}
 
