@@ -166,18 +166,6 @@ if (window.hljs) {
 <div id="section-q2_1a-hint">
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
-<div class="tutorial-exercise-support" data-label="q2_1a-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>#############
-## exercise 2.1a
-
-LMDataSim &lt;- function(sample.size,xlimits,coefs,stdev){
-  xvals &lt;- runif(sample.size,xlimits[1],xlimits[2])
-  yvals &lt;- coefs[1] + coefs[2]*xvals
-  yvals &lt;- rnorm(sample.size,yvals,stdev)
-  out &lt;- data.frame(x=xvals,y=yvals)
-  return(out)
-}</code></pre>
-</div>
 <p>Test your function- for example, using the following code:</p>
 <pre class="r"><code>LMDataSim(sample.size=10,xlimits=c(40,120),coefs=c(55,-0.09),stdev=6.8)</code></pre>
 <pre class="r"><code>temp &lt;- LMDataSim(sample.size=500,xlimits=c(-2,10),coefs=c(10,-0.21),stdev=.1)
@@ -234,39 +222,6 @@ LMVerify_pt1 &lt;- function(sim.dataset,trueparams,plot=TRUE){
 <div id="section-q2_1b-hint">
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
-<div class="tutorial-exercise-support" data-label="q2_1b-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>#############
-## exercise 2.1b
-
-LMVerify_pt1 &lt;- function(sim.dataset,trueparams,plot=T){
-  names &lt;- names(sim.dataset)
-  form &lt;- as.formula(sprintf(&quot;%s ~ %s&quot;,names[2],names[1]) )   # note: this is to make sure the function runs for whatever your column names are. But fine if you hardcoded the names x and y!
-  mod &lt;- lm(form,data=sim.dataset)
-  coefs &lt;- coefficients(mod)
-  sdest &lt;- summary(mod)$sigma
-  coefs &lt;- c(coefs,sdest)
-  names(coefs) &lt;- c(&quot;intercept&quot;,names[1],&quot;stdev&quot;)
-  if(plot==T){
-    xl &lt;- range(sim.dataset[,1])*c(0.75,1.25) 
-    yl &lt;- range(sim.dataset[,2])*c(0.75,1.25)
-    newdata &lt;- data.frame(temp=seq(xl[1],xl[2],0.1))
-    names(newdata) &lt;- names[1]
-    ci &lt;- predict(mod,newdata,interval=&quot;confidence&quot;,level=0.9)
-    plot(sim.dataset,ylim=yl,xlim=xl)
-    abline(mod,col=&quot;green&quot;,lwd=3)
-    lines(newdata[,1],ci[,&quot;lwr&quot;],col=&quot;blue&quot;,lty=2)
-    lines(newdata[,1],ci[,&quot;upr&quot;],col=&quot;blue&quot;,lty=2)
-  }
-  cislope &lt;- confint(mod,names[1],level=0.9)
-  trueslope &lt;- trueparams[2]
-  is.inside &lt;- ifelse((trueslope&gt;=cislope[1])&amp;(trueslope&lt;=cislope[2]),TRUE,FALSE)
-  out &lt;- list()
-  out$trueparams &lt;- trueparams  
-  out$fittedparams &lt;- coefs   
-  out$inside &lt;- is.inside
-  return(out)
-}</code></pre>
-</div>
 <p>Test your function- for example, using the following code:</p>
 <pre class="r"><code>simdat &lt;- LMDataSim(sample.size=10,xlimits=c(40,120),coefs=c(55,-0.09),stdev=6.8)
 
@@ -276,11 +231,11 @@ LMVerify_pt1(sim.dataset = simdat, trueparams = c(55,-0.09,6.8), plot=T)</code><
 ## [1] 55.00 -0.09  6.80
 ## 
 ## $fittedparams
-##  intercept          x      stdev 
-## 34.6824187  0.1367347  6.0570268 
+##   intercept           x       stdev 
+## 49.73725729 -0.02587699  6.32059239 
 ## 
 ## $inside
-## [1] FALSE</code></pre>
+## [1] TRUE</code></pre>
 <pre class="r"><code>simdat2 &lt;- LMDataSim(sample.size=100,xlimits=c(0,15),coefs=c(40,-2.2),stdev=1.8)
 
 LMVerify_pt1(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)</code></pre>
@@ -290,7 +245,7 @@ LMVerify_pt1(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)</code><
 ## 
 ## $fittedparams
 ## intercept         x     stdev 
-## 39.886740 -2.196827  1.783682 
+## 40.138860 -2.223604  1.917066 
 ## 
 ## $inside
 ## [1] TRUE</code></pre>
@@ -396,19 +351,6 @@ div_by_three</code></pre>
 <div id="section-q2_2b-hint">
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
-<div class="tutorial-exercise-support" data-label="q2_2a-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>#############
-## exercise 2.2a
-
-LMDataSim2 &lt;- function(sample.size,xlimits,coefs,sd_coefs){
-  xvals &lt;- runif(sample.size,xlimits[1],xlimits[2])
-  yvals &lt;- coefs[1] + coefs[2]*xvals
-  sds &lt;- sd_coefs[1] + sd_coefs[2]*xvals
-  yvals &lt;- rnorm(sample.size,yvals,sds)
-  out &lt;- data.frame(x=xvals,y=yvals)
-  return(out)
-}</code></pre>
-</div>
 <p>Test your function- for example, using the following code:</p>
 <pre class="r"><code>test &lt;- LMDataSim2(sample.size=35,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.2,0.04))
 plot(test$x,test$y)</code></pre>
@@ -461,37 +403,6 @@ LMVerify_pt2 &lt;- function(sim.dataset,trueparams,plot=TRUE){
 <div id="section-q2_2b-hint">
 <p><strong>Hint:</strong> No hints … yet!</p>
 </div>
-<div class="tutorial-exercise-support" data-label="q2_2b-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>#############
-## exercise 2.2b
-
-LMVerify_pt2 &lt;- function(sim.dataset,trueparams,plot=T){
-  names &lt;- names(sim.dataset)
-  form &lt;- as.formula(sprintf(&quot;%s ~ %s&quot;,names[2],names[1]) )   # note: this is to make sure the function runs for whatever your column names are!
-  mod &lt;- lm(form,data=sim.dataset)
-  coefs &lt;- coefficients(mod)
-  names(coefs) &lt;- c(&quot;intercept&quot;,names[1])
-  if(plot==T){
-    xl &lt;- range(sim.dataset[,1])*c(0.75,1.25)
-    yl &lt;- range(sim.dataset[,2])*c(0.75,1.25)
-    newdata &lt;- data.frame(temp=seq(xl[1],xl[2],0.1))
-    names(newdata) &lt;- names[1]
-    ci &lt;- predict(mod,newdata,interval=&quot;prediction&quot;)
-    plot(sim.dataset,ylim=yl,xlim=xl)
-    abline(mod,col=&quot;green&quot;,lwd=3)
-    lines(newdata[,1],ci[,&quot;lwr&quot;],col=&quot;blue&quot;,lty=2)
-    lines(newdata[,1],ci[,&quot;upr&quot;],col=&quot;blue&quot;,lty=2)
-  }
-  cislope &lt;- confint(mod,names[1])
-  trueslope &lt;- trueparams[2]
-  is.inside &lt;- ifelse((trueslope&gt;=cislope[1])&amp;(trueslope&lt;=cislope[2]),TRUE,FALSE)
-  out &lt;- list()
-  out$trueparams &lt;- trueparams
-  out$fittedparams &lt;- coefs
-  out$inside &lt;- is.inside
-  return(out)
-}</code></pre>
-</div>
 <p>Test your function- for example, using the following code:</p>
 <pre class="r"><code>simdat3 &lt;- LMDataSim2(sample.size=25,xlimits=c(30,120),coefs=c(55,-0.19),sd_coefs=c(-1.4,0.11))
 LMVerify_pt2(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)</code></pre>
@@ -500,8 +411,8 @@ LMVerify_pt2(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)</code></pre
 ## [1] 55.00 -0.19
 ## 
 ## $fittedparams
-## intercept         x 
-## 56.066687 -0.200222 
+##  intercept          x 
+## 56.5969857 -0.1920792 
 ## 
 ## $inside
 ## [1] TRUE</code></pre>
@@ -561,20 +472,6 @@ temp &lt;- LMVerify_pt2(sim.dataset = simdat_lots, trueparams = c(55,-0.09),plot
 #GetPower(initabund=1000,nreps=1000,trend=-0.03,years=25,days=1,observers=1,survint=2,alpha=0.1)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="q2_3a-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>###########
-# Lab exercise 2.3a: develop a &quot;power&quot; function to return the statistical power to detect a decline under alternative monitoring schemes...
-
-GetPower &lt;- function(initabund=1000,nreps=1000,trend=-0.03,years=25,days=3,observers=1,survint=2,alpha=0.05){
-  decline &lt;- logical(nreps)
-  for(i in 1:nreps){
-    detected &lt;- SimulateMonitoringData(initabund,trend,years,observers,days,survint)
-    decline[i] &lt;- IsDecline(detected,alpha)
-  }
-  Power &lt;- sum(decline)/nreps
-  return(Power)
-}</code></pre>
-</div>
 <p>And we can test our new function using a command like this:</p>
 <pre class="r"><code>GetPower(survint=3)         # test the new function, using mostly the default values
 
@@ -596,6 +493,9 @@ GetPower(initabund=1000,nreps=1000,trend=-0.03,years=25,days=1,observers=1,survi
 library(learnr)
 library(gradethis)
 library(dplyr)
+tutorial_options(
+  exercise.reveal_solution = FALSE
+)
 gradethis_setup(
   pass.praise = TRUE,
   fail.encourage = TRUE,
@@ -624,6 +524,7 @@ session$onSessionEnded(function() {
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(gradethis)", "library(dplyr)", 
+"tutorial_options(", "  exercise.reveal_solution = FALSE", ")", 
 "gradethis_setup(", "  pass.praise = TRUE,", "  fail.encourage = TRUE,", 
 "  fail.hint = TRUE", ")", "knitr::opts_chunk$set(echo = TRUE)"
 ), overwrite = FALSE)
@@ -631,6 +532,7 @@ learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(g
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(gradethis)", "library(dplyr)", 
+"tutorial_options(", "  exercise.reveal_solution = FALSE", ")", 
 "gradethis_setup(", "  pass.praise = TRUE,", "  fail.encourage = TRUE,", 
 "  fail.hint = TRUE", ")", "knitr::opts_chunk$set(echo = TRUE)"
 ), overwrite = FALSE)
@@ -638,6 +540,7 @@ learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(g
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(gradethis)", "library(dplyr)", 
+"tutorial_options(", "  exercise.reveal_solution = FALSE", ")", 
 "gradethis_setup(", "  pass.praise = TRUE,", "  fail.encourage = TRUE,", 
 "  fail.hint = TRUE", ")", "knitr::opts_chunk$set(echo = TRUE)"
 ), overwrite = FALSE)
@@ -684,7 +587,8 @@ learnr:::store_exercise_cache("q2_1a", list(setup = NULL, chunks = list(list(lab
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q2_1a", exercise = TRUE, code = c("LMDataSim <- function(sample.size,xlimits,coefs,stdev){", 
+        exercise.reveal_solution = FALSE, label = "q2_1a", exercise = TRUE, 
+        code = c("LMDataSim <- function(sample.size,xlimits,coefs,stdev){", 
         "    # [add code here!]", "}", "#LMDataSim(sample.size=20,xlimits=c(40,120),coefs=c(5,0.3),stdev=1)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q2_1a, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
@@ -755,7 +659,8 @@ learnr:::store_exercise_cache("q2_1b", list(setup = NULL, chunks = list(list(lab
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q2_1b", exercise = TRUE, code = c("#simdat <- LMDataSim(sample.size=1000,xlimits=c(0,10),coefs=c(0,1),stdev=1)", 
+        exercise.reveal_solution = FALSE, label = "q2_1b", exercise = TRUE, 
+        code = c("#simdat <- LMDataSim(sample.size=1000,xlimits=c(0,10),coefs=c(0,1),stdev=1)", 
         "LMVerify_pt1 <- function(sim.dataset,trueparams,plot=TRUE){", 
         "    # [add code here!]", "}", "#LMVerify_pt1(sim.dataset = simdat, trueparams = c(0,1,1),plot=FALSE)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q2_1b, exercise=TRUE", 
@@ -850,7 +755,8 @@ learnr:::store_exercise_cache("q2_2a", list(setup = NULL, chunks = list(list(lab
         include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q2_2a", exercise = TRUE, code = c("LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){", 
+        exercise.reveal_solution = FALSE, label = "q2_2a", exercise = TRUE, 
+        code = c("LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){", 
         "    # [add code here!]", "}", "#LMDataSim2(sample.size=1000,xlimits=c(0,10),coefs=c(0,0.5),sd_coefs=c(0,0.2))", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q2_2a, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
@@ -921,7 +827,8 @@ learnr:::store_exercise_cache("q2_2b", list(setup = NULL, chunks = list(list(lab
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q2_2b", exercise = TRUE, code = c("#simdat <- LMDataSim2(sample.size=1000,xlimits=c(0,10),coefs=c(0,0.5),sd_coefs=c(0,0.2))", 
+        exercise.reveal_solution = FALSE, label = "q2_2b", exercise = TRUE, 
+        code = c("#simdat <- LMDataSim2(sample.size=1000,xlimits=c(0,10),coefs=c(0,0.5),sd_coefs=c(0,0.2))", 
         "LMVerify_pt2 <- function(sim.dataset,trueparams,plot=TRUE){", 
         "    # [add code here!]", "}", "#LMVerify_pt2(sim.dataset = simdat, trueparams = c(0,0.5),plot=FALSE)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q2_2b, exercise=TRUE", 
@@ -1006,7 +913,8 @@ learnr:::store_exercise_cache("q2_3a", list(setup = NULL, chunks = list(list(lab
         include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
         exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "gradethis_error_checker()", 
-        label = "q2_3a", exercise = TRUE, code = c("GetPower <- function(initabund=1000,nreps=1000,trend=-0.03,years=25,days=3,observers=1,survint=2,alpha=0.05){", 
+        exercise.reveal_solution = FALSE, label = "q2_3a", exercise = TRUE, 
+        code = c("GetPower <- function(initabund=1000,nreps=1000,trend=-0.03,years=25,days=3,observers=1,survint=2,alpha=0.05){", 
         "    # [add code here!]", "}", "#GetPower(initabund=1000,nreps=1000,trend=-0.03,years=25,days=1,observers=1,survint=2,alpha=0.1)", 
         ""), out.width.px = 624, out.height.px = 384, params.src = "q2_3a, exercise=TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))

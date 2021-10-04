@@ -16,6 +16,9 @@ description: "Getting started with writing statistical algorithms in R!"
 library(learnr)
 library(gradethis)
 library(dplyr)
+tutorial_options(
+  exercise.reveal_solution = FALSE
+)
 gradethis_setup(
   pass.praise = TRUE,
   fail.encourage = TRUE,
@@ -40,8 +43,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ####  Computational algorithms and standard statistics  ####
 ############################################################
 
-
-# gradethis::grade_learnr
 
 ```
 
@@ -92,26 +93,26 @@ Basically, all you need to do here is write 'sum(vector)' where it says '[add co
 NOTE: you don't need to submit this as part of your lab report! This is just practice...
 
 
-```{r functest, exercise=TRUE}
+```{r funcdemo, exercise=TRUE}
 myfunc <- function(vector){
     # [add code here!]
 }
 
 ```
 
-```{r functest-solution}
-myfunc <- function(vector){
+```{r funcdemo-solution}
+myfunc <- function(vector){     # demo function (not part of lab)
     sum(vector)
 }
 
 ```
 
-<div id="functest-hint">
+<div id="funcdemo-hint">
 **Hint:** You may want to use the `sum()` function.
 </div>
 
 
-```{r functest-check}
+```{r funcdemo-check}
 grade_this({
   pass_if_equal(y=.solution(3:5),x=.result(3:5))
   fail()
@@ -932,7 +933,7 @@ z.test.algorithm <- function(sample, pop.mean, pop.sd){
   
   observed_mean <- mean(sample)
   
-  sample.size <- length(observed_mean)   # compute sample size
+  sample.size <- length(sample)   # compute sample size
 
   #################
   # Generate SAMPLING DISTRIBUTION

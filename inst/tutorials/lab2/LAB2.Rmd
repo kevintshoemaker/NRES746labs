@@ -10,6 +10,9 @@ runtime: shiny_prerendered
 library(learnr)
 library(gradethis)
 library(dplyr)
+tutorial_options(
+  exercise.reveal_solution = FALSE
+)
 gradethis_setup(
   pass.praise = TRUE,
   fail.encourage = TRUE,

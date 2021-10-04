@@ -1,4 +1,0 @@
-answer3.2a1.cached.RData
-answer3.2a2.cached.RData
-answer3.2a3.cached.RData
-answer3.3a2.cached.RData

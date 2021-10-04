@@ -1,7 +1,7 @@
 Package: NRES746labs
 Title: NRES 746 interactive labs
 Version: 0.1.0
-Authors@R: 
+Authors@R:
     person(given = "Kevin",
            family = "Shoemaker",
            role = c("aut", "cre"),
@@ -11,6 +11,7 @@ License: MIT + file LICENSE
 Imports:
     learnr,
     dplyr,
-    gradethis   
+    emdbook,
+    gradethis
 Remotes:
     github::rstudio/gradethis
