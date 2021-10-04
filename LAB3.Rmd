@@ -689,7 +689,7 @@ In your Word document, respond briefly to the following questions:
 
 ## Exploring Likelihood Surfaces and Confidence Regions
 
-Let's continue the myxomatosis virus titer example from the [optimization lecture](LECTURE5.html). The difference is that this time we'll model a deterministic process (decay of viral loads over time) in addition to the stochastic process. Our goal is to fit a model to data on viral titers through time for the viruses that are grade 1 (lowest virulence). Biological common sense, and data from other titer levels, tells us to expect titer levels to start at zero, increase over time to a peak, and then to decline. Given those expectations, we’ll fit a Ricker model to these data, following Bolker’s example and extending it just a bit.  
+Let's continue the myxomatosis virus titer example from the [optimization lecture](LECTURE5.html). The difference is that this time we'll model a deterministic process (decay of viral loads over time) in addition to the stochastic process. Our goal is to fit a model to data on viral titers through time for the viruses that are grade 1 (highest virulence). Biological common sense, and data from other titer levels, tells us to expect titer levels to start at zero, increase over time to a peak, and then to decline. Given those expectations, we’ll fit a Ricker model to these data, following Bolker’s example and extending it just a bit.  
 
 Our goals are to:   
 
@@ -720,7 +720,7 @@ Select just the grade 1 titers:
 
 ```{r answerq3_3a2, context='data'}
 
-myxdat <- subset(MyxoTiter_sum, grade==1)    # select just the least virulent strain
+myxdat <- subset(MyxoTiter_sum, grade==1)    # select just the most virulent strain
 
 plot(myxdat$titer~myxdat$day,xlim=c(0,10))    # visualize the relationship
 
