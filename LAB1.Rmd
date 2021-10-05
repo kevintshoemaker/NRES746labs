@@ -1022,7 +1022,7 @@ z.test.algorithm <- function(sample, pop.mean, pop.sd){
   null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
   
   for(i in 1:reps){            # for each replicate... 
-    nullsamp <- rnorm(10,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
+    nullsamp <- rnorm(sample.size,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
     null_dist[i] <- mean(nullsamp)           # compute and store the samples produced under the null hypothesis
   }
   
@@ -1118,7 +1118,7 @@ z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
   null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
   
   for(i in 1:reps){            # for each replicate... 
-    nullsamp <- rnorm(10,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
+    nullsamp <- rnorm(sample.size,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
     null_dist[i] <- mean(nullsamp)           # compute and store the sample produced under the null hypothesis
   }
   
@@ -1167,7 +1167,7 @@ z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
   null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
   
   for(i in 1:reps){            # for each replicate... 
-    nullsamp <- rnorm(10,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
+    nullsamp <- rnorm(sample.size,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
     null_dist[i] <- mean(nullsamp)           # compute and store the sample produced under the null hypothesis
   }
   

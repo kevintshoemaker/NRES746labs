@@ -45,7 +45,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 These next few weeks are focused on fitting models, specifically estimating model parameters and confidence intervals, using likelihood-based techniques (maximum likelihood and Bayesian model fitting). Estimating model parameters means finding the values of a set of parameters that best 'fit' the data. *Likelihood* is a metric that represents the probability of drawing your particular data set given a fully specified model (e.g., a particular data-generating model with a particular set of parameter values). This lab is designed to take two lab sessions to complete.
 
-As with all lab reports, your answers will either take the form of R functions (submitted as an R script) or short written responses (submitted together in a Word document). The R functions (and only the functions- not your testing code) should be stored in an R script file ('.R' extension). You don't need to follow any naming convention for your R script as long as you submit via WebCampus.
+As with all labs in this course, your answers will either take the form of R functions (submitted as an R script) or short written responses (submitted together in a Word document). The R functions (and only the functions- not your testing code) should be stored in an R script file ('.R' extension). You don't need to follow any naming convention for your R script as long as you submit via WebCampus.
 
 Please submit the R script and the Word document via WebCampus by midnight on the due date (one week after the final lab session allocated for this topic -- here, _Oct. 25, 2021_). You can work in groups but please submit the materials individually. 
 
@@ -75,7 +75,7 @@ head(rfp)
 
 ```
 
-Parameter estimation is simplest when the data represent a collection of independent observations, with each observation having the same set of parameters. Because predation on tadpoles is size and density-dependent, we will subset these data to a single size class ('small') and density (10) for all treatments including a predator. Subset your data now:
+Because predation on tadpoles is size and density-dependent, we will subset these data to a single size class ('small') and density (10) for all treatments including a predator (this simplifies the problem!). Subset your data now:
 
 ```{r}
 
@@ -106,7 +106,7 @@ In R this would be
 killed <- rfp_sub$density-rfp_sub$surv
 N=rfp_sub$density
 p=0.5
-sum(dbinom(killed, size=N, prob=p, log=TRUE))    # expression of data likelihoodb(log scale)
+sum(dbinom(killed, size=N, prob=p, log=TRUE))    # expression of data likelihood(log scale)
 
 ```
 
@@ -298,7 +298,7 @@ Note that "freq=F" scales the y-axis of a histogram to "density", which allows u
 
 ## Exercise 3.1
 
-Develop a function that returns the data likelihood (*likelihood function*) for the following scenario (introduced in lecture): you visit three known-occupied wetland sites ten times and for each site you record the number of visits for which a particular frog species is detected (at least one call within a 5 minute period). Assuming that all sites are occupied continuously, compute the likelihood of these data: [3,2 and 6 detections for sites 1, 2, and 3 respectively] for a given detection probability $p$. Assume that all sites have the same detection probability (*p*, which is our free parameter). Using this likelihood function, answer the following questions: 
+Develop a function that returns the data likelihood (*likelihood function*) for the following scenario: you visit three known-occupied wetland sites ten times and for each site you record the number of visits for which a particular frog species is detected (at least one call within a 5 minute period). Assuming that all sites are occupied continuously, compute the likelihood of these data: [3,2 and 6 detections for sites 1, 2, and 3 respectively] for a given detection probability $p$. Assume that all sites have the same detection probability (*p*, which is our free parameter). Using this likelihood function, answer the following questions: 
 
 ## **Exercise 3.1a**. 
 
@@ -313,7 +313,7 @@ Write a function called "NLL_frogOccupancy()" for computing the data likelihood 
     + up to you!  (HINT: use binomial distribution)
 
 + **return**:    
-    + the negative log likelihood of all observations    
+    + the negative log likelihood of all observations (a single number)   
         
 Include your function in your submitted r script!
 
@@ -371,8 +371,6 @@ grade_this({
 
 ```
 
-
-        
 
 ## **Exercise 3.1b**. 
 
@@ -732,7 +730,7 @@ plot(myxdat$titer~myxdat$day,xlim=c(0,10))    # visualize the relationship
 ## **Exercise 3.3a**. 
 
 
-**Fit a Ricker model to the myxomatosis data** (see below for step-by step instructions)
+**Fit a Ricker model to the myxomatosis data** -- that is, use a Ricker deterministic equation to model the expected (mean) virus titer as a function of days since infection (see below for step-by step instructions).
 
 Write a function called "NLL_myxRicker()" for computing the data likelihood and plotting the goodness-of-fit for this model.
 

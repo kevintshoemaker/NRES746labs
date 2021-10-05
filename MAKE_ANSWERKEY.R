@@ -1,6 +1,6 @@
 
 rmd2rscript_labanswers <- function(infile="LECTURE2.Rmd"){    # function for converting markdown to scripts
-  outfile <- gsub(".Rmd",".R",infile)
+  outfile <- gsub(".Rmd","_key.R",infile)
   close( file( outfile, open="w" ) )   # clear output file
   con1 <- file(infile,open="r")
   con2 <- file(outfile,"w")
