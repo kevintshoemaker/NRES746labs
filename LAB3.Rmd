@@ -298,11 +298,11 @@ Note that "freq=F" scales the y-axis of a histogram to "density", which allows u
 
 ## Exercise 3.1
 
-Develop a function that returns the data likelihood (*likelihood function*) for the following scenario: you visit three known-occupied wetland sites ten times and for each site you record the number of visits for which a particular frog species is detected (at least one call within a 5 minute period). Assuming that all sites are occupied continuously, compute the likelihood of these data: [3,2 and 6 detections for sites 1, 2, and 3 respectively] for a given detection probability $p$. Assume that all sites have the same detection probability (*p*, which is our free parameter). Using this likelihood function, answer the following questions: 
+Develop a function that returns the data likelihood (*likelihood function*) for the following scenario: you visit three known-occupied wetland sites ten times and for each site you record the number of visits for which a particular frog species is detected (at least one call within a 5 minute period). Assuming that all sites are occupied continuously, compute the likelihood of these data: [3,2 and 6 detections for sites 1, 2, and 3 respectively] for a given detection probability $p$. Assume that all sites have the same detection probability (*p*, which is our free parameter):
 
 ## **Exercise 3.1a**. 
 
-Write a function called "NLL_frogOccupancy()" for computing the data likelihood (actually, negative log-likelihood) for the above scenario.
+Write a function (likelihood function) called "NLL_frogOccupancy()" for computing the data likelihood (actually, negative log-likelihood) for the above scenario.
 
 + **input**:         
     + params = a scalar (floating point) specifying a proposed value (initial value) for the parameter "p" (probability of detection for a single visit -- which happens to be the only free parameter in this model)      
@@ -310,7 +310,7 @@ Write a function called "NLL_frogOccupancy()" for computing the data likelihood 
     + N = an integer representing the total number of visits conducted at each site (default= 10 visits)
 
 + **suggested algorithm**:   
-    + up to you!  (HINT: use binomial distribution)
+    + up to you!  (HINT: use binomial distribution) (Note: do not use 'optim()' here: you are just asked to compute the likelihood at the specified parameters, not to find the maximum likelihood estimate)
 
 + **return**:    
     + the negative log likelihood of all observations (a single number)   
