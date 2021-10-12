@@ -298,11 +298,11 @@ Note that "freq=F" scales the y-axis of a histogram to "density", which allows u
 
 ## Exercise 3.1
 
-Develop a function that returns the data likelihood (*likelihood function*) for the following scenario: you visit three known-occupied wetland sites ten times and for each site you record the number of visits for which a particular frog species is detected (at least one call within a 5 minute period). Assuming that all sites are occupied continuously, compute the likelihood of these data: [3,2 and 6 detections for sites 1, 2, and 3 respectively] for a given detection probability $p$. Assume that all sites have the same detection probability (*p*, which is our free parameter):
+In this exercise you will develop and use a *likelihood function* that returns the data likelihood for the following scenario: you visit three known-occupied wetland sites ten times and for each site you record the number of visits for which a particular frog species is detected (at least one call within a 5 minute period). Your data are as follows: 3,2 and 6 detections for sites 1, 2, and 3 respectively.
 
 ## **Exercise 3.1a**. 
 
-Write a function (likelihood function) called "NLL_frogOccupancy()" for computing the data likelihood (actually, negative log-likelihood) for the above scenario.
+Write a function (likelihood function) called "NLL_frogOccupancy()" for computing the data likelihood (actually, negative log-likelihood) for the above scenario. Your likelihood function should compute the likelihood of these data: [3,2 and 6 detections for sites 1, 2, and 3 respectively] for any given detection probability $p$, assuming that all sites are occupied continuously. Assume that all sites have the same detection probability (*p*, which is our free parameter)
 
 + **input**:         
     + params = a scalar (floating point) specifying a proposed value (initial value) for the parameter "p" (probability of detection for a single visit -- which happens to be the only free parameter in this model)      
@@ -310,10 +310,10 @@ Write a function (likelihood function) called "NLL_frogOccupancy()" for computin
     + N = an integer representing the total number of visits conducted at each site (default= 10 visits)
 
 + **suggested algorithm**:   
-    + up to you!  (HINT: use binomial distribution) (Note: do not use 'optim()' here: you are just asked to compute the likelihood at the specified parameters, not to find the maximum likelihood estimate)
+    + up to you!  (HINT: use binomial distribution) (NOTE: do not use 'optim()' here: you are just asked to compute the likelihood at any specified parameter (input argument "p"), not to find the maximum likelihood estimate)
 
 + **return**:    
-    + the negative log likelihood of all observations (a single number)   
+    + the negative log likelihood of your data (a single number)   
         
 Include your function in your submitted r script!
 
@@ -547,7 +547,7 @@ grade_this({
 Write a function called "Rffuncresp()" for computing the maximum-likelihood estimates and plotting the goodness-of-fit for this model.
 
 + **input**:         
-    + params = vector of initial values for the params to estimate (length 2: a and h from the Holling type II functional response- in that order)       
+    + params = named vector of initial values for the params to estimate (length 2: a and h from the Holling type II functional response- in that order, named "a" and "h", respectively)       
     + data = a matrix of 2 columns and one row per observation. The first column should represent the initial tadpole densities, and the second column should represent the number killed (eaten by dragonfly larvae).     
 
 + **suggested algorithm**:   
@@ -574,7 +574,7 @@ Rffuncresp <- function(params,data){
 
 ```{r q3_2b-solution, echo=FALSE}
 
-quantilefunc <- function(x,pars,q){    # helper function for plotting quantiles
+quantilefunc <- function(x,pars,q){    # helper function for plotting quantiles using curve function (not needed here)
   ifelse(x>0.5,
     qbinom(q,prob=Holl2(round(x),pars["a"],pars["h"])/round(x),size=round(x)),
     0
@@ -583,13 +583,14 @@ quantilefunc <- function(x,pars,q){    # helper function for plotting quantiles
 
 inits <- c(a=0.6,h=(1/60))
 Rffuncresp <- function(params=inits,data=rffr){
-  temp <- suppressWarnings( optim(fn=binomNLL2,  par=inits, N=data[,1], k=data[,2])   )
+  temp <- suppressWarnings( optim(fn=binomNLL2,  par=params, N=data[,1], k=data[,2])   )
   MLE <- temp$par
   plot(data[,2]~data[,1],ylab="Killed",xlab="Init Density")
-  #curve(Holl2(x,inits["a"],inits["h"]),add=T,col="red")  # overlay initial values?
+  lines(data[,1],qbinom(0.975,prob=Holl2(data[,1],MLE["a"],MLE["h"])/data[,1],size=data[,1]),col="green",lty=2)
+  lines(data[,1],qbinom(0.025,prob=Holl2(data[,1],MLE["a"],MLE["h"])/data[,1],size=data[,1]),col="green",lty=2)
   curve(Holl2(x,MLE["a"],MLE["h"]),add=T,col="green",lwd=2)
-  curve(quantilefunc(x,pars=MLE,0.975),add=T,col="green",lty=2)
-  curve(quantilefunc(x,pars=MLE,0.025),add=T,col="green",lty=2)
+  # curve(quantilefunc(x,pars=MLE,0.975),add=T,col="green",lty=2)
+  # curve(quantilefunc(x,pars=MLE,0.025),add=T,col="green",lty=2)
   return(MLE)
 }
 
@@ -597,7 +598,7 @@ Rffuncresp <- function(params=inits,data=rffr){
 
 ```{r dataq3_2b0, echo=FALSE, context="data"}
 
-quantilefunc <- function(x,pars,q){    # helper function for plotting quantiles
+quantilefunc <- function(x,pars,q){    # helper function for plotting quantiles using curve function (not needed here)
   ifelse(x>0.5,
     qbinom(q,prob=Holl2(round(x),pars["a"],pars["h"])/round(x),size=round(x)),
     0
@@ -606,13 +607,14 @@ quantilefunc <- function(x,pars,q){    # helper function for plotting quantiles
 
 inits <- c(a=0.6,h=(1/60))
 Rffuncresp <- function(params=inits,data=rffr){
-  temp <- suppressWarnings( optim(fn=binomNLL2,  par=inits, N=data[,1], k=data[,2])   )
+  temp <- suppressWarnings( optim(fn=binomNLL2,  par=params, N=data[,1], k=data[,2])   )
   MLE <- temp$par
   plot(data[,2]~data[,1],ylab="Killed",xlab="Init Density")
-  #curve(Holl2(x,inits["a"],inits["h"]),add=T,col="red")    # overlay initial values?
+  lines(data[,1],qbinom(0.975,prob=Holl2(data[,1],MLE["a"],MLE["h"])/data[,1],size=data[,1]),col="green",lty=2)
+  lines(data[,1],qbinom(0.025,prob=Holl2(data[,1],MLE["a"],MLE["h"])/data[,1],size=data[,1]),col="green",lty=2)
   curve(Holl2(x,MLE["a"],MLE["h"]),add=T,col="green",lwd=2)
-  curve(quantilefunc(x,pars=MLE,0.975),add=T,col="green",lty=2)
-  curve(quantilefunc(x,pars=MLE,0.025),add=T,col="green",lty=2)
+  # curve(quantilefunc(x,pars=MLE,0.975),add=T,col="green",lty=2)
+  # curve(quantilefunc(x,pars=MLE,0.025),add=T,col="green",lty=2)
   return(MLE)
 }
 
@@ -634,7 +636,7 @@ NOTE: the "prediction interval" you are asked to generate here is sometimes call
 ```{r eval=FALSE}
 
 ########
-# how to generate plug-in prediction intervals
+# how to generate 'plug-in' prediction intervals
 
 xvec <- seq(40,80,5)
 yvec <- 0.5/(1+0.5*0.015*xvec) * xvec
@@ -735,8 +737,8 @@ plot(myxdat$titer~myxdat$day,xlim=c(0,10))    # visualize the relationship
 Write a function called "NLL_myxRicker()" for computing the data likelihood and plotting the goodness-of-fit for this model.
 
 + **input**:         
-    + params = vector of initial values for the params to estimate (length 3: *a* and *b* params from the Ricker model [see below], and the "shape" parameter of the Gamma distribution)        
-    + data = a matrix of 2 columns and one row per observation. The first column should represent the days since infection, and the second column should represent the virus titer.     
+    + params = named vector of initial values for the params to estimate (length 3: *a* and *b* params from the Ricker model [see below], and the *shape* parameter of the Gamma distribution)        
+    + data = a matrix or data frame of 2 columns and one row per observation. The first column should represent the days since infection, and the second column should represent the virus titer.     
 
 + **suggested algorithm**:   
     + Compute the deterministic function: use a Ricker deterministic equation to model the expected (mean) virus titer as a function of days since infection
@@ -834,8 +836,8 @@ grade_this({
 Write a function called "MyxRicker()" for computing the maximum likelihood estimates and plotting the goodness-of-fit for this model.
 
 + **input**:         
-    + params = vector of initial values for the params to estimate (length 3: *a* and *b* params from the Ricker model [see below], and the "shape" parameter of the Gamma distribution)        
-    + data = a matrix of 2 columns and one row per observation. The first column should represent the days since infection, and the second column should represent the virus titer.       
+    + params = named vector of initial values for the params to estimate (length 3: *a* and *b* params from the Ricker model [see below], and the *shape* parameter of the Gamma distribution)        
+    + data = a matrix or data frame of 2 columns and one row per observation. The first column should represent the days since infection, and the second column should represent the virus titer.       
 
 + **suggested algorithm**:   
     + Compute the MLE for the *a*, *b*, and *shape* parameters for the Ricker/Gamma model (use "optim()" with the likelhood function you just wrote and the initial values in "params").   
@@ -993,20 +995,20 @@ MyxRicker_ci <- function(LikFunc = NLL_myxRicker, params=c(a=2,b=0.2,shape=30), 
   MLE <- temp$par
   ML <- temp$value
   notselected <- setdiff(names(MLE),params_selected)
-  notselected_ndx <- which(names(MLE)==notselected)
-  param_ndx <- match(params_selected,names(MLE))
+  #notselected_ndx <- which(names(MLE)==notselected)
+  #param_ndx <- match(params_selected,names(MLE))
   
   var1 <- seq(param1_lims[1],param1_lims[2],length=100)
   var2 <- seq(param2_lims[1],param2_lims[2],length=100)
   
   pars <- params
-  pars[notselected_ndx] <- MLE[notselected]
+  pars[notselected] <- MLE[notselected]
   likarr <- matrix(NA,nrow=length(var1),ncol=length(var2))
   v1=1;v2=1
   for(v1 in 1:length(var1)){
-    pars[param_ndx[1]] <- var1[v1]
+    pars[params_selected[1]] <- var1[v1]
     for(v2 in 1:length(var2)){
-      pars[param_ndx[2]] <- var2[v2]
+      pars[params_selected[2]] <- var2[v2]
       likarr[v1,v2] <- -NLL_myxRicker(params=pars,data=data)
     }
   }
@@ -1071,7 +1073,7 @@ Try testing your code- something like this:
 testab <- MyxRicker_ci(LikFunc = NLL_myxRicker, params=c(a=2,b=0.2,shape=30), params_selected = c("a","b"), data=myxdat[,-1], param1_lims= c(0.1,9),param2_lims=c(0.01,0.5))
 
 # test: Ricker param "a" and gamma "shape"  [if this works, you fully implemented the suggested algorithm!]
-testas <- MyxRicker_ci(LikFunc = NLL_myxRicker, params=c(a=2,b=0.2,shape=30), params_selected = c("a","shape"), data=myxdat[,-1], param1_lims= c(1,8),param2_lims=c(10,150))
+testas <- MyxRicker_ci(LikFunc = NLL_myxRicker, params=c(a=2,b=0.2,shape=30), params_selected = c("a","shape"), data=myxdat[,-1], param1_lims= c(1,8),param2_lims=c(10,300))
 
 ```
 
