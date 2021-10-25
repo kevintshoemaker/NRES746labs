@@ -1246,11 +1246,11 @@ head(test[[3]])    # ppc for M-M
 grade_this({
   fail_if(!length(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm))==3, "your function output should be a list with three elements")
   fail_if(!near(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][1],
-              .solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][1],0.1))
+              .solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][1],0.15))
   fail_if(!near(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][2],
-              .solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][2],0.1))
-  pass_if(near(sum(apply(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm),2,mean)),
-              sum(apply(.solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm),2,mean)),1))
+              .solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][2],0.15))
+  pass_if(near(sum(apply(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[2]],2,mean)),
+              sum(apply(.solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[2]],2,mean)),1))
   fail()
 })
 ```

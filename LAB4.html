@@ -230,16 +230,16 @@ myx.data.for.bugs</code></pre>
 }
 init.vals.for.bugs()</code></pre>
 <pre><code>## $shape
-## [1] 91.78833
+## [1] 55.40313
 ## 
 ## $scale
-## [1] 0.2278089</code></pre>
+## [1] 0.1812603</code></pre>
 <pre class="r"><code>init.vals.for.bugs()</code></pre>
 <pre><code>## $shape
-## [1] 99.55514
+## [1] 41.88217
 ## 
 ## $scale
-## [1] 0.190413</code></pre>
+## [1] 0.2246193</code></pre>
 <p>Alternatively, we can specify exact initial values for our chains (in this case, we initialize three Markov chains)</p>
 <pre class="r"><code>inits = list(list(shape=90,scale=0.1), list(shape=50,scale=0.2), list(shape=150,scale=0.04))  # a list of lists!</code></pre>
 <p>Note that we need three different sets of starting values in order to run three different chains. Just like an optimization algorithm in ML analysis, JAGS may not work if you specify unreasonable initial parameters (and it won’t necessarily tell you that is the problem).</p>
@@ -265,12 +265,12 @@ jags.fit &lt;- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.t
 ## adaptation = 100 iterations (sufficient),
 ## burn-in = 5000 iterations and thin rate = 20,
 ## yielding 6750 total samples from the joint posterior. 
-## MCMC ran in parallel for 0.055 minutes at time 2021-10-25 11:19:41.
+## MCMC ran in parallel for 0.055 minutes at time 2021-10-25 16:21:44.
 ## 
 ##            mean     sd   2.5%    50%  97.5% overlap0 f  Rhat n.eff
-## shape    46.864 13.175 25.476 45.443 76.173    FALSE 1 1.006   417
-## scale     0.160  0.048  0.091  0.152  0.273    FALSE 1 1.003   597
-## deviance 77.481  2.066 75.391 76.857 83.043    FALSE 1 1.001  6750
+## shape    47.100 12.835 24.742 46.389 74.870    FALSE 1 1.006   362
+## scale     0.159  0.049  0.092  0.149  0.280    FALSE 1 1.014   290
+## deviance 77.416  2.155 75.385 76.739 83.389    FALSE 1 1.006   874
 ## 
 ## Successful convergence based on Rhat values (all &lt; 1.1). 
 ## Rhat is the potential scale reduction factor (at convergence, Rhat=1). 
@@ -281,7 +281,7 @@ jags.fit &lt;- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.t
 ## i.e., our confidence that the parameter is positive or negative.
 ## 
 ## DIC info: (pD = var(deviance)/2) 
-## pD = 2.1 and DIC = 79.615 
+## pD = 2.3 and DIC = 79.734 
 ## DIC is an estimate of expected predictive error (lower is better).</code></pre>
 <p>For each parameter, n.eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor (Gelman-Rubin diagnostic: at convergence, Rhat=1).</p>
 <p>DIC is an information criterion (Deviance Information Criterion), similar to AIC (lower DIC is better).</p>
@@ -299,16 +299,16 @@ summary(jagsfit.mcmc)</code></pre>
 ##    plus standard error of the mean:
 ## 
 ##             Mean       SD  Naive SE Time-series SE
-## shape    46.8638 13.17455 0.1603555       0.665483
-## scale     0.1602  0.04781 0.0005819       0.002392
-## deviance 77.4809  2.06567 0.0251425       0.055767
+## shape    47.0999 12.83516 0.1562246        0.62339
+## scale     0.1594  0.04931 0.0006002        0.00255
+## deviance 77.4160  2.15538 0.0262345        0.07194
 ## 
 ## 2. Quantiles for each variable:
 ## 
-##              2.5%     25%     50%    75%   97.5%
-## shape    25.47557 37.2727 45.4432 55.073 76.1733
-## scale     0.09055  0.1255  0.1524  0.186  0.2725
-## deviance 75.39089 75.9933 76.8568 78.343 83.0434</code></pre>
+##              2.5%     25%     50%     75%   97.5%
+## shape    24.74154 38.0127 46.3886 55.0789 74.8699
+## scale     0.09205  0.1259  0.1494  0.1817  0.2797
+## deviance 75.38465 75.9118 76.7393 78.1847 83.3885</code></pre>
 <pre class="r"><code>plot(jagsfit.mcmc)</code></pre>
 <p><img src="LAB4_files/figure-html/unnamed-chunk-10-1.png" width="480" /></p>
 <pre class="r"><code>library(lattice)</code></pre>
@@ -328,10 +328,10 @@ shape95 = quantile(jags.fit$sims.list$shape,c(0.025,0.975))
 scale95 = quantile(jags.fit$sims.list$scale,c(0.025,0.975))
 shape95</code></pre>
 <pre><code>##     2.5%    97.5% 
-## 25.47557 76.17327</code></pre>
+## 24.74154 74.86992</code></pre>
 <pre class="r"><code>scale95</code></pre>
-<pre><code>##       2.5%      97.5% 
-## 0.09055268 0.27254753</code></pre>
+<pre><code>##      2.5%     97.5% 
+## 0.0920530 0.2797346</code></pre>
 <pre class="r"><code>## HPD method (highest posterior density intervals)
 
 library(HDInterval)
@@ -339,13 +339,13 @@ library(HDInterval)
 shape95 = hdi(jags.fit$sims.list$shape,0.95)
 scale95 = hdi(jags.fit$sims.list$scale,0.95)
 shape95</code></pre>
-<pre><code>##   lower   upper 
-## 23.2168 72.6595 
+<pre><code>##    lower    upper 
+## 23.81661 73.23881 
 ## attr(,&quot;credMass&quot;)
 ## [1] 0.95</code></pre>
 <pre class="r"><code>scale95</code></pre>
 <pre><code>##      lower      upper 
-## 0.08023656 0.25202849 
+## 0.08466224 0.25853361 
 ## attr(,&quot;credMass&quot;)
 ## [1] 0.95</code></pre>
 <p>Either way we compute it, the probability that the <em>a</em> parameter is between these 2 numbers is 95%!</p>
@@ -424,15 +424,15 @@ shape95</code></pre>
 <p><img src="LAB4_files/figure-html/testq4_1a-1.png" width="480" /><img src="LAB4_files/figure-html/testq4_1a-2.png" width="480" /><img src="LAB4_files/figure-html/testq4_1a-3.png" width="480" /></p>
 <pre class="r"><code>Ricker_results</code></pre>
 <pre><code>## $post.mean
-## [1]  3.5535454  0.1704821 78.9744236
+## [1]  3.5592408  0.1706799 78.7172982
 ## 
 ## $conf.ints
 ##             a         b     shape
-## [1,] 3.209646 0.1538438  43.28711
-## [2,] 3.858447 0.1871151 110.99320
+## [1,] 3.221192 0.1532597  45.53495
+## [2,] 3.869624 0.1870122 111.25743
 ## 
 ## $gelman.rubin
-## [1] 1.002479</code></pre>
+## [1] 1.002049</code></pre>
 <pre class="r"><code>Ricker_results &lt;- Myx_Ricker_JAGS(data=Myx[,-1],JAGScode=&quot;BUGSmodel_ricker.txt&quot;,CImethod=&quot;quantile&quot;,CIlevel=0.88)</code></pre>
 <pre><code>## 
 ## Processing function input....... 
@@ -449,15 +449,15 @@ shape95</code></pre>
 <p><img src="LAB4_files/figure-html/testq4_1a-4.png" width="480" /><img src="LAB4_files/figure-html/testq4_1a-5.png" width="480" /><img src="LAB4_files/figure-html/testq4_1a-6.png" width="480" /></p>
 <pre class="r"><code>Ricker_results</code></pre>
 <pre><code>## $post.mean
-## [1]  3.5575815  0.1706484 78.6709409
+## [1]  3.556210  0.170518 78.903924
 ## 
 ## $conf.ints
 ##             a         b     shape
-## [1,] 3.236085 0.1536396  47.47055
-## [2,] 3.904825 0.1880119 115.68910
+## [1,] 3.237999 0.1534398  47.27986
+## [2,] 3.884220 0.1871773 116.79412
 ## 
 ## $gelman.rubin
-## [1] 1.000929</code></pre>
+## [1] 1.001583</code></pre>
 </div>
 <div id="section-exercise-4.1b." class="section level2">
 <h2><strong>Exercise 4.1b</strong>.</h2>
@@ -513,15 +513,15 @@ curve(mm(x,a=5,b=0.8),from=0,to=10,add=T,col=&quot;red&quot;,lwd=2)</code></pre>
 <p><img src="LAB4_files/figure-html/test4.2a-1.png" width="480" /><img src="LAB4_files/figure-html/test4.2a-2.png" width="480" /><img src="LAB4_files/figure-html/test4.2a-3.png" width="480" /></p>
 <pre class="r"><code>MM_results</code></pre>
 <pre><code>## $post.mean
-## [1]  8.838707  1.196529 98.935771
+## [1]  8.845215  1.201550 99.328787
 ## 
 ## $conf.ints
 ##             a         b     shape
-## [1,] 8.019856 0.7172748  57.20253
-## [2,] 9.636536 1.6663550 141.38808
+## [1,] 8.045412 0.7123531  54.44306
+## [2,] 9.684670 1.6829118 138.98124
 ## 
 ## $gelman.rubin
-## [1] 1.002097</code></pre>
+## [1] 1.000016</code></pre>
 <pre class="r"><code>MM_results &lt;- Myx_MM_JAGS(data=Myx[,-1],JAGScode=&quot;BUGSmodel_mm.txt&quot;,CImethod=&quot;quantile&quot;,CIlevel=0.88)</code></pre>
 <pre><code>## 
 ## Processing function input....... 
@@ -538,15 +538,15 @@ curve(mm(x,a=5,b=0.8),from=0,to=10,add=T,col=&quot;red&quot;,lwd=2)</code></pre>
 <p><img src="LAB4_files/figure-html/test4.2a-4.png" width="480" /><img src="LAB4_files/figure-html/test4.2a-5.png" width="480" /><img src="LAB4_files/figure-html/test4.2a-6.png" width="480" /></p>
 <pre class="r"><code>MM_results</code></pre>
 <pre><code>## $post.mean
-## [1]  8.846783  1.199539 99.061876
+## [1]  8.830451  1.191439 99.373265
 ## 
 ## $conf.ints
-##             a         b     shape
-## [1,] 8.070307 0.7510044  59.95051
-## [2,] 9.690484 1.7007503 146.23712
+##             a         b    shape
+## [1,] 8.054554 0.7330478  59.5402
+## [2,] 9.683162 1.6934313 147.1824
 ## 
 ## $gelman.rubin
-## [1] 1.000325</code></pre>
+## [1] 1.000843</code></pre>
 </div>
 <div id="section-exercise-4.2b." class="section level2">
 <h2><strong>Exercise 4.2b</strong>.</h2>
@@ -633,17 +633,17 @@ curve(mm(x,a=5,b=0.8),from=0,to=10,add=T,col=&quot;red&quot;,lwd=2)</code></pre>
 test &lt;- Myx_PostPredCheck(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)</code></pre>
 <p><img src="LAB4_files/figure-html/testq4_3a-1.png" width="624" /><img src="LAB4_files/figure-html/testq4_3a-2.png" width="624" /><img src="LAB4_files/figure-html/testq4_3a-3.png" width="624" /><img src="LAB4_files/figure-html/testq4_3a-4.png" width="624" /></p>
 <pre class="r"><code>test[[1]]   # p-vals</code></pre>
-<pre><code>## [1] 0.731 0.728</code></pre>
+<pre><code>## [1] 0.714 0.745</code></pre>
 <pre class="r"><code>head(test[[2]])    # ppc for ricker</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["a"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["b"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["shape"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["SSEsim"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["SSEobs"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"3.685441","2":"0.1767000","3":"76.83779","4":"17.899278","5":"12.92124","_rn_":"1"},{"1":"3.629981","2":"0.1759981","3":"127.81834","4":"9.965798","5":"12.60666","_rn_":"2"},{"1":"3.187419","2":"0.1502882","3":"50.84432","4":"20.905078","5":"13.22336","_rn_":"3"},{"1":"3.446435","2":"0.1662685","3":"87.64915","4":"10.293850","5":"12.13506","_rn_":"4"},{"1":"3.597623","2":"0.1710680","3":"84.28411","4":"12.729811","5":"12.78403","_rn_":"5"},{"1":"3.636518","2":"0.1719265","3":"91.98298","4":"15.578256","5":"13.20990","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["a"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["b"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["shape"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["SSEsim"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["SSEobs"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"3.758563","2":"0.1770031","3":"45.88518","4":"31.70935","5":"14.07375","_rn_":"1"},{"1":"3.758563","2":"0.1770031","3":"45.88518","4":"34.11765","5":"14.07375","_rn_":"2"},{"1":"3.319269","2":"0.1597395","3":"54.53612","4":"22.35124","5":"12.24550","_rn_":"3"},{"1":"3.395361","2":"0.1546038","3":"45.18159","4":"32.27904","5":"16.19253","_rn_":"4"},{"1":"3.283798","2":"0.1583130","3":"101.23453","4":"15.73111","5":"12.32610","_rn_":"5"},{"1":"3.252852","2":"0.1527916","3":"109.31174","4":"13.49737","5":"13.20383","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <pre class="r"><code>head(test[[3]])    # ppc for M-M</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["a"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["b"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["shape"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["SSEsim"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["SSEobs"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"9.534554","2":"1.6513149","3":"148.25524","4":"10.31002","5":"10.225426","_rn_":"1"},{"1":"8.686266","2":"1.1727757","3":"112.56835","4":"10.74221","5":"9.613315","_rn_":"2"},{"1":"8.067962","2":"0.6504778","3":"70.48633","4":"16.22105","5":"11.347281","_rn_":"3"},{"1":"9.217686","2":"1.3764842","3":"61.43896","4":"22.34148","5":"9.746196","_rn_":"4"},{"1":"8.675764","2":"0.9662258","3":"119.74611","4":"11.97342","5":"10.277259","_rn_":"5"},{"1":"9.018437","2":"1.4711966","3":"89.43343","4":"14.17354","5":"10.465669","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["a"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["b"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["shape"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["SSEsim"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["SSEobs"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"9.356791","2":"1.7135312","3":"103.42812","4":"11.256905","5":"11.18533","_rn_":"1"},{"1":"9.356791","2":"1.7135312","3":"103.42812","4":"13.164990","5":"11.18533","_rn_":"2"},{"1":"9.359260","2":"1.6706855","3":"122.47838","4":"15.338753","5":"10.68020","_rn_":"3"},{"1":"8.265662","2":"0.8402029","3":"130.22479","4":"4.037038","5":"10.12373","_rn_":"4"},{"1":"8.696690","2":"0.8949706","3":"74.65661","4":"20.657998","5":"11.70967","_rn_":"5"},{"1":"9.765395","2":"1.8408593","3":"104.44955","4":"17.366967","5":"10.90396","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -666,15 +666,15 @@ test &lt;- Myx_PostPredCheck(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)</code></pr
 ## 2 (7.4%) p_waic estimates greater than 0.4. We recommend trying loo instead.</code></pre>
 <p>Here are the results I got:</p>
 <pre class="r"><code>DIC_ricker</code></pre>
-<pre><code>## [1] 66.16282</code></pre>
+<pre><code>## [1] 65.92041</code></pre>
 <pre class="r"><code>DIC_MM</code></pre>
-<pre><code>## [1] 59.81711</code></pre>
+<pre><code>## [1] 60.08889</code></pre>
 <pre class="r"><code>WAIC_ricker$estimates[&quot;waic&quot;,]</code></pre>
 <pre><code>##  Estimate        SE 
-## 66.219777  8.544798</code></pre>
+## 66.145615  8.554733</code></pre>
 <pre class="r"><code>WAIC_mm$estimates[&quot;waic&quot;,]</code></pre>
 <pre><code>##  Estimate        SE 
-## 60.052692  9.113809</code></pre>
+## 60.186975  9.236243</code></pre>
 <p>–End of lab 4–</p>
 
 <script type="application/shiny-prerendered" data-context="server-start">
@@ -744,9 +744,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = structure(c("", "grade_this({", "  fail_if(!length(.result(data=Myx[,-1],JAGScode=\"BUGSmodel_ricker.txt\",CImethod=\"HPD\",CIlevel=0.88))==3, \"your function output should be a list with three elements\")", 
     "  fail_if(!near(.result(data=Myx[,-1],JAGScode=\"BUGSmodel_ricker.txt\",CImethod=\"HPD\",CIlevel=0.88)[[1]][1],", 
-    "              .solution(data=Myx[,-1],JAGScode=\"BUGSmodel_ricker.txt\",CImethod=\"HPD\",CIlevel=0.88)[[1]][1],0.1))", 
+    "              .solution(data=Myx[,-1],JAGScode=\"BUGSmodel_ricker.txt\",CImethod=\"HPD\",CIlevel=0.88)[[1]][1],0.2))", 
     "  pass_if(near(.result(data=Myx[,-1],JAGScode=\"BUGSmodel_ricker.txt\",CImethod=\"HPD\",CIlevel=0.88)[[2]][1,1],", 
-    "              .solution(data=Myx[,-1],JAGScode=\"BUGSmodel_ricker.txt\",CImethod=\"HPD\",CIlevel=0.88)[[2]][1,1],0.1))", 
+    "              .solution(data=Myx[,-1],JAGScode=\"BUGSmodel_ricker.txt\",CImethod=\"HPD\",CIlevel=0.88)[[2]][1,1],0.2))", 
     "  fail()", "})", ""), chunk_opts = list(label = "q4_1a-check", 
         echo = F)), solution = structure(c("", "########", "# 4.1a", 
     "", "library(HDInterval)", "library(emdbook)", "library(jagsUI)", 
@@ -1151,11 +1151,11 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
         engine = "r")), code_check = NULL, error_check = NULL, 
     check = structure(c("grade_this({", "  fail_if(!length(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm))==3, \"your function output should be a list with three elements\")", 
     "  fail_if(!near(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][1],", 
-    "              .solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][1],0.1))", 
+    "              .solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][1],0.15))", 
     "  fail_if(!near(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][2],", 
-    "              .solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][2],0.1))", 
-    "  pass_if(near(sum(apply(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm),2,mean)),", 
-    "              sum(apply(.solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm),2,mean)),1))", 
+    "              .solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[1]][2],0.15))", 
+    "  pass_if(near(sum(apply(.result(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[2]],2,mean)),", 
+    "              sum(apply(.solution(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm)[[2]],2,mean)),1))", 
     "  fail()", "})"), chunk_opts = list(label = "q4_3a-check", 
         echo = F)), solution = structure(c("", "Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){", 
     "  lots <- 1000", "  nMCMC <- min(length(jags.fit_ricker$sims.list[[1]]),length(jags.fit_mm$sims.list[[1]]))", 
