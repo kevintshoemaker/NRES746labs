@@ -1,2 +1,8 @@
-unnamed-chunk-5.cached.RData
-answer4.3a1.cached.RData
+unnamed-chunk-5.RData
+q4_1a-solution.RData
+dataq4_1a0.RData
+q4_2a-solution.RData
+dataq4_2a0.RData
+dataq4_3a0.RData
+q4_3a-solution.RData
+dataq4_3a1.RData
