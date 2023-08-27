@@ -38,19 +38,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Lab 1 overview
 
-In this course we will rely heavily on the R programming language for statistical computing and graphics (e.g., this lab is actually built in R using ['rmarkdown'](https://rmarkdown.rstudio.com/) and [rshiny](https://shiny.rstudio.com/)). The purpose of this first laboratory exercise is to develop the level of familiarity with R that is needed to succeed in this course – and ultimately, to establish a foundation for you to develop your data analysis skills using R throughout your scientific career. 
+In this course we will rely heavily on the R programming language for statistical computing and graphics (e.g., this lab is actually built in R using ['Rmarkdown'](https://rmarkdown.rstudio.com/) and [Rshiny](https://shiny.rstudio.com/)). The purpose of this first laboratory exercise is to develop the level of familiarity with R that is needed to succeed in this course – and ultimately, to establish a foundation for you to develop your data analysis skills using R throughout your scientific career. 
 
 ## Lab 1 details
 
 This lab will provide an introduction to the R programming Language and the use of R to perform statistics and programming tasks. 
 
-As with all lab reports, your answers will either take the form of R functions or short written responses. The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab1.R". So my submission would be "kevin_shoemaker_lab1.R" (all lower case). _Please include only the requested functions in your submitted R script_. You will probably want to complete the lab exercises using a main script (that includes all your work, including code for testing your solutions), and then save a reduced copy (with only the requested functions) for submission.
+As with all lab reports, your answers will either take the form of R functions or short written responses. The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab1.R". So my submission would be "kevin_shoemaker_lab1.R" (all lower case). _Please include only the requested functions in your submitted R script_. That is, the script you turn in should only include the custom R functions you constructed to answer the questions, and none of the ancillary code you used to develop and test your functions. You will probably want to complete the lab exercises using a main script (that includes all your work, including code for testing your solutions), and then save a reduced copy (with only the requested functions) for submission. One useful way to accomplish this would be to work with two R script (.R extension) files: one for your functions (that you will turn in), and a main script for testing (that you will NOT turn in) that sources your functions and tests them. Ask your instructor if you'd like a demo of how this works!   
 
-Before submitting your code using our shared Nevada Box folder, please clear your environment and run the script you will submit (containing only the requested functions) from start to finish. Check the Environment tab in RStudio after running your script, and make sure that the script ONLY defines functions within your global environment. Your script should generate no additional objects (e.g., data frames). 
+Before submitting your code using our shared Nevada Box folder, please clear your environment and run the script you will submit (containing only the requested functions) from start to finish. Check the 'Environment' tab in RStudio after running your script, and make sure that the script ONLY defines functions within your global environment. Your script should generate no additional objects (e.g., data frames). 
 
 In addition to submitting your script, you will need to respond to additional questions using the Lab 1 "quiz" interface on WebCampus. 
 
-Please submit your R script (via Nevada Box) and complete the WebCampus quiz by midnight on the due date (one week after the final lab session allocated for this topic). You can work in groups but submit the materials individually.
+Please submit your R script (via NevadaBox) and complete the WebCampus quiz by midnight on the due date (one week after the final lab session allocated for this topic). You can work in groups but submit the materials individually.
 
 This lab exercise will extend over two Tuesday laboratory periods (Aug. 29 and Sep. 5), with your R script and WebCampus quiz due Sept. 12.
 
@@ -59,14 +59,14 @@ This lab exercise will extend over two Tuesday laboratory periods (Aug. 29 and S
 1. Go to website [http://cran.r-project.org/](http://cran.r-project.org/). This is the source for downloading the free, public-domain R software and where you can access R packages, find help, access the user community, etc. If you haven't already installed R, do so now! 
 2. Open the Rstudio software ([https://www.rstudio.com](https://www.rstudio.com)-- and install if you haven't done so already. Change the working directory to a convenient directory (e.g.,  a subfolder called 'Lab 1' in your main course directory). NOTE- if you set up an Rstudio "project" (.Rproj extension) in this directory, the working directory is set automatically each time you load the project! I recommend you set up an R studio project for this course. 
 3. Open a new, blank R script window in Rstudio. Using comments (anything preceded by a hash mark is not interpreted by R and can be used to provide human-readable notes and commentary so your code is more readable), add a header to the script to indicate that this is lab 1- include your name and the course number in the header.
-4. Save the script to your working directory, using the naming convention: "[your first name]_[your last name]_lab1.R", all lower-case. So my script would be named: "kevin_shoemaker_lab1.R". You will be submitting this script via Nevada Box when you have finished all the exercises. Again, please include only the requested functions in your submitted R script.  
-5. While you're at it, I recommend starting a new Word document to record your written responses to the lab exercises. When you're ready, you can copy and paste your responses from Word to WebCampus.
+4. Save the script to your working directory, using the naming convention: "[your first name]_[your last name]_lab1.R", all lower-case. So my script would be named: "kevin_shoemaker_lab1.R". You will be submitting this script via NevadaBox when you have finished all the exercises. Again, please include only the requested functions in your submitted R script.  
+5. While you're at it, I recommend starting a new Word document to record your written responses to the lab exercises. When you're ready, you can copy and paste your responses from Word into WebCampus.
 
 ## Take some time to get more familiar with R (optional)
 
-From the R manual, ['Introduction to R'](http://cran.r-project.org/doc/manuals/R-intro.html) you can implement all the steps in Appendix A, located [here](http://cran.r-project.org/doc/manuals/R-intro.html#A-sample-session). This takes you far but without much explanation-- it is a way to jump into the deep end of the pool. Alternatively, or in addition, go to the [Links](https://kevintshoemaker.github.io/NRES-746/Links.html) page and pick a tutorial to run through (e.g., the Datacamp introductory R course). You can also check out the materials from [UNR's R "bootcamp"](https://kevintshoemaker.github.io/R-Bootcamp/). Before you move on, make sure you have a basic understanding of how to work with R and RStudio. If you are working with someone who has used R before, don't be afraid to ask questions! Also, take your time with this- you might want to use the entire lab period on this if you have never used R before.
+From the R manual, ['Introduction to R'](http://cran.r-project.org/doc/manuals/R-intro.html) you can implement all the steps in Appendix A, located [here](http://cran.r-project.org/doc/manuals/R-intro.html#A-sample-session). This takes you far but without much explanation-- it is a way to jump into the deep end of the pool. Alternatively, or in addition, go to the [Links](https://kevintshoemaker.github.io/NRES-746/Links.html) page and pick a tutorial to run through (e.g., the Datacamp introductory R course, which uses the newer 'tidyverse' packages). You can also check out the materials from [UNR's R "bootcamp"](https://kevintshoemaker.github.io/R-Bootcamp/). Before you move on, make sure you have a basic understanding of how to work with R and RStudio. If you are working with someone who has used R before, don't be afraid to ask questions! Also, take your time with this- you might want to use the entire lab period on this if you have never used R before.
 
-Another useful introductory R tutorial can be found [here](https://gsp.humboldt.edu/olm/R/Tutorials/BestFirstRTutorial.pdf), courtesy of [NCEAS](https://www.nceas.ucsb.edu/). If you haven't used R before, please complete this tutorial, including going through the exercises.   
+Another useful introductory R tutorial can be found [here](https://gsp.humboldt.edu/olm/R/Tutorials/BestFirstRTutorial.pdf), courtesy of [NCEAS](https://www.nceas.ucsb.edu/). If you haven't used R before, consider working through this tutorial before going through the lab exercises.   
 
 If you already have basic R expertise, you can move ahead!     
 
@@ -106,6 +106,10 @@ myfunc <- function(vector){     # demo function (not part of lab)
 
 ```{r funcdemo-check}
 grade_this({
+  # browser()
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   pass_if_equal(y=.solution(3:5),x=.result(3:5))
   fail()
 })
@@ -146,9 +150,6 @@ this.grader2(mock_this_exercise(
     .solution_code = "myfunc <- function(vector){sum(vector)}"  # from -solution chunk
   ))
 
-
-
-
 this.grader <- grade_this({
     pass_if_equal()
     fail()
@@ -167,7 +168,6 @@ grade_this(pass_if(!!.solution(3:4),!!.result(3:4)),
   )
 )
 
-
 grade_this({
   fail_if(2==2,"you suck!")
   pass_if(2==3,"you fail")
@@ -185,11 +185,11 @@ grade_this({
 ## Demonstration: Central Limit Theorem (CLT)
 To gain some familiarity with using R scripts and developing algorithms, complete the following exercise (you don't need to submit this demo as part of your lab write-up BUT you will be asked to use this code as part of exercise 1 (below).
 
-Remember that you may want to have two scripts for this and other labs. The first script contains all the code you built to learn new concepts, develop and test code for answering the questions, etc. The second script is the one you will submit, and only contains the functions you defined as part of each lab. I recommend putting the second script (for submission) together after you finish the lab (just before submitting). 
+Remember that you may want to have two scripts for this and other labs. The first script contains all the code you built to learn new concepts, develop and test code for answering the questions, etc. The second script is the one you will submit, and only contains the functions you defined as part of each lab. I recommend either (1) putting the second script (for submission) together after you finish the lab (just before submitting)- basically copying your main script and deleting everything but the functions- OR (2) developing your code as 2 scripts from the beginning: a script with all the functions for turning in, along with a testing script that sources and then tests these functions.  
 
 ## Complete the following steps:
 
-Review the meaning of the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which implies (among other things) that the mean of a sufficiently large number of independent random variables (small samples from a much larger *population* of interest) will have a *sampling distribution* that is approximately normally distributed, regardless of whether the underlying data distribution is normally distributed.
+Review the meaning of the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which implies (among other things) that the mean of a sufficiently large number of independent random variables (small samples from a much larger *population* of interest) will have a *sampling distribution* that is approximately normally distributed, regardless of whether or not the underlying data are normally distributed.
 
 Type (or paste) the following code into your R script window (or RStudio script window):         
 
@@ -197,7 +197,7 @@ Type (or paste) the following code into your R script window (or RStudio script 
 
 # CENTRAL LIMIT THEOREM demonstration ------------------------
 
-infinity <- 100000       # number approximating infinity      
+infinity <- 100000       # number approximating infinity for the purpose of the exercise     
 
 N_SAMPLES <- 1000       # number of independent random samples to draw from the specified distribution
 SAMPLESIZE <- 10          # sample size of each independent random sample
@@ -224,8 +224,8 @@ legend("topleft",fill=c("white","red"),legend=c("data population","sample means"
 
 3. Experiment with executing this code in the following four ways:   
     * copy and paste from the script window directly into the R console;       
-    * use <ctrl Enter> to execute line by line from within the script window in RStudio; (or on Macs, do something else!... sorry...)       
-    * use <ctrl A> to select the whole code block, then <ctrl Enter> to execute all at once;  (or on Macs, do something else!)      
+    * use <ctrl Enter> to execute line by line from within the script window in RStudio; (or on Macs, use command enter)       
+    * use <ctrl A> to select the whole code block, then <ctrl/cmd Enter> to execute all at once;      
     * save the script to your working directory as a text file with .R extension, and then run the script using the "source()" function, e.g.:
 
 ```
@@ -236,8 +236,7 @@ source("CentralLimitTheorem.R")     # load the R script!
 
 **NOTE**: The hash (#) used above allows you to insert comments adjacent to snippets of code, which facilitates readability of code (and lets the programmer remember later on what he/she was thinking when coding things a certain way!). It is good practice to comment every line of code so as to describe what it does in plain English, including all variables and functions. Make sure you fully understand the commented code for the CLT demonstration above!
 
-
-Here is an interactive window you can use to play around with the CLT code (or even better, just open another RStudio instance and explore the code there!):
+Here is an interactive window you can use to play around with the CLT code (or even better, just open an RStudio instance and explore the code there!):
 
 ```{r cltdemo1, exercise=TRUE}
 
@@ -353,7 +352,7 @@ You can use the following code to test your function using the built-in 'trees' 
 # Testing your code ------------------------ 
 #   Explore the "trees" dataset 
 
-?trees
+#?trees
 
 summary(trees)    # learn more about the data
 
@@ -366,6 +365,9 @@ CoefVar(trees$Height)    # run your new function!
 
 ```{r q1a-check}
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   pass_if_equal(y=.solution(trees$Height[-4]),x=.result(trees$Height[-4]))
   fail()
 })
@@ -435,9 +437,10 @@ As a test, apply this function to the 'Height' (x axis) and 'Volume' (yaxis) vec
 
 ```{r test1b}
 
+#DrawLine(trees$Height,trees$Volume)
+
 # ?faithful
 # summary(faithful)
-
 DrawLine(faithful$waiting,faithful$eruptions)    # test your function using the old faithful eruptions data
 
 ```
@@ -445,6 +448,9 @@ DrawLine(faithful$waiting,faithful$eruptions)    # test your function using the 
 
 ```{r q1b-check, echo=FALSE}
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   fail_if(any(is.na(.result(faithful$waiting,faithful$eruptions))), "You shouldn't have missing values.")
   pass_if(all(.result(faithful$waiting,faithful$eruptions)==.solution(faithful$waiting,faithful$eruptions)))
   fail()
@@ -498,10 +504,10 @@ DrawLine2 <- function(x,y,smooth=TRUE,span=1){
     plot(y~x)
     mod <- lm(y~x)
     coefs <- coef(mod)
-    abline(coefs)
+    abline(coefs,lwd=2)
   }else{
     coefs <- loess(y~x,span=span)
-    scatter.smooth(y~x,span=span)
+    scatter.smooth(y~x,span=span,lpars=list(lwd=2))
   }
   return(coefs)     
 }
@@ -532,17 +538,20 @@ xvec <- c(1:10)
 yvec <- rnorm(length(xvec),c(2:6,7:3),2)
 DrawLine2(xvec,yvec,smooth=T,span=0.5)    # run your new function!
 
-DrawLine2(x=trees$Height,y=trees$Volume,smooth=F,span=NA)
+DrawLine2(x=trees$Height,y=trees$Volume,smooth=F)
 
 DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.5)    # test using the old faithful eruptions data
 
-DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.1)
+DrawLine2(faithful$waiting,faithful$eruptions,smooth=T,span=.9)
 
 ```
 
 
 ```{r q1c-check, echo=FALSE}
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   fail_if(!all(.result(faithful$waiting,faithful$eruptions,F)==.solution(faithful$waiting,faithful$eruptions,F)),"check your result with smooth=FALSE")
   pass_if(all(.result(faithful$waiting,faithful$eruptions,T,0.1)$fitted==.solution(faithful$waiting,faithful$eruptions,T,0.1)$fitted))
   fail()
@@ -644,6 +653,9 @@ answer1d <- CLTdemo(n.samples=5000,sample.size=4,min=10,max=20)    # run your ne
 
 ```{r q1d-check, echo=FALSE}
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   fail_if(!.result(n.samples=5000,sample.size=4,min=2,max=10)$method=="Shapiro-Wilk normality test","Make sure your function returns the results from the Shapiro-Wilk normality test!")
   pass_if(near(.result(n.samples=5000,sample.size=4,min=2,max=10)$statistic,
                .solution(n.samples=5000,sample.size=4,min=2,max=10)$statistic,0.0006))
@@ -654,7 +666,7 @@ grade_this({
 
 ## **Exercise 1e**  (answer in WebCampus!)
 
-Finally, test the CLT function out for different parameter combinations to make sure it works! See if you can use this function to develop a reasonable rule for how large a sample size is necessary to ensure that the sample mean is normally distributed given that the underlying data population is a uniform distribution. *Please submit your answer in WebCampus*- and please justify your answer! [note: I am just looking for a thoughtful response, not a definitive answer! And just a few sentences is fine.]
+Finally, test the CLT function out for different parameter combinations to make sure it works! See if you can use this function to develop a reasonable rule for how large a sample size is necessary to ensure that the sample mean is normally distributed given that the underlying data population is a uniform distribution. *Please submit your answer in WebCampus*- and please justify your answer! [note: I am just looking for a thoughtful response, not a definitive mathematical treatise! Just a few sentences is fine.]
 
 You can use the following interactive R window for testing if that is helpful:
 
@@ -778,7 +790,10 @@ symbols(air.cleaned$Temp, air.cleaned$Solar.R, circles=air.cleaned$Ozone/100, yl
        # alternatively...
 coplot(air.cleaned$Ozone~air.cleaned$Temp|air.cleaned$Solar.R,rows=1)  # the "|" operator can be read "conditional on"
 
-       # alternatively, you can use ggplot- which you probably already know better than your instructor! 
+       # alternatively, you can use ggplot
+library(ggplot2)
+ggplot(air.cleaned,aes(Temp,Solar.R)) +
+  geom_point(aes(size=Ozone))
 
 
 ```
@@ -801,7 +816,8 @@ model2 <- lm(formula2,data=air.cleaned)
 
 ```{r eval=FALSE}
 
-anova(model1, model2, test="F")   # how would you run an LRT test instead?
+anova(model1, model2, test="F")   
+anova(model1, model2, test="LRT")  # how would you run an LRT test instead?
 
 ```
 
@@ -1016,21 +1032,21 @@ z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
 z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
   
   # Compute the sample statistic
-  
+
   observed_mean <- mean(sample)
-  
+
   sample.size <- length(sample)   # compute sample size
-  
+
   # Generate SAMPLING DISTRIBUTION
-  
+
   reps <- 1000                 # set the number of replicate samples
   null_dist <- numeric(reps)       # initialize a storage structure for sampling distribution
-  
-  for(i in 1:reps){            # for each replicate... 
-    nullsamp <- rnorm(sample.size,pop.mean,pop.sd)      # draw a sample assuming no treatment effect       
+
+  for(i in 1:reps){            # for each replicate...
+    nullsamp <- rnorm(sample.size,pop.mean,pop.sd)      # draw a sample assuming no treatment effect
     null_dist[i] <- mean(nullsamp)           # compute and store the sample produced under the null hypothesis
   }
-  
+
   if(onetail==T){
     more.extreme <- length(which(null_dist<=observed_mean))       # how many of these samples are more extreme than the sample statistic?
     p_value <- more.extreme/reps
@@ -1041,14 +1057,14 @@ z.test.q4a <- function(sample, pop.mean, pop.sd, onetail=T){
     more.extreme <- length(which((null_dist<=low)|(null_dist>=high)))
     p_value <- more.extreme/reps
   }
- 
-  
+
+
   to_return <- list()   # initialize object to return
-  
+
   to_return$null_dist <- null_dist
   to_return$p_value <- p_value
   to_return$observed_mean <- observed_mean
-  
+
   return(to_return)
 
 }
@@ -1121,7 +1137,10 @@ my.sample = c(5.14,3.27,4.56,3.77,3.34,4.32,3.84,3.19,5.24,4.09)
 ```{r q4a-check}
 
 grade_this({
-  fail_if(!names(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T ))%in%c("null_dist","p_value","observed_mean"),"check the list names for your returned object")
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
+  fail_if(!all(names(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T ))%in%c("null_dist","p_value","observed_mean")),"check the list names for your returned object")
   fail_if(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T )$observed_mean!=mean(my.sample),"sample mean is incorrect") 
   pass_if(near(.result(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value,
                .solution(sample = my.sample, pop.mean=population.mean, pop.sd=population.sd,onetail=T)$p_value, 0.05))
@@ -1270,7 +1289,10 @@ my.sample = c(3.14,3.27,2.56,3.77,3.34,4.32,3.84,2.19,5.24,3.09)
 ```{r q4b-check}
 
 grade_this({
-  fail_if(!names(.result(sample = my.sample, null.data=null.data))%in%c("null_dist","p_value","observed_mean"),"check the list names for your returned object")
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
+  fail_if(!all(names(.result(sample = my.sample, null.data=null.data))%in%c("null_dist","p_value","observed_mean")),"check the list names for your returned object")
   fail_if(.result(sample = my.sample, null.data=null.data)$observed_mean!=mean(my.sample),"sample mean is incorrect") 
   pass_if(near(.result(sample = my.sample, null.data=null.data)$p_value,
                .solution(sample = my.sample, null.data=null.data)$p_value, 0.05))
@@ -1417,6 +1439,9 @@ RegressionCoefs(df=trees,responsevar="Volume")   # should return two regression 
 
 ```{r q5a-check}
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   pass_if(all(.result(df=trees,responsevar="Volume")==.solution(df=trees,responsevar="Volume")))
   fail()
 })
@@ -1464,15 +1489,14 @@ boot_sample <- function(df,statfunc,n_samples,responsevar="Volume"){
 BootCoefs <- function(df,statfunc,n_samples,responsevar){
     # [add code here!]
 }
-BootCoefs(df=df,statfunc=RegressionCoefs,
-              n_samples=1000,responsevar=responsevar)
+# BootCoefs(df=df,statfunc=RegressionCoefs,
+#               n_samples=1000,responsevar=responsevar)
 
 ```
 
 <div id="q5b-hint">
 **Hint:** No hints ... yet!
 </div>
-
 
 
 ```{r q5b-solution, echo=FALSE, context="data"}
@@ -1569,12 +1593,15 @@ RegressionCoefs <- function(df=trees,responsevar="Volume"){    # univariate mode
 
 ```{r q5b-check}
 grade_this({
-  fail_if(dim(.result(df=trees,
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
+  fail_if(any(dim(.result(df=trees,
           statfunc=RegressionCoefs,
           n_samples=1000,
-          responsevar="Volume"))!=c(2,3),
+          responsevar="Volume"))!=c(2,3)),
           "check the dimension of the matrix that is returned")
-  pass_if(near(.result(df=mtcars[,c(1,3,4,6)],
+  pass_if(all(near(.result(df=mtcars[,c(1,3,4,6)],
           statfunc=RegressionCoefs,
           n_samples=1000,
           responsevar="mpg"),
@@ -1582,7 +1609,7 @@ grade_this({
           statfunc=RegressionCoefs,
           n_samples=1000,
           responsevar="mpg"),0.2)
-          )
+          ))
   fail()
 })
 
