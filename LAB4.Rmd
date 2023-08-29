@@ -43,6 +43,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ####  Bayesian inference                                ####
 ############################################################
 
+# NOTE: need to revamp this lab for automated grading- need more encapsulation. careful about 'densityplot'
 
 ```
 
@@ -51,6 +52,8 @@ knitr::opts_chunk$set(echo = TRUE)
 As with all lab reports, your answers will either take the form of R functions or short written responses (submitted together in a Word document). The R functions should be stored in an R script file ('.R' extension). No need to use any specific naming conventions for your files as long as you submit via WebCampus.  
 
 Please submit the R script and the Word document via WebCampus by midnight on the due date. You can work in groups but please submit the materials individually. 
+
+[note: update links below!]
 
 First, take a little time to review the [Bayesian inference lecture](http://naes.unr.edu/shoemaker/teaching/NRES-746/LECTURE6.html) and [MCMC lecture](http://naes.unr.edu/shoemaker/teaching/NRES-746/LECTURE7.html)!   
 
@@ -406,7 +409,7 @@ Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImeth
   jags.fit_1a_coda <- jags.fit_1a$samples
   #summary(jagsfit.mcmc.1a)
   plot(jags.fit_1a_coda)
-  temp <- densityplot(jags.fit_1a_coda)
+  #temp <- densityplot(jags.fit_1a)
   print(temp)
   plot(data[,1],data[,2],xlab="days",ylab="titer",ylim=c(1,13),xlim=c(0,10))
   amean <- mean(jags.fit_1a$sims.list$a)
@@ -509,7 +512,7 @@ Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImeth
   jags.fit_1a_coda <- jags.fit_1a$samples
   #summary(jagsfit.mcmc.1a)
   plot(jags.fit_1a_coda)
-  temp <- densityplot(jags.fit_1a_coda)
+  #temp <- densityplot(jags.fit_1a)
   print(temp)
   plot(data[,1],data[,2],xlab="days",ylab="titer",ylim=c(1,13),xlim=c(0,10))
   amean <- mean(jags.fit_1a$sims.list$a)
@@ -1061,7 +1064,7 @@ jags.fit_mm <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.
 
 Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
   lots <- 1000
-  nMCMC <- min(length(jags.fit_ricker$sims.list[[1]]),length(jags.fit_mm$sims.list[[1]]))
+  nMCMC <- min(length(MCMC1$sims.list[[1]]),length(MCMC2$sims.list[[1]]))
   
      # hard-code the data
   MyxDat <- emdbook::MyxoTiter_sum
@@ -1145,10 +1148,10 @@ Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
 
 Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
   lots <- 1000
-  nMCMC <- min(length(jags.fit_ricker$sims.list[[1]]),length(jags.fit_mm$sims.list[[1]]))
+  nMCMC <- min(length(MCMC1$sims.list[[1]]),length(MCMC2$sims.list[[1]]))
   
      # hard-code the data
-  MyxDat <- MyxoTiter_sum
+  MyxDat <- emdbook::MyxoTiter_sum
   Myx <- subset(MyxDat,grade==1)  #Data set from grade 1 of myxo data  
   nobs <- nrow(Myx)
   
@@ -1193,8 +1196,8 @@ Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
     allsims_mm[i,] <- tapply(simobs_mm,Myx$day,function(t) t[sample.int(length(t))][1] )
   }
   
-  boxplot(allsims_rick,xlab="Days",ylab="Titer",xlim=c(0 points(Myx$day,Myx$titer,col="green",pch=19,cex=2),10),main="Ricker",at=as.numeric(colnames(allsims_rick)))
- 
+  boxplot(allsims_rick,xlab="Days",ylab="Titer",xlim=c(0,10),main="Ricker",at=as.numeric(colnames(allsims_rick)))
+  points(Myx$day,Myx$titer,col="green",pch=19,cex=2)
   
   boxplot(allsims_mm,xlab="Days",ylab="Titer",xlim=c(0,10),main="M-M",at=as.numeric(colnames(allsims_mm)))
   points(Myx$day,Myx$titer,col="green",pch=19,cex=2)

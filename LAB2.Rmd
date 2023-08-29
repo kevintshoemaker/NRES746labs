@@ -1,7 +1,7 @@
 ---
 title: "Lab 2"
 author: "NRES 746"
-date: "Fall 2021"
+date: "Fall 2022"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
