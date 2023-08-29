@@ -387,7 +387,7 @@ cat("
 Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.95){
   myx.data.for.bugs <- list(
     titer = data[,2],
-    days = data[,1],
+    days =data[,1],
     n.observations = nrow(data)
   )
   
@@ -401,8 +401,7 @@ Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImeth
   
   params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
   
-  jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,
-                      n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
+  jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
   jags.fit_1a_coda <- jags.fit_1a$samples
   #summary(jagsfit.mcmc.1a)
   plot(jags.fit_1a_coda)
@@ -709,8 +708,7 @@ Myx_MM_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD"
   
   params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
   
-  jags.fit_2a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.to.save=params.to.store,n.iter=50000,
-                      model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
+  jags.fit_2a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
   jags.fit_2a_coda <- jags.fit_2a$samples
   plot(jags.fit_2a_coda)
   temp <- densityplot(jags.fit_2a_coda)
@@ -1064,7 +1062,7 @@ Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
   nMCMC <- min(length(jags.fit_ricker$sims.list[[1]]),length(jags.fit_mm$sims.list[[1]]))
   
      # hard-code the data
-  MyxDat <- emdbook::MyxoTiter_sum
+  MyxDat <- MyxoTiter_sum
   Myx <- subset(MyxDat,grade==1)  #Data set from grade 1 of myxo data  
   nobs <- nrow(Myx)
   
