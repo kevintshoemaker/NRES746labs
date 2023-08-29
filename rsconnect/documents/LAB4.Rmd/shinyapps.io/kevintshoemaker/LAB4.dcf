@@ -5,10 +5,10 @@ account: kevintshoemaker
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1385010
-bundleId: 5208425
+bundleId: 5176627
 url: https://kevintshoemaker.shinyapps.io/LAB4/
-when: 1635959263.41062
-lastSyncTime: 1635959263.41062
+when: 1635204272.36163
+lastSyncTime: 1635204272.36163
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .gitattributes|.Rbuildignore|.RData|BUGSmodel.txt|BUGSmodel_mm.txt|BUGSmodel_ricker.txt|DESCRIPTION|jagsdemo2.txt|LAB1.html|LAB1.R|LAB1.Rmd|LAB1_key.R|LAB2.html|LAB2.Rmd|LAB2_key.R|LAB3.html|LAB3.Rmd|LAB4.html|LAB5.Rmd|MAKE_ANSWERKEY.R|myxomodel2.txt|NAMESPACE|NRES746labs_0.1.0.tar.gz|NRES746labs_0.1.0.zip|R/hello.R|R/ppc_test1.R|R/random.R|README.md|ReedfrogFuncresp.csv|ReedfrogPred.csv|test_markdown.html|test_markdown.Rmd|testjags1.txt|TreeData.csv|inst|LAB1_data|LAB1_files|LAB2_data|LAB2_files|LAB3_data|LAB3_files|LAB4_data|LAB4_files
+ignoredFiles: .gitattributes|.Rbuildignore|.RData|LAB1.html|LAB1.R|LAB1.Rmd|LAB1_key.R|LAB2.html|LAB2.Rmd|LAB2_key.R|LAB3.html|LAB3.Rmd|LAB5.Rmd|MAKE_ANSWERKEY.R|myxomodel2.txt|NAMESPACE|NRES746labs_0.1.0.tar.gz|NRES746labs_0.1.0.zip|R/hello.R|R/random.R|README.md|ReedfrogFuncresp.csv|ReedfrogPred.csv|TreeData.csv|inst|LAB1_data|LAB1_files|LAB2_data|LAB2_files|LAB3_data|LAB3_files
