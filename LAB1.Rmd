@@ -26,6 +26,7 @@ gradethis_setup(
   fail.hint = TRUE
 )
 knitr::opts_chunk$set(echo = TRUE)
+# NOTE USE THIS VERSION- THIS IS THE UPDATED VERSION
 ```
 
 ```{r echo=FALSE}
