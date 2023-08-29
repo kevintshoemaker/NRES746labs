@@ -43,6 +43,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ####  Bayesian inference                                ####
 ############################################################
 
+# NOTE: need to revamp this lab for automated grading- need more encapsulation. careful about 'densityplot'
 
 ```
 
@@ -51,6 +52,8 @@ knitr::opts_chunk$set(echo = TRUE)
 As with all lab reports, your answers will either take the form of R functions or short written responses (submitted together in a Word document). The R functions should be stored in an R script file ('.R' extension). No need to use any specific naming conventions for your files as long as you submit via WebCampus.  
 
 Please submit the R script and the Word document via WebCampus by midnight on the due date. You can work in groups but please submit the materials individually. 
+
+[note: update links below!]
 
 First, take a little time to review the [Bayesian inference lecture](http://naes.unr.edu/shoemaker/teaching/NRES-746/LECTURE6.html) and [MCMC lecture](http://naes.unr.edu/shoemaker/teaching/NRES-746/LECTURE7.html)!   
 
@@ -387,7 +390,7 @@ cat("
 Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.95){
   myx.data.for.bugs <- list(
     titer = data[,2],
-    days =data[,1],
+    days = data[,1],
     n.observations = nrow(data)
   )
   
@@ -401,11 +404,12 @@ Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImeth
   
   params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
   
-  jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
+  jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,
+                      n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
   jags.fit_1a_coda <- jags.fit_1a$samples
   #summary(jagsfit.mcmc.1a)
   plot(jags.fit_1a_coda)
-  temp <- densityplot(jags.fit_1a_coda)
+  #temp <- densityplot(jags.fit_1a)
   print(temp)
   plot(data[,1],data[,2],xlab="days",ylab="titer",ylim=c(1,13),xlim=c(0,10))
   amean <- mean(jags.fit_1a$sims.list$a)
@@ -508,7 +512,7 @@ Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImeth
   jags.fit_1a_coda <- jags.fit_1a$samples
   #summary(jagsfit.mcmc.1a)
   plot(jags.fit_1a_coda)
-  temp <- densityplot(jags.fit_1a_coda)
+  #temp <- densityplot(jags.fit_1a)
   print(temp)
   plot(data[,1],data[,2],xlab="days",ylab="titer",ylim=c(1,13),xlim=c(0,10))
   amean <- mean(jags.fit_1a$sims.list$a)
@@ -708,7 +712,8 @@ Myx_MM_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD"
   
   params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
   
-  jags.fit_2a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
+  jags.fit_2a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.to.save=params.to.store,n.iter=50000,
+                      model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
   jags.fit_2a_coda <- jags.fit_2a$samples
   plot(jags.fit_2a_coda)
   temp <- densityplot(jags.fit_2a_coda)
@@ -1059,10 +1064,10 @@ jags.fit_mm <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.
 
 Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
   lots <- 1000
-  nMCMC <- min(length(jags.fit_ricker$sims.list[[1]]),length(jags.fit_mm$sims.list[[1]]))
+  nMCMC <- min(length(MCMC1$sims.list[[1]]),length(MCMC2$sims.list[[1]]))
   
      # hard-code the data
-  MyxDat <- MyxoTiter_sum
+  MyxDat <- emdbook::MyxoTiter_sum
   Myx <- subset(MyxDat,grade==1)  #Data set from grade 1 of myxo data  
   nobs <- nrow(Myx)
   
@@ -1143,10 +1148,10 @@ Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
 
 Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
   lots <- 1000
-  nMCMC <- min(length(jags.fit_ricker$sims.list[[1]]),length(jags.fit_mm$sims.list[[1]]))
+  nMCMC <- min(length(MCMC1$sims.list[[1]]),length(MCMC2$sims.list[[1]]))
   
      # hard-code the data
-  MyxDat <- MyxoTiter_sum
+  MyxDat <- emdbook::MyxoTiter_sum
   Myx <- subset(MyxDat,grade==1)  #Data set from grade 1 of myxo data  
   nobs <- nrow(Myx)
   
