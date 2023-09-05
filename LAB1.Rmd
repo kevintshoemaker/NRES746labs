@@ -997,7 +997,7 @@ This function should be specified as follows:
 
 + **suggested algorithm**:   
     + See lecture for example 'z-test()' function
-    + To implement the two-sided test, you need to define what 'extreme' means in both directions. You might first define the absolute difference between the population mean and the sample mean. Then define 'more extreme' as any sample mean that falls further away from the population mean in either direction (larger or smaller than the population mean).  
+    + To implement the two-tailed test, you need to define what 'extreme' means in both directions. You might first define the absolute difference between the population mean and the sample mean. Then define 'more extreme' as any simulated sample mean that falls further away from the population mean in either direction (larger or smaller than the population mean) than the observed sample mean.  
     + Use an "if-else" statement to accommodate both a one-tailed and a two-tailed test. 
 
 + **return**:    
