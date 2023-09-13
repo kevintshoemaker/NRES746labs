@@ -1,7 +1,7 @@
 ---
 title: "Lab 2"
 author: "NRES 746"
-date: "Fall 2021"
+date: "Fall 2023"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -24,36 +24,29 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r echo=FALSE}
 
-############################################################
-####                                                    ####  
-####  NRES 746, Lab 2                                   ####
-####                                                    ####
-####  Kevin Shoemaker                                   #### 
-####  University of Nevada, Reno                        ####
-####                                                    #### 
-############################################################
-
-
-############################################################
-####  The virtual ecologist                             ####
-############################################################
-
+#  NRES 746, Lab 2               
+#   University of Nevada, Reno                      
+#   The virtual ecologist  ------------------------------      
 
 ```
 
 ## The Virtual Ecologist
 
-As with all lab reports, your answers will either take the form of R functions or short written responses (submitted together in a Word document). The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab2.R". So my submission would be "kevin_shoemaker_lab2.R". The name of your Word document doesn't matter, as long as you submit via WebCampus. 
+As with all lab reports, your answers will either take the form of R functions or short written responses (submitted together in a Word document). The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab2.R". Please submit your script using our shared Nevada Box ('NRES 746 lab'), in the folder titled 'Lab 2 Submissions'; my submission would be "kevin_shoemaker_lab2.R". Please answer all short-answer questions via Webcampus.  
 
-Please submit the R script and the Word document via WebCampus by midnight on the due date (_Oct. 5_). You can work in groups but please submit the materials individually. 
+Please complete all assignments by the due date (_Oct. 3_). You can work in groups but please submit the materials individually. 
 
-When writing functions, it's often easiest to start off by writing a script, and then when you have everything working properly, wrap the script into a function. But don't forget to test your function!
+When writing functions, it's often easiest to start off by writing a script, and then when you have everything working properly, wrap the script into a function. 
 
-Please comment your code thoroughly. Don't be afraid of *for* loops and inefficient coding practices... And of course *be dangerous*!
+Don't forget to test your functions! But also, remember that your submission should only contain your functions- not any ancillary code you may have used to develop and test your functions.
 
-## Final Projects
+Please comment your code thoroughly. Don't be afraid of *for* loops and inefficient coding practices, as long as it gets the job done! 
 
-If you haven't already, please list your final project information (project title, group members etc.) on our [shared Google sheets document](https://docs.google.com/spreadsheets/d/1A0zod4_gKKqNBHOtgNhLcdZlz2JV84pjBv1ajtGcYDc/edit?usp=sharing)
+And of course, *be dangerous*!
+
+## Student-led topics
+
+If you haven't already, please sign up for a topic on our [shared Google sheets document](https://docs.google.com/spreadsheets/d/1zFtrfI26EBiJAGwZcLVJkO9M_IYybXI2fbv_1fdBAtg/edit#gid=0)
 
 ## Simulating Data in R
 
@@ -61,7 +54,7 @@ First, review the basic approach to simulating data in the ["Virtual Ecologist" 
 
 ## Exercise 2.1: model verification, part 1
 
-Simulate data that meet the standard assumptions of univariate linear regression (homoskedasticity, Gaussian/independent residual errors). Then run the "lm()" function on your simulated data and examine how closely the parameter estimates match the "true" parameter values. 
+Simulate data that meet the standard assumptions of univariate linear regression (homoskedasticity, normal/independent residual errors). Then run the "lm()" function on your simulated data and examine how closely the parameter estimates match the "true" parameter values. 
 
 You will find more detailed instructions on the next page!
 
@@ -73,7 +66,7 @@ Write a function called "LMDataSim()" for drawing a set of random observations f
     + sample.size = a scalar (integer) specifying the number of observations to simulate
     + xlimits = a vector of length 2 specifying the minimum and maximum values of the covariate "x"       
     + coefs = a vector of length 2 specifying (in order) the intercept and slope of the deterministic relationship defining the expected response as a function of "x".    
-    + stdev = a scalar specifying the standard deviation of the residual errors (which we assume are normally distributed).
+    + stdev = a scalar specifying the standard deviation of the residual errors (which we will assume are normally distributed).
 
 + **suggested algorithm**:   
     + sample random values (size="sample.size") from a uniform distribution (min and max defined by "xlimits") to represent covariate values (hint: use the "runif()" function)    
@@ -151,9 +144,12 @@ coef(lm(y~x,data=temp))[2]
 ```{r q2_1a-check, echo=FALSE}
 
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   fail_if(any(is.na(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1))), "You shouldn't have missing values.")
   fail_if(!ncol(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1))==2, "your function output should have two columns")
-  fail_if(!names(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1))%in%c("x","y"), "your function output should produce a data frame with columns labeled x and y")
+  fail_if(!all(names(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),stdev=1))%in%c("x","y")), "your function output should produce a data frame with columns labeled x and y")
   pass_if(near(coef(lm(y~x,data=.result(sample.size=100,xlimits=c(-2,10),coefs=c(10,-0.21),stdev=1)))[2],
               coef(lm(y~x,data=.solution(sample.size=100,xlimits=c(-2,10),coefs=c(10,-0.21),stdev=1)))[2],0.05))
   fail()
@@ -168,17 +164,17 @@ grade_this({
 Write a function called "LMVerify_pt1()" for computing how well the coefficients and residual variance from R's "lm()" function match the known coefficients of the model used to generate the data. This function should be specified as follows:
 
 + **input**:         
-    + sim.dataset = a data frame representing data simulated from a linear model with known coefficients (and known residual variance).  The first column, labeled 'x', should represent the values of the "x" variable and the second column, labeled 'y', should represent stochastic observations from the *known* model defined by "trueparams". NOTE: the structure of this input argument should match the output produced by your 'LMDataSim' function.           
-    + trueparams = a vector of length 3 specifying the intercept, slope, and standard deviation of the residual errors of the known relationship between "x" and "y"     
+    + sim.dataset = a data frame representing simulated data simulated from a linear model with known coefficients (intercept and slope) and known residual variance.  The first column, labeled 'x', should represent the values of the "x" variable and the second column, labeled 'y', should represent stochastic observations from the *known* model defined by "trueparams". NOTE: the structure of this input argument should match the output produced by your 'LMDataSim' function.           
+    + trueparams = a vector of length 3 specifying the intercept, slope, and standard deviation of the residual errors of the known relationship between "x" and "y" in sim.dataset.      
     + plot = a logical (TRUE/FALSE) indicating whether or not to produce a plot with regression line and confidence interval 
 
 + **suggested algorithm**:   
     + Use the "lm()" function to estimate the coefficients and residual error (standard deviation of residuals) of the fitted relationship between column 1 (named 'x') and column 2 (named 'y') of "sim.dataset" (regress y on x)           
         + Extract the regression coefficients (intercept and slope parameter)     
         + Extract an estimate of the residual error (standard deviation of residuals). Hint: extract the residuals from the 'lm' object and use the 'sd' function to compute the standard deviation of the residuals. Alternatively, the model summary (produced by running the 'lm' model object through the 'summary' function) has a list element called 'sigma'. This is an estimate of the residual standard deviation.               
-        + Store the fitted parameter values in a single vector object (intercept, slope, error sd).
-    + [if plot==TRUE] Plot the estimated regression line with a 90% confidence interval around the estimated regression line (e.g., computed using the "predict()" function with interval="confidence"). Overlay the true linear relationship (from the known data generating model defined by "trueparams"). Add a legend to your plot (e.g., using the 'legend()' function) to differentiate the true linear relationship from the estimated regression line.
-    + Use an "ifelse()" statement to record whether or not the 90% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value (if the 90% confidence interval contains the true value, then TRUE, otherwise FALSE). You can use the 'confint' function to extract the confidence interval for the slope term.
+        + Store the fitted parameter values in a single vector object with the following order: intercept, slope, sd.
+    + [if plot==TRUE] Plot the estimated regression line (from the 'lm' function) with a 90% confidence interval around the estimated regression line (e.g., computed using the "predict()" function with interval="confidence"). Overlay the true linear relationship (from the known data generating model defined by "trueparams"). Add a legend to your plot (e.g., using the 'legend()' function) to differentiate the true linear relationship from the estimated regression line.
+    + Use an "ifelse()" statement to record whether or not the 90% confidence interval around the slope parameter estimate (estimated from the data using 'lm'; note that this is not the same as the confidence interval around the regression line- just focus on the confidence interval on the regression coefficient!) contains the "true" parameter value (if the 90% confidence interval contains the true value, then TRUE, otherwise FALSE). NOTE: you can use the 'confint' function to extract the confidence interval for the slope term.
 
 + **return**:    
     + out = a list of length 3 with the following elements (with the names indicated below):   
@@ -294,8 +290,11 @@ LMVerify_pt1(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)
 ```{r q2_1b-check,echo=F}
 
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   fail_if(!length(.result(sim.dataset = simdat, trueparams = c(55,-0.09,6.8), plot=T))==3, "your function output should be a list with three elements")
-  fail_if(!names(.result(sim.dataset = simdat, trueparams = c(55,-0.09,6.8), plot=T))%in%c("trueparams","fittedparams","inside"), "your function output should be a list with three elements with proper names (see instructions)")
+  fail_if(!all(names(.result(sim.dataset = simdat, trueparams = c(55,-0.09,6.8), plot=T))%in%c("trueparams","fittedparams","inside")), "your function output should be a list with three elements with proper names (see instructions)")
   fail_if(!near(.result(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)$fittedparams["x"],
               .solution(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)$fittedparams["x"],0.005))
   pass_if(near(.result(sim.dataset = simdat2, trueparams = c(40,-2.2,1.8), plot=T)$fittedparams["stdev"],
@@ -304,7 +303,6 @@ grade_this({
 })
 
 ```
-
 
 
 ## Aside: plotting confidence intervals
@@ -322,7 +320,7 @@ The predict function allows you to predict a response (and estimate confidence i
 
 ```{r, eval=FALSE}
 
-nd <- data.frame(x=seq(lb,ub,1))  # note that the predictor names need to match the predictor names in the model object! 
+nd <- data.frame(x=seq(lb,ub,length=100))  # note that the predictor names need to match the predictor names in the model object! 
 predict.lm(yourmodel, newdata=nd, interval = c("confidence"), level = 0.95)   # for confidence interval
 
 ```
@@ -331,7 +329,7 @@ Note that the prediction interval code may occasionally return some warnings- wh
 
 ## **Exercise 2.1c**. 
 
-Does the 90% confidence interval around the slope estimate (estimated from simulated data with a sample size of 10) contain the "true" slope parameter value 90% of the time (a frequentist question!). In your Word document, explain how you addressed this question. Did you need more than 100 simulated data sets to answer this question? 
+Does the 90% confidence interval around the slope estimate (estimated from simulated data with a sample size of 10) contain the "true" slope parameter value 90% of the time? In your WebCampus submission, explain how you addressed this question. Did you need more than 100 simulated data sets to answer this question? 
 
 ```{r answer2.1c, eval=FALSE, echo=FALSE}
 
@@ -408,7 +406,7 @@ div_by_three <- length(which(inputvector%%3==0))
 
 How might your results from part 2.1 change if your data simulations DID NOT meet the assumptions of ordinary linear regression- e.g., if the variances were not homogeneous? 
 
-To test this, you are asked to write an R function to generate data that violates a basic assumption regarding the error distribution of standard linear regression. Specifically, your function should generate "heteroskedastic" data, such that the variance of the residuals depends on the magnitude of the covariate "x". For this exercise, you'll still need to specify a linear relationship (y=ax+b) between your response and predictor - the only difference is that the residual variance is no longer homogeneous. To accomplish this, you need to specify a linear relationship for the *variance* as well- this linear relationship (y=ax+b) will describe how the magnitude of the residual error changes across the range of your predictor variable.  
+To test this, you are asked to write an R function to generate data that violates a basic assumption regarding the error distribution of standard linear regression. Specifically, your function should generate "heteroskedastic" data, such that the variance of the residuals depends on the magnitude of the response 'y'. For this exercise, you'll still need to specify a linear relationship (y=ax+b) between your response and predictor - the only difference is that the residual variance is no longer homogeneous. To accomplish this, you need to specify a linear relationship for the *standard deviation of residual error* as well- this linear relationship (sd=ay+b) will describe how the magnitude of the residual error changes across the range of your predictor variable.  
 
 Some other potential violations of standard assumptions we could also introduce into our data simulations if we wanted to: 
 
@@ -426,13 +424,13 @@ Write a function called "LMDataSim2()" for drawing a set of random observations 
     + sample.size = an integer specifying the number of observations to simulate
     + xlimits = a vector of length 2 specifying the minimum and maximum values of the covariate "x"       
     + coefs = a vector of length 2 specifying (in order) the intercept and slope of the relationship between "x" and the expected response   
-    + sd_coefs = a vector of length 2 specifying (in order) coefficients for a model that specifies the standard deviation of the residuals (magnitude of residual error) as a linear function of the covariate "x" (in this data generating model, the standard deviation of the residuals changes linearly with the covariate "x")
+    + sd_coefs = a vector of length 2 specifying (in order) coefficients for a model that specifies the standard deviation of the residuals (magnitude of residual error) as a linear function of the response value "y" (in this data generating model, the standard deviation of the residuals changes linearly with magnitude of the response)
 
 + **suggested algorithm**:   
     + sample random values (size="sample.size") from a uniform distribution (min and max defined by "xlimits") to represent the covariate (use the "runif()" function)    
     + Use the defined linear model (defined by "coefs") to determine the expected value of the response. 
     + Use the defined linear model (defined by "sd_coefs") to determine the expected value of the standard deviation of the response.
-    + Add "noise" to the expected values according to the "stdev" parameter (use the "rnorm()" function). Note that this should now depend on the covariate "x".
+    + Add "noise" to the expected values according to the "stdev" parameter (use the "rnorm()" function). Note that this should now depend on the magnitude of the expected response.
 
 + **return**: 
     + out = a data frame with number of rows equal to "sample.size" (number of observations), and two columns: 
@@ -464,10 +462,11 @@ LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){
 #############
 ## exercise 2.2a
 
+# sample.size=1000;xlimits=c(0,10);coefs=c(0,0.5);sd_coefs=c(0,0.2)
 LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){
   xvals <- runif(sample.size,xlimits[1],xlimits[2])
   yvals <- coefs[1] + coefs[2]*xvals
-  sds <- sd_coefs[1] + sd_coefs[2]*xvals
+  sds <- sd_coefs[1] + sd_coefs[2]*yvals
   yvals <- rnorm(sample.size,yvals,sds)
   out <- data.frame(x=xvals,y=yvals)
   return(out)
@@ -480,7 +479,7 @@ LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){
 LMDataSim2 <- function(sample.size,xlimits,coefs,sd_coefs){
   xvals <- runif(sample.size,xlimits[1],xlimits[2])
   yvals <- coefs[1] + coefs[2]*xvals
-  sds <- sd_coefs[1] + sd_coefs[2]*xvals
+  sds <- sd_coefs[1] + sd_coefs[2]*yvals
   yvals <- rnorm(sample.size,yvals,sds)
   out <- data.frame(x=xvals,y=yvals)
   return(out)
@@ -502,9 +501,12 @@ plot(test$x,test$y)
 
 ```{r q2_2a-check, echo=F}
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   fail_if(any(is.na(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),sd_coefs=c(0.2,0.04)))), "You shouldn't have missing values.")
   fail_if(!ncol(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),sd_coefs=c(0.2,0.04)))==2, "your function output should have two columns")
-  fail_if(!names(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),sd_coefs=c(0.2,0.04)))%in%c("x","y"), "your function output should produce a data frame with columns labeled x and y")
+  fail_if(!all(names(.result(sample.size=5,xlimits=c(0,12),coefs=c(-4,0.11),sd_coefs=c(0.2,0.04)))%in%c("x","y")), "your function output should produce a data frame with columns labeled x and y")
   pass_if(near(coef(lm(y~x,data=.result(sample.size=35,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.2,0.04))))[2],
               coef(lm(y~x,data=.solution(sample.size=35,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.2,0.04))))[2],0.06))
   fail()
@@ -518,15 +520,15 @@ grade_this({
 Write a function called "LMVerify_pt2()" for computing how well the coefficients from R's "lm()" function match the known coefficients of the model used to generate the data. This function should be specified as follows:
 
 + **input**:         
-    + sim.dataset = a data frame representing data simulated from a linear model with known coefficients (and known residual variance).  The first column, labeled 'x', should represent the values of the "x" variable and the second column, labeled 'y', should represent stochastic observations from the *known* model defined by "trueparams". NOTE: the structure of this input argument should match the output produced by your 'LMDataSim' function.           
-    + trueparams = a vector of length 2 specifying the intercept and slope of the known relationship between "x" and "y"  [note: this time we don't include the true residual error, which varies with 'x']          
+    + sim.dataset = a data frame representing data simulated from a linear model with known coefficients (and known residual variance).  The first column, labeled 'x', should represent the values of the "x" variable and the second column, labeled 'y', should represent stochastic observations from the *known* model defined by "trueparams". NOTE: the structure of this input argument should match the output produced by your 'LMDataSim2' function.           
+    + trueparams = a vector of length 2 specifying the intercept and slope of the known relationship between "x" and "y"  [note: this time we don't include the true residual error, which varies with the magnitude of the expected response]          
     + plot = a logical (TRUE/FALSE) indicating whether or not to produce a plot with regression line and confidence interval 
 
 + **suggested algorithm**:   
     + Use the "lm()" function to estimate the coefficients of the fitted relationship between column 1 (named 'x') and column 2 (named 'y') of "sim.dataset" (regress y on x)       
         + Extract and store the regression coefficients (intercept and slope parameter)     
     + [if plot==TRUE] Plot the estimated (fitted) regression line with a *95% prediction interval* around the estimated regression line (e.g., computed using the "predict()" function with interval='prediction'). Overlay the observations from the known data generating model (i.e., from 'sim.dataset').
-    + Use an "ifelse()" statement to record whether or not the 95% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value (if the 95% confidence interval contains the true value, then TRUE, otherwise FALSE). You can use the 'confint()' function to extract the confidence interval for the slope term.
+    + Use an "ifelse()" statement to record whether or not the 95% confidence interval around the slope parameter estimate (estimated from the data) contains the "true" parameter value (if the 95% confidence interval contains the true value, then TRUE, otherwise FALSE). You can use the 'confint()' function to extract the confidence interval for the slope term. Again, note that you are only asked to evaluate whether the confidence interval for the slope term includes the true slope value- you are not asked to evaluate whether the confidence interval around the estimated regression line contains the true regression line (this is harder to do!).
 
 + **return**:    
     + out = a list of length 3 with the following elements (with the names indicated below):   
@@ -631,8 +633,11 @@ LMVerify_pt2(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)
 ```{r q2_2b-check, echo=F}
 
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   fail_if(!length(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T))==3, "your function output should be a list with three elements")
-  fail_if(!names(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T))%in%c("trueparams","fittedparams","inside"), "your function output should be a list with three elements with proper names (see instructions)")
+  fail_if(!all(names(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T))%in%c("trueparams","fittedparams","inside")), "your function output should be a list with three elements with proper names (see instructions)")
   fail_if(!near(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)$fittedparams["x"],
               .solution(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)$fittedparams["x"],0.003))
   pass_if(near(.result(sim.dataset = simdat3, trueparams = c(55,-0.19),plot=T)$fittedparams["intercept"],
@@ -645,11 +650,11 @@ grade_this({
 
 ## **Exercise 2.2c**. 
 
-In your Word document, please answer the following questions:      
+In webcampus, please answer the following question:      
 
-1. Is the estimate of the slope parameter (obtained using the 'lm()' function) *biased*? [note: statistical bias of an estimator is the difference between the estimator's expected value and the true value of the parameter being estimated]. Ideally, an estimator should be *unbiased* (bias=0). Briefly explain how you got your answer. 
+Is the estimate of the slope parameter (obtained using the 'lm()' function) *biased*? [note: statistical bias of an estimator is the difference between the estimator's expected value and the true value of the parameter being estimated]. Ideally, an estimator should be *unbiased* (bias=0). Briefly explain how you got your answer. 
 
-```{r answerq2_2c1, echo=FALSE, eval=FALSE}
+```{r answerq2_2c, echo=FALSE, eval=FALSE}
 
 ##########
 #  Exercise 2.2c
@@ -671,16 +676,21 @@ mean(difs)  ## this test seems relatively robust to violations of homoskedastici
 ```
 
 
-2. Evaluate *goodness-of-fit* by visualizing the range of data produced by the true model (using a very large sample size) against the prediction interval from the estimated model (generated using the 'lm()' function). See the code and figure below for reference. In your Word document, please describe briefly how this figure helps you to evaluate goodness-of-fit (i.e., could your observed data have been generated by the model?) Are there 'red flags' that might make you think that the model is not adequate for representing these data? Try to come up with at least one scenario where violation of the heteroskedasticity assumption in linear regression would lead to erroneous inference. 
+## **Exercise 2.2d**. 
+
+In webcampus, please answer the following question:      
+
+
+Use the figure below to evaluate the *goodness-of-fit* of a linear regression model (green line with prediction interval visualized as blue lines) fitted to the data (open circles). See the code below for reference about how the figure was generated. In your Word document, please describe how this figure helps you to evaluate goodness-of-fit (i.e., could your observed data have been generated by the model?) Are there 'red flags' that might make you think that the linear regression model is not adequate for representing these data? Finally, describe one scenario where violation of the heteroskedasticity assumption in linear regression could lead to erroneous inference about a research question or hypothesis. 
 
 Here is an example of a goodness-of-fit visualization:
 
-```{r answerq2_2c2}
+```{r answerq2_2d}
 
 ##  Part 2
 
-simdat_lots <- LMDataSim2(sample.size=10000,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.3,0.05))
-simdat_sample <- LMDataSim2(sample.size=10,xlimits=c(40,120),coefs=c(55,-0.09),sd_coefs=c(-0.3,0.05))
+simdat_lots <- LMDataSim2(sample.size=10000,xlimits=c(40,120),coefs=c(95,-0.7),sd_coefs=c(0.3,0.1))
+simdat_sample <- LMDataSim2(sample.size=10,xlimits=c(40,120),coefs=c(95,-0.7),sd_coefs=c(0.3,0.1))
 temp <- LMVerify_pt2(sim.dataset = simdat_lots, trueparams = c(55,-0.09),plot=T)
 
 
@@ -856,6 +866,9 @@ GetPower(initabund=1000,nreps=1000,trend=-0.03,years=25,days=1,observers=1,survi
 ```{r q2_3a-check, echo=F}
 
 grade_this({
+  if (!is.function(.result)) {
+    fail("Remember to comment out everything but the function!")
+  }
   fail_if(!length(.result(initabund=1000,nreps=10,trend=-0.02,years=10,days=1,observers=1,survint=2,alpha=0.1))==1, "your function output should return just one number")
   fail_if(is.na(.result(initabund=1000,nreps=10,trend=-0.02,years=10,days=1,observers=1,survint=2,alpha=0.1)), "your function output should be a real number between 0 and 1 - not NA!")
   fail_if(.result(initabund=1000,nreps=10,trend=-0.02,years=10,days=1,observers=1,survint=2,alpha=0.1)<0, "your function output should be a real number between 0 and 1")
@@ -873,7 +886,9 @@ grade_this({
 
 ## **Exercise 2.3b**.  
 
-For each variable element of the survey design (survey interval, number of observers, days per survey bout), evaluate how statistical power changes across a range of plausible values. Plot out these relationships. In your Word document, provide ONE of these plots, describe (briefly!) how you produced the plot, and how this information might help managers to develop effective survey protocols for this species. 
+In webcampus, please answer the following question:   
+
+For each variable element of the survey design (survey interval, number of observers, days per survey bout), evaluate how statistical power changes across a range of plausible values. Plot out these relationships. In webcampus, provide ONE of these plots, describe (briefly!) how you produced the plot, and how this information might help managers to develop effective survey protocols for this species. 
 
 ```{r answerq2_3b, echo=FALSE}
 
