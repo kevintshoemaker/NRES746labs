@@ -239,7 +239,7 @@ LMVerify_pt1 <- function(sim.dataset,trueparams,plot=T){
 ```{r dataq2_1b,context="data",echo=FALSE}
 LMVerify_pt1 <- function(sim.dataset,trueparams,plot=T){
   names <- names(sim.dataset)
-  form <- as.formula(sprintf("%s ~ %s",names[2],names[1]) )   # note: this is to make sure the function runs for whatever your column names are. But fine if you hardcoded the names x and y!
+  form <- as.formula(sprintf("%s ~ %s",names[2],names[1]) )   # note: this is to make sure the function runs for whatever your column names are. But fine if you hard-coded the names x and y!
   mod <- lm(form,data=sim.dataset)
   coefs <- coefficients(mod)
   sdest <- summary(mod)$sigma
