@@ -1,0 +1,15 @@
+q3_1a-solution.RData
+dataq3_1a.RData
+answer3.2a1.RData
+dataq3_2a0.RData
+q3_2a-solution.RData
+dataq3_2a1.RData
+dataq3_2b0.RData
+answerq3_3a1.RData
+answerq3_3a2.RData
+q3_3a-solution.RData
+dataq3_3a0.RData
+q3_3b-solution.RData
+dataq3_3b0.RData
+q3_4a-solution.RData
+dataq3_4a.RData

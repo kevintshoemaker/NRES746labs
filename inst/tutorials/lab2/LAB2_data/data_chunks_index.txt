@@ -1,0 +1,10 @@
+q2_1a-solution.RData
+dataq2_1a.RData
+dataq2_1b.RData
+testq2_1b.RData
+testq2_1b2.RData
+data2_2a_0.RData
+dataq2_2b.RData
+testq2_2b.RData
+answerq2_3a0.RData
+dataq2_3a.RData

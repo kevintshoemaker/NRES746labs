@@ -1,7 +1,7 @@
 ---
 title: "Lab 3"
 author: "NRES 746"
-date: "Fall 2021"
+date: "Fall 2023"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -47,7 +47,7 @@ These next few weeks are focused on fitting models, specifically estimating mode
 
 As with all labs in this course, your answers will either take the form of R functions (submitted as an R script) or short written responses (submitted together in a Word document). The R functions (and only the functions- not your testing code) should be stored in an R script file ('.R' extension). You don't need to follow any naming convention for your R script as long as you submit via WebCampus.
 
-Please submit the R script and the Word document via WebCampus by midnight on the due date (one week after the final lab session allocated for this topic -- here, _Oct. 25, 2021_). You can work in groups but please submit the materials individually. 
+Please submit the R script and the Word document via WebCampus by midnight on the due date (_Oct. 20_). You can work in groups but please submit the materials individually. 
 
 First, take a little time to review the [likelihood lecture](http://kevintshoemaker.github.io/NRES-746/LECTURE4.html)!
 
@@ -433,7 +433,7 @@ hist(rffr$Killed/rffr$Initial)
 
 Based on what we know mechanistically about the data, we’ll use a binomial distribution to describe the observed number killed.
 
-Plot the number killed by the initial density (using plot()) to see what sort of deterministic function would describe the pattern. It looks like it could be linear, but because we know that this is a predation response, and that predators become handling-limited (saturated) at high prey densities. On page 182 Bolker indicates that if predation rate= $aN/(1+ahN)$ (Holling Type II functional response), this means that the per-capita predation rate of tadpoles decreases hyperbolically with tadpole density $(= a/(1 + ahN))$. We’ll use this deterministic function for our data.     
+Plot the number killed by the initial density (e.g., using plot()) to see what sort of deterministic function would describe the pattern. It looks like it could be linear, but we know that this is a predation response, and that predators become handling-limited (saturated) at high prey densities. On page 182 Bolker indicates that if predation rate= $aN/(1+ahN)$ (Holling Type II functional response), this means that the per-capita predation rate of tadpoles decreases hyperbolically with tadpole density $(= a/(1 + ahN))$. We’ll use this deterministic function for our data.     
 First, let’s see what that curve would look like over our data points with an initial guess at the parameters (we always need an initial guess to seed our optimization algorithms). Recall that the a parameter of this hyperbolic function indicates the initial slope, which we’ll guess to be around 0.5, and the h parameter indicates 1/asymptote, which we fiddled around with to match the data (so try 1/80).
 
 ```{r dataq3_2a0, echo=FALSE, context='data'}
@@ -667,7 +667,7 @@ grade_this({
 
 In your Word document, respond briefly to the following questions:
 
-1. Try some different starting values for the *a* and *h* parameters. Can you find any starting values that are so bad they cause the optimization algorithm (default algorithm used by "optim()" function in R) to fail?      
+1. Try some different starting values for the *a* and *h* parameters. Can you find any starting values that cause the optimization algorithm (default algorithm used by "optim()" function in R) to fail? Briefly describe what you tried and what (if any) starting values caused 'optim()' to fail.
 
 2. Bolker calls the prediction interval you generated above a *plug-in prediction interval*. In what way(s) is this interval different than a *true* prediction interval? (hint: are there are any sources of error that the plug-in prediction interval ignores?)   
 
