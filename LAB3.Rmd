@@ -962,7 +962,7 @@ NOTE: my testing code will only test your function with the parameters "a" and "
 + **suggested algorithm**:   
     + Compute the MLE for the *a*, *b*, and *shape* parameters for the Ricker/Gamma model (use "optim()" with the likelhood function and the initial values in "params")   
     + Set the "constant/fixed" variable (the one not in "params_selected") to its maximum likelihood estimate (which you just computed).    
-    + For each of the two parameters in "parameters_selected", develop a vector of length 50 that ranges from the lower to the upper bound. 
+    + For each of the two parameters in "parameters_selected", develop a vector of length 100 that ranges from the lower to the upper bound. 
     + Loop over the two dimensions specified in "params_selected" (e.g., using a nested 'for' loop, iterating through both vectors computed in the previous step), characterizing all of parameter space from the lower to upper bounds of both parameters. For each "chunk/pixel" of parameter space, compute and store the likelihood (holding the third parameter at its MLE).   
     + Use the "image()" function to visualize 2D parameter space, using "topo.colors" to define the colors.     
     + Use the "contour()" function to draw contour lines at 2, 4, 6, 8, and 10 log-likelihood units from the MLE point.
