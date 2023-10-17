@@ -91,7 +91,7 @@ For each individual, the per-trial probability of being eaten by a predator is a
 
 $Prob(k|p,N) = \binom{N}{k}p^{k}(1-p)^{N-k}$
 
-Since the observations are independent, the joint likelihood of the whole data set is the product of the likelihood of each individual observation.  So, if we have n observations, each with the same total number of tadpoles N, and the number of tadpoles killed in the ith observation is ki, then the likelihood is:
+Since the observations are independent, the joint likelihood of the whole data set is the product of the likelihood of each individual observation. So, if we have n observations, each with the same total number of tadpoles N, and the number of tadpoles killed in the ith observation is ki, then the likelihood is:
  
 $L = \prod_{i=1}^{n}\binom{N}{k_{i}}p^{k_{i}}(1-p)^{N-k_{i}}$
  
@@ -695,12 +695,12 @@ Let's continue the myxomatosis virus titer example from the [optimization lectur
 
 Our goals are to:   
 
--	Find the maximum likelihood estimates of the parameters of the Ricker model fit to the myxomytosis data.      
+-	Find the maximum likelihood estimates of the parameters of the Ricker model fit to the myxomatosis data.      
 -	Visualize the fit of this model to the data by:
     -	Plotting the data
     - Adding the predicted Ricker curve 
     - Adding plug-in confidence intervals
-    - Plot the 2-dimensional likelihood surface for the parameters of the Ricker and add the bivariate 95% confidence interval
+    - Plot the 2-dimensional likelihood surface for the parameters of the Ricker and add the bivariate 95% confidence interval      
 
 You can add the data from the 'emdbook' package:
 
@@ -761,7 +761,7 @@ Start by plotting the histogram of the response variable. Bolker suggests a gamm
 Plot the data points (hint: look at figure 6.5b).  Bolker suggests the Ricker curve – does it look like the Ricker curve would work? Write down the equation and parameters for the Ricker curve (page 94).
 
 **Step 4**. *Specify the likelihood of the data given our deterministic expectations and the stochastic distribution.*
-Take a moment to think how the parameters of the stochastic distribution are determined by the parameters of the deterministic function. For the gamma distribution, both the shape and scale parameters are related to the mean of the distribution, i.e., mean =  shape × scale (page 133). So how will you specify that the deterministic function (the Ricker model) should represent the mean? What parameters do you need your (negative) log-likelihood function to estimate? Write out your negative log-likelihood function to solve for the likelihood.
+Take a moment to think how the parameters of the stochastic distribution are determined by the parameters of the deterministic function. For the gamma distribution, both the shape and scale parameters are related to the mean of the distribution, i.e., mean =  shape × scale (page 133)(or shape/rate). So how will you specify that the deterministic function (the Ricker model) should represent the mean? What parameters do you need your (negative) log-likelihood function to estimate? Write out your negative log-likelihood function to solve for the likelihood.
 
 ASIDE: the mean and variance of the gamma distribution are inter-related: the shape parameter can be specified as: $\frac{mean^2}{var}$ and the scale parameter can be specified as $\frac{var}{mean}$!
 
