@@ -48,13 +48,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Lab 4: Bayesian inference
 
-As with all lab reports, your answers will either take the form of R functions or short written responses (submitted together in a Word document). The R functions should be stored in an R script file ('.R' extension). No need to use any specific naming conventions for your files as long as you submit via WebCampus.  
+As with all lab reports, your answers will either take the form of R functions or short written responses (submitted together in a Word document). The R functions should be stored in an R script file ('.R' extension) using the same file naming convention we have used for previous labs ("first_last_lab4.R").
 
-Please submit the R script and the Word document via WebCampus by midnight on the due date. You can work in groups but please submit the materials individually. 
+Please submit the R script using the shared Box folder and submit the Word document via WebCampus by midnight on the due date. You're welcome to work in groups but please submit the materials individually. 
 
-First, take a little time to review the [Bayesian inference lecture](http://naes.unr.edu/shoemaker/teaching/NRES-746/LECTURE6.html) and [MCMC lecture](http://naes.unr.edu/shoemaker/teaching/NRES-746/LECTURE7.html)!   
+First, take a little time to review the [Bayesian inference lecture](https://kevintshoemaker.github.io/NRES-746/LECTURE6.html) and [MCMC lecture](https://kevintshoemaker.github.io/NRES-746/LECTURE7.html)!   
 
-**Lab 4 is due before midnight on Tuesday November 16** 
+**Lab 4 is due before midnight on Friday November 17** 
 
 ##  Bayesian inference (with BUGS!)
 
@@ -62,7 +62,7 @@ If you haven't already installed JAGS on your computer, use [this link](http://m
 
 In this lab we will be applying a Bayesian approach to model fitting using the same myxomatosis dataset and data generating model that we used in the previous lab (lab 3: maximum likelihood inference). To do this, we’ll be using the program JAGS (**J**ust **A**nother **G**ibbs **S**ampler).
 
-JAGS runs on all platforms and runs seamlessly with R, if you download the "R2jags", "runjags" or the "jagsUI" packages! JAGS is not the only way to do Bayesian analyses, nor is it the only implementation of the BUGS (Bayesian inference Using Gibbs Sampler) language. Others that you may have heard of include WinBUGS, OpenBUGS and NIMBLE (R package). STAN is another widely used software for Bayesian inference, but STAN doesn't use the BUGS language (it has its own language!)
+JAGS runs on all platforms and runs seamlessly with R, if you download the "jagsUI" package! JAGS is not the only way to do Bayesian analyses, nor is it the only implementation of the BUGS (Bayesian inference Using Gibbs Sampler) language. Others that you may have heard of include WinBUGS, OpenBUGS and NIMBLE (R package). STAN is another widely used software for Bayesian inference, but STAN doesn't use the BUGS language (it has its own language!)
 
 To familiarize ourselves with the BUGS language, let's look at some BUGS code (for our favorite myxomatosis dataset). 
 
@@ -295,12 +295,11 @@ Write a function called "Myx_Ricker_JAGS()" that runs the Myxomatosis/Ricker exa
 
 + **input**:         
     + data = a matrix of 2 columns and one row per observation. The first column should represent the days since infection, and the second column should represent the virus titer.
-    + JAGScode = a text string, representing the file name for your JAGS code. [NOTE: the code for writing the JAGS model as a text file does not need to be included in the function, although it needs to be in your script one way or another!]
     + CImethod = a text string, representing whether the CI should be computed using the quantile method ("quantile") or the HPD method ("HPD"). See the Bayesian lecture for more information.    
     + CIlevel = a number from 0 to 1 indicating what confidence level you want for the CI: set the default value to 0.95.     
 
 + **suggested algorithm**:  
-    + Write and store the JAGS model as a text file [this can be done outside the Myx_Ricker_JAGS() function]
+    + Write and store the JAGS model as a text file (you can name the file whatever you'd like!) [NOTE: the code for writing the JAGS model as a text file should be embedded in the function]
     + Package the data for JAGS (store all data in a named list object)    
     + Write a function that returns a list for initializing the MCMC chains [this could be defined inside or outside the Myx_Ricker_JAGS() function]    
     + Run the 'jags()' function from the 'jagsUI' package with 3 chains, specifying the parameters for which you wish to store the MCMC output ("a", "b", and "shape"), and store the results as an R object.    
@@ -308,7 +307,7 @@ Write a function called "Myx_Ricker_JAGS()" that runs the Myxomatosis/Ricker exa
     + compute the posterior means for the a, b and shape params and store as a named vector (three elements, named "a", "b", and "shape", in that order).
     + Plot the raw data (days on x axis and titer on y axis), and overlay the fitted Ricker curve, with Bayesian point estimates (posterior means) to evaluate fit.   
     + compute the credible interval (CI) for the three parameters using either the quantile method or the HPD method (as requested by the user), and store as a 2x3 matrix (see below). HINT: use the 'HDInterval’ package to help compute the HPD.   
-    + compute the overall Gelman-Rubin diagnostic ('gelman.diag' function, quantity labeled 'Multivariate psrf') for all three parameters using the 'coda' version of the JAGS results (e.g., 'myjagsmodel$samples').    
+    + compute the overall Gelman-Rubin diagnostic ('gelman.diag' function, quantity labeled 'Multivariate psrf') for all three parameters using the JAGS raw mcmc results (e.g., 'myjagsmodel$samples') as input to the 'gelman.diag()' function).    
 
 + **return**:    
     + a list of length 3 containing (list element 1) a named vector of point estimates (posterior means) for parameters a, b, and shape, (list element 2) a matrix with 2 rows and 3 columns, containing the 95% credible interval (row 1 is the lower bound, row 2 is the upper bound, columns represent parameters a, b, and shape), and (list element 3) a single number representing the 'multivariate' Gelman-Rubin diagnostic (potential scale reduction factor)- a tool for assessing MCMC convergence.  
@@ -324,7 +323,7 @@ NOTE: to test your code in the "sandbox" you may need to suppress (comment out) 
 
 
 ```{r q4_1a, exercise=TRUE}
-Myx_Ricker_JAGS <- function(data,JAGScode,CImethod,CIlevel){
+Myx_Ricker_JAGS <- function(data,CImethod,CIlevel){
     # [add code here!]
 }
 
@@ -349,31 +348,6 @@ Ricker <- function(x,a,b){
 }
 
 
-filename <- "BUGSmodel_ricker.txt"
-cat("
-    model {
-      
-      #############
-      # LIKELIHOOD
-      ############
-      for(obs in 1:n.observations){
-        titer[obs] ~ dgamma(shape,rate[obs])
-        rate[obs] <- shape/exp.titer[obs]
-        exp.titer[obs] <- a*days[obs]*exp(-1*b*days[obs])
-      }
-      
-      #############
-      # PRIORS
-      ############
-      shape ~ dgamma(0.01,0.01)
-      a ~ dgamma(0.01,0.01)
-      b ~ dgamma(0.01,0.01)
-    }
-  ",file=filename
-)
-
-
-
 #params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
 
 #jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file="BUGSmodel_ricker.txt",n.chains = 3,n.burnin = 5000,n.thin = 20 )
@@ -384,7 +358,32 @@ cat("
 ########
 # package into function
 
-Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.95){
+Myx_Ricker_JAGS <- function(data=Myx[,-1],CImethod="HPD",CIlevel=0.95){
+  
+  filename <- "BUGSmodel_ricker.txt"
+  cat("
+      model {
+        
+        #############
+        # LIKELIHOOD
+        ############
+        for(obs in 1:n.observations){
+          titer[obs] ~ dgamma(shape,rate[obs])
+          rate[obs] <- shape/exp.titer[obs]
+          exp.titer[obs] <- a*days[obs]*exp(-1*b*days[obs])
+        }
+        
+        #############
+        # PRIORS
+        ############
+        shape ~ dgamma(0.01,0.01)
+        a ~ dgamma(0.01,0.01)
+        b ~ dgamma(0.01,0.01)
+      }
+    ",file=filename
+  )
+
+  
   myx.data.for.bugs <- list(
     titer = data[,2],
     days =data[,1],
@@ -401,7 +400,7 @@ Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImeth
   
   params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
   
-  jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
+  jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file=filename,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
   jags.fit_1a_coda <- jags.fit_1a$samples
   #summary(jagsfit.mcmc.1a)
   plot(jags.fit_1a_coda)
@@ -452,7 +451,19 @@ Ricker <- function(x,a,b){
 }
 
 
-filename <- "BUGSmodel_ricker.txt"
+#params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
+
+#jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file="BUGSmodel_ricker.txt",n.chains = 3,n.burnin = 5000,n.thin = 20 )
+
+#jags.fit_1a   # test the model fit
+
+
+########
+# package into function
+
+Myx_Ricker_JAGS <- function(data=Myx[,-1],CImethod="HPD",CIlevel=0.95){
+  
+  filename <- "BUGSmodel_ricker.txt"
 cat("
     model {
       
@@ -475,19 +486,6 @@ cat("
   ",file=filename
 )
 
-
-
-#params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
-
-#jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file="BUGSmodel_ricker.txt",n.chains = 3,n.burnin = 5000,n.thin = 20 )
-
-#jags.fit_1a   # test the model fit
-
-
-########
-# package into function
-
-Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.95){
   myx.data.for.bugs <- list(
     titer = data[,2],
     days =data[,1],
@@ -504,7 +502,7 @@ Myx_Ricker_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImeth
   
   params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
   
-  jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
+  jags.fit_1a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs,parameters.to.save=params.to.store,n.iter=50000,model.file=filename,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
   jags.fit_1a_coda <- jags.fit_1a$samples
   #summary(jagsfit.mcmc.1a)
   plot(jags.fit_1a_coda)
@@ -545,10 +543,10 @@ Here is some test code, along with a sample of the results you should expect to 
 
 ```{r testq4_1a, fig.dim = c(5, 7)}
 
-Ricker_results <- Myx_Ricker_JAGS(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.88)
+Ricker_results <- Myx_Ricker_JAGS(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)
 Ricker_results
   
-Ricker_results <- Myx_Ricker_JAGS(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="quantile",CIlevel=0.88)
+Ricker_results <- Myx_Ricker_JAGS(data=Myx[,-1],CImethod="quantile",CIlevel=0.88)
 Ricker_results
 
 ```
@@ -557,11 +555,11 @@ Ricker_results
 ```{r q4_1a-check, echo=F}
 
 grade_this({
-  fail_if(!length(.result(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.88))==3, "your function output should be a list with three elements")
-  fail_if(!near(.result(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.88)[[1]][1],
-              .solution(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.88)[[1]][1],0.2))
-  pass_if(near(.result(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.88)[[2]][1,1],
-              .solution(data=Myx[,-1],JAGScode="BUGSmodel_ricker.txt",CImethod="HPD",CIlevel=0.88)[[2]][1,1],0.2))
+  fail_if(!length(.result(data=Myx[,-1],CImethod="HPD",CIlevel=0.88))==3, "your function output should be a list with three elements")
+  fail_if(!near(.result(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)[[1]][1],
+              .solution(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)[[1]][1],0.2))
+  pass_if(near(.result(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)[[2]][1,1],
+              .solution(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)[[2]][1,1],0.2))
   fail()
 })
 
@@ -580,7 +578,6 @@ Did your MCMC chains converge on the joint posterior distribution? Briefly expla
 ## Exercise 4.2: Myxomatosis in JAGS with Michaelis-Menten deterministic function 
 
 Recalling our plot (from the last lab) of the Ricker function with the maximum-likelihood parameter estimates drawn over the scatterplot of titers by day, there really isn’t much evidence in the data for that downward turn in the function after day 6. We chose a model that indicated decline in titer levels following a peak based on the behavior of other myxomytosis grades, but given the virulence of this particular grade most animals die once the titer levels reach their maximum. Might it be more appropriate to fit a model (titer as a function of days since exposure) that levels off at some asymptote instead of declining following the peak? Let's find out! 
-
 
 ## **Exercise 4.2a**. 
 
@@ -614,13 +611,13 @@ NOTE: you need to include code that writes out your BUGS textfile, whether or no
 NOTE: to test your code in the "sandbox" you may need to suppress (comment out) the part of the function that generates multi-panel plots, or you may get the dreaded "figure margins too large" error.
 
 ```{r q4_2a, exercise=TRUE}
-Myx_MM_JAGS <- function(data,JAGScode,CImethod,CIlevel){
+Myx_MM_JAGS <- function(data,CImethod,CIlevel){
     # [add code here!]
 }
 
 # MyxDat <- emdbook::MyxoTiter_sum
 # Myx <- subset(MyxDat,grade==1)  #Data set from grade 1 of myxo data
-# this <- Myx_MM_JAGS(data=Myx[,-1],JAGScode = "BUGSmodel_mm.txt", CImethod = "HPD", CIlevel = 0.95)
+# this <- Myx_MM_JAGS(data=Myx[,-1], CImethod = "HPD", CIlevel = 0.95)
 # test <- this$conf.ints
 ```
 
@@ -638,29 +635,6 @@ MMFunc <- function(x,a,b){
   (a*x)/(b+x)
 }
 
-
-filename <- "BUGSmodel_mm.txt"
-cat("
-    model {
-      
-      #############
-      # LIKELIHOOD
-      ############
-      for(obs in 1:n.observations){
-        titer[obs] ~ dgamma(shape,rate[obs])
-        rate[obs] <- shape/exp.titer[obs]
-        exp.titer[obs] <- (a*days[obs]) / (b+days[obs])
-      }
-      
-      #############
-      # PRIORS
-      ############
-      shape ~ dgamma(0.01,0.01)
-      a ~ dgamma(0.01,0.01)
-      b ~ dgamma(0.01,0.01)
-    }
-  ",file=filename
-)
 
 # MyxDat <- MyxoTiter_sum
 # Myx <- subset(MyxDat,grade==1)  #Data set from grade 1 of myxo data
@@ -691,7 +665,30 @@ params.to.store <- c("shape","a","b")    # specify the parameters we want to get
 ########
 # package into function
 
-Myx_MM_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD",CIlevel=0.95){
+Myx_MM_JAGS <- function(data=Myx[,-1],CImethod="HPD",CIlevel=0.95){
+  filename <- "BUGSmodel_mm.txt"
+  cat("
+      model {
+        
+        #############
+        # LIKELIHOOD
+        ############
+        for(obs in 1:n.observations){
+          titer[obs] ~ dgamma(shape,rate[obs])
+          rate[obs] <- shape/exp.titer[obs]
+          exp.titer[obs] <- (a*days[obs]) / (b+days[obs])
+        }
+        
+        #############
+        # PRIORS
+        ############
+        shape ~ dgamma(0.01,0.01)
+        a ~ dgamma(0.01,0.01)
+        b ~ dgamma(0.01,0.01)
+      }
+    ",file=filename
+  )
+
   myx.data.for.bugs <- list(
     titer = data[,2],
     days =data[,1],
@@ -708,7 +705,7 @@ Myx_MM_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD"
   
   params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
   
-  jags.fit_2a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
+  jags.fit_2a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.to.save=params.to.store,n.iter=50000,model.file=filename,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
   jags.fit_2a_coda <- jags.fit_2a$samples
   plot(jags.fit_2a_coda)
   temp <- densityplot(jags.fit_2a_coda)
@@ -758,29 +755,6 @@ MMFunc <- function(x,a,b){
 }
 
 
-filename <- "BUGSmodel_mm.txt"
-cat("
-    model {
-      
-      #############
-      # LIKELIHOOD
-      ############
-      for(obs in 1:n.observations){
-        titer[obs] ~ dgamma(shape,rate[obs])
-        rate[obs] <- shape/exp.titer[obs]
-        exp.titer[obs] <- (a*days[obs]) / (b+days[obs])
-      }
-      
-      #############
-      # PRIORS
-      ############
-      shape ~ dgamma(0.01,0.01)
-      a ~ dgamma(0.01,0.01)
-      b ~ dgamma(0.01,0.01)
-    }
-  ",file=filename
-)
-
 # MyxDat <- MyxoTiter_sum
 # Myx <- subset(MyxDat,grade==1)  #Data set from grade 1 of myxo data
 # #head(Myx)
@@ -810,7 +784,30 @@ params.to.store <- c("shape","a","b")    # specify the parameters we want to get
 ########
 # package into function
 
-Myx_MM_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD",CIlevel=0.95){
+Myx_MM_JAGS <- function(data=Myx[,-1],CImethod="HPD",CIlevel=0.95){
+  filename <- "BUGSmodel_mm.txt"
+  cat("
+      model {
+        
+        #############
+        # LIKELIHOOD
+        ############
+        for(obs in 1:n.observations){
+          titer[obs] ~ dgamma(shape,rate[obs])
+          rate[obs] <- shape/exp.titer[obs]
+          exp.titer[obs] <- (a*days[obs]) / (b+days[obs])
+        }
+        
+        #############
+        # PRIORS
+        ############
+        shape ~ dgamma(0.01,0.01)
+        a ~ dgamma(0.01,0.01)
+        b ~ dgamma(0.01,0.01)
+      }
+    ",file=filename
+  )
+    
   myx.data.for.bugs <- list(
     titer = data[,2],
     days =data[,1],
@@ -827,7 +824,7 @@ Myx_MM_JAGS <- function(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD"
   
   params.to.store <- c("shape","a","b")    # specify the parameters we want to get the posteriors for
   
-  jags.fit_2a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.to.save=params.to.store,n.iter=50000,model.file=JAGScode,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
+  jags.fit_2a <- jags(data=myx.data.for.bugs,inits=init.vals.for.bugs2,parameters.to.save=params.to.store,n.iter=50000,model.file=filename,n.chains = 3,n.burnin = 5000,n.thin = 20,parallel=TRUE )
   jags.fit_2a_coda <- jags.fit_2a$samples
   plot(jags.fit_2a_coda)
   temp <- densityplot(jags.fit_2a_coda)
@@ -867,10 +864,10 @@ And here are some test commands with output:
 
 ```{r test4.2a, fig.dim = c(5, 7)}
 
-MM_results <- Myx_MM_JAGS(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD",CIlevel=0.88)
+MM_results <- Myx_MM_JAGS(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)
 MM_results
   
-MM_results <- Myx_MM_JAGS(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="quantile",CIlevel=0.88)
+MM_results <- Myx_MM_JAGS(data=Myx[,-1],CImethod="quantile",CIlevel=0.88)
 MM_results
 
 ```
@@ -878,11 +875,11 @@ MM_results
 
 ```{r q4_2a-check, echo=F}
 grade_this({
-  fail_if(!length(.result(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD",CIlevel=0.88))==3, "your function output should be a list with three elements")
-  fail_if(!near(.result(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD",CIlevel=0.88)[[1]][1],
-              .solution(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD",CIlevel=0.88)[[1]][1],0.5))
-  pass_if(near(.result(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD",CIlevel=0.88)[[2]][1,1],
-              .solution(data=Myx[,-1],JAGScode="BUGSmodel_mm.txt",CImethod="HPD",CIlevel=0.88)[[2]][1,1],0.5))
+  fail_if(!length(.result(data=Myx[,-1],CImethod="HPD",CIlevel=0.88))==3, "your function output should be a list with three elements")
+  fail_if(!near(.result(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)[[1]][1],
+              .solution(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)[[1]][1],0.5))
+  pass_if(near(.result(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)[[2]][1,1],
+              .solution(data=Myx[,-1],CImethod="HPD",CIlevel=0.88)[[2]][1,1],0.5))
   fail()
 })
 ```
@@ -1191,8 +1188,8 @@ Myx_PostPredCheck <- function(MCMC1=jags.fit_ricker,MCMC2=jags.fit_mm){
     allsims_mm[i,] <- tapply(simobs_mm,Myx$day,function(t) t[sample.int(length(t))][1] )
   }
   
-  boxplot(allsims_rick,xlab="Days",ylab="Titer",xlim=c(0 points(Myx$day,Myx$titer,col="green",pch=19,cex=2),10),main="Ricker",at=as.numeric(colnames(allsims_rick)))
- 
+  boxplot(allsims_rick,xlab="Days",ylab="Titer",xlim=c(0,10),main="Ricker",at=as.numeric(colnames(allsims_rick)))
+  points(Myx$day,Myx$titer,col="green",pch=19,cex=2)
   
   boxplot(allsims_mm,xlab="Days",ylab="Titer",xlim=c(0,10),main="M-M",at=as.numeric(colnames(allsims_mm)))
   points(Myx$day,Myx$titer,col="green",pch=19,cex=2)
@@ -1260,7 +1257,7 @@ grade_this({
 
 In your Word document, please explain how you interpret the Bayesian p-value in the previous example. What Bayesian p-value would you expect if the model fit was perfect? What would you expect if the model fit was poor? What does the Bayesian p-value tell us about how well the Ricker and M-M models fit the data? Does one model fit better than the other? 
 
-## Exercise 4.4 (extra credit)
+## Exercise 4.4 (optional)
 
 DIC (analogous to AIC) is a model selection criterion for Baysian models fitted with MCMC. Just like for AIC (see model selection lecture), models with smaller values of DIC are favored. Which model (M-M or Ricker) is the better model based on DIC? What does the difference in DIC mean in terms of the strength of evidence in support of one of these models as the "best model"?  [You should be aware that DIC is not a perfect solution for Bayesian model selection. For one, it is only valid if the posterior is approximately multivariate normal]  
 
