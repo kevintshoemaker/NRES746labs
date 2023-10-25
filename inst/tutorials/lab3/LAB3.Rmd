@@ -69,7 +69,7 @@ NOTE: if you'd like to follow along, the R script for this demo can be found [he
 # alternatively, load the data using the 'emdbook' package:
 
 library(emdbook)
-rfp <- ReedfrogPred
+rfp <- emdbook::ReedfrogPred
 
 head(rfp)
 
@@ -91,7 +91,7 @@ For each individual, the per-trial probability of being eaten by a predator is a
 
 $Prob(k|p,N) = \binom{N}{k}p^{k}(1-p)^{N-k}$
 
-Since the observations are independent, the joint likelihood of the whole data set is the product of the likelihood of each individual observation.  So, if we have n observations, each with the same total number of tadpoles N, and the number of tadpoles killed in the ith observation is ki, then the likelihood is:
+Since the observations are independent, the joint likelihood of the whole data set is the product of the likelihood of each individual observation. So, if we have n observations, each with the same total number of tadpoles N, and the number of tadpoles killed in the ith observation is ki, then the likelihood is:
  
 $L = \prod_{i=1}^{n}\binom{N}{k_{i}}p^{k_{i}}(1-p)^{N-k_{i}}$
  
@@ -414,9 +414,9 @@ First, examine the first few lines:
 #####
 # 3.2a
 
-#rffr <- read.csv("ReedfrogFuncResp.csv",row.names = 1)
+rffr <- read.csv("ReedfrogFuncResp.csv",row.names = 1)
   # alternative: 
-rffr <- emdbook::ReedfrogFuncresp     # from Bolker's "emdbook" package
+# rffr <- emdbook::ReedfrogFuncresp     # from Bolker's "emdbook" package
   # ?Reedfrog      # learn more about this dataset
 head(rffr)
 
@@ -695,12 +695,12 @@ Let's continue the myxomatosis virus titer example from the [optimization lectur
 
 Our goals are to:   
 
--	Find the maximum likelihood estimates of the parameters of the Ricker model fit to the myxomytosis data.      
+-	Find the maximum likelihood estimates of the parameters of the Ricker model fit to the myxomatosis data.      
 -	Visualize the fit of this model to the data by:
     -	Plotting the data
     - Adding the predicted Ricker curve 
     - Adding plug-in confidence intervals
-    - Plot the 2-dimensional likelihood surface for the parameters of the Ricker and add the bivariate 95% confidence interval
+    - Plot the 2-dimensional likelihood surface for the parameters of the Ricker and add the bivariate 95% confidence interval      
 
 You can add the data from the 'emdbook' package:
 
@@ -761,7 +761,7 @@ Start by plotting the histogram of the response variable. Bolker suggests a gamm
 Plot the data points (hint: look at figure 6.5b).  Bolker suggests the Ricker curve – does it look like the Ricker curve would work? Write down the equation and parameters for the Ricker curve (page 94).
 
 **Step 4**. *Specify the likelihood of the data given our deterministic expectations and the stochastic distribution.*
-Take a moment to think how the parameters of the stochastic distribution are determined by the parameters of the deterministic function. For the gamma distribution, both the shape and scale parameters are related to the mean of the distribution, i.e., mean =  shape × scale (page 133). So how will you specify that the deterministic function (the Ricker model) should represent the mean? What parameters do you need your (negative) log-likelihood function to estimate? Write out your negative log-likelihood function to solve for the likelihood.
+Take a moment to think how the parameters of the stochastic distribution are determined by the parameters of the deterministic function. For the gamma distribution, both the shape and scale parameters are related to the mean of the distribution, i.e., mean =  shape × scale (page 133)(or shape/rate). So how will you specify that the deterministic function (the Ricker model) should represent the mean? What parameters do you need your (negative) log-likelihood function to estimate? Write out your negative log-likelihood function to solve for the likelihood.
 
 ASIDE: the mean and variance of the gamma distribution are inter-related: the shape parameter can be specified as: $\frac{mean^2}{var}$ and the scale parameter can be specified as $\frac{var}{mean}$!
 
@@ -962,7 +962,7 @@ NOTE: my testing code will only test your function with the parameters "a" and "
 + **suggested algorithm**:   
     + Compute the MLE for the *a*, *b*, and *shape* parameters for the Ricker/Gamma model (use "optim()" with the likelhood function and the initial values in "params")   
     + Set the "constant/fixed" variable (the one not in "params_selected") to its maximum likelihood estimate (which you just computed).    
-    + For each of the two parameters in "parameters_selected", develop a vector of length 50 that ranges from the lower to the upper bound. 
+    + For each of the two parameters in "parameters_selected", develop a vector of length 100 that ranges from the lower to the upper bound. 
     + Loop over the two dimensions specified in "params_selected" (e.g., using a nested 'for' loop, iterating through both vectors computed in the previous step), characterizing all of parameter space from the lower to upper bounds of both parameters. For each "chunk/pixel" of parameter space, compute and store the likelihood (holding the third parameter at its MLE).   
     + Use the "image()" function to visualize 2D parameter space, using "topo.colors" to define the colors.     
     + Use the "contour()" function to draw contour lines at 2, 4, 6, 8, and 10 log-likelihood units from the MLE point.

@@ -63,13 +63,13 @@ NOTE: if you'd like to follow along, the R script for this demo can be found [he
 
 ###### Read in the reed frog data set
 
-#rfp <- read.csv("ReedfrogPred.csv")
+rfp <- read.csv("ReedfrogPred.csv")
 
 ########
 # alternatively, load the data using the 'emdbook' package:
 
 library(emdbook)
-rfp <- ReedfrogPred
+# rfp <- emdbook::ReedfrogPred
 
 head(rfp)
 
@@ -414,9 +414,9 @@ First, examine the first few lines:
 #####
 # 3.2a
 
-#rffr <- read.csv("ReedfrogFuncResp.csv",row.names = 1)
+rffr <- read.csv("ReedfrogFuncResp.csv",row.names = 1)
   # alternative: 
-rffr <- emdbook::ReedfrogFuncresp     # from Bolker's "emdbook" package
+# rffr <- emdbook::ReedfrogFuncresp     # from Bolker's "emdbook" package
   # ?Reedfrog      # learn more about this dataset
 head(rffr)
 

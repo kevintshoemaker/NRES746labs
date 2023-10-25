@@ -150,18 +150,18 @@ be found <a
 href="http://kevintshoemaker.github.io/NRES-746/LAB3demo.R">here</a></p>
 <pre class="r"><code>###### Read in the reed frog data set
 
-#rfp &lt;- read.csv(&quot;ReedfrogPred.csv&quot;)
+rfp &lt;- read.csv(&quot;ReedfrogPred.csv&quot;)
 
 ########
 # alternatively, load the data using the &#39;emdbook&#39; package:
 
 library(emdbook)
-rfp &lt;- ReedfrogPred
+# rfp &lt;- emdbook::ReedfrogPred
 
 head(rfp)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["density"],"name":[1],"type":["int"],"align":["right"]},{"label":["pred"],"name":[2],"type":["fct"],"align":["left"]},{"label":["size"],"name":[3],"type":["fct"],"align":["left"]},{"label":["surv"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["propsurv"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"no","3":"big","4":"9","5":"0.9","_rn_":"1"},{"1":"10","2":"no","3":"big","4":"10","5":"1.0","_rn_":"2"},{"1":"10","2":"no","3":"big","4":"7","5":"0.7","_rn_":"3"},{"1":"10","2":"no","3":"big","4":"10","5":"1.0","_rn_":"4"},{"1":"10","2":"no","3":"small","4":"9","5":"0.9","_rn_":"5"},{"1":"10","2":"no","3":"small","4":"9","5":"0.9","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X"],"name":[1],"type":["int"],"align":["right"]},{"label":["density"],"name":[2],"type":["int"],"align":["right"]},{"label":["pred"],"name":[3],"type":["chr"],"align":["left"]},{"label":["size"],"name":[4],"type":["chr"],"align":["left"]},{"label":["surv"],"name":[5],"type":["int"],"align":["right"]},{"label":["propsurv"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"10","3":"no","4":"big","5":"9","6":"0.9","_rn_":"1"},{"1":"2","2":"10","3":"no","4":"big","5":"10","6":"1.0","_rn_":"2"},{"1":"3","2":"10","3":"no","4":"big","5":"7","6":"0.7","_rn_":"3"},{"1":"4","2":"10","3":"no","4":"big","5":"10","6":"1.0","_rn_":"4"},{"1":"5","2":"10","3":"no","4":"small","5":"9","6":"0.9","_rn_":"5"},{"1":"6","2":"10","3":"no","4":"small","5":"9","6":"0.9","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Because predation on tadpoles is size and density-dependent, we will
@@ -174,7 +174,7 @@ rfp_sub &lt;- subset(rfp, (rfp$pred==&#39;pred&#39;)&amp;(rfp$size==&quot;small&
 rfp_sub</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["density"],"name":[1],"type":["int"],"align":["right"]},{"label":["pred"],"name":[2],"type":["fct"],"align":["left"]},{"label":["size"],"name":[3],"type":["fct"],"align":["left"]},{"label":["surv"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["propsurv"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"pred","3":"small","4":"7","5":"0.7","_rn_":"13"},{"1":"10","2":"pred","3":"small","4":"5","5":"0.5","_rn_":"14"},{"1":"10","2":"pred","3":"small","4":"9","5":"0.9","_rn_":"15"},{"1":"10","2":"pred","3":"small","4":"9","5":"0.9","_rn_":"16"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["X"],"name":[1],"type":["int"],"align":["right"]},{"label":["density"],"name":[2],"type":["int"],"align":["right"]},{"label":["pred"],"name":[3],"type":["chr"],"align":["left"]},{"label":["size"],"name":[4],"type":["chr"],"align":["left"]},{"label":["surv"],"name":[5],"type":["int"],"align":["right"]},{"label":["propsurv"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"13","2":"10","3":"pred","4":"small","5":"7","6":"0.7","_rn_":"13"},{"1":"14","2":"10","3":"pred","4":"small","5":"5","6":"0.5","_rn_":"14"},{"1":"15","2":"10","3":"pred","4":"small","5":"9","6":"0.9","_rn_":"15"},{"1":"16","2":"10","3":"pred","4":"small","5":"9","6":"0.9","_rn_":"16"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>For each individual, the per-trial probability of being eaten by a
@@ -460,9 +460,9 @@ href="http://kevintshoemaker.github.io/NRES-746/ReedfrogFuncresp.csv">here</a>.<
 <pre class="r"><code>#####
 # 3.2a
 
-#rffr &lt;- read.csv(&quot;ReedfrogFuncResp.csv&quot;,row.names = 1)
+rffr &lt;- read.csv(&quot;ReedfrogFuncResp.csv&quot;,row.names = 1)
   # alternative: 
-rffr &lt;- emdbook::ReedfrogFuncresp     # from Bolker&#39;s &quot;emdbook&quot; package
+# rffr &lt;- emdbook::ReedfrogFuncresp     # from Bolker&#39;s &quot;emdbook&quot; package
   # ?Reedfrog      # learn more about this dataset
 head(rffr)</code></pre>
 <div data-pagedtable="false">
@@ -718,7 +718,7 @@ it just a bit.</p>
 <p>Our goals are to:</p>
 <ul>
 <li>Find the maximum likelihood estimates of the parameters of the
-Ricker model fit to the myxomytosis data.<br />
+Ricker model fit to the myxomatosis data.<br />
 </li>
 <li>Visualize the fit of this model to the data by:
 <ul>
@@ -816,11 +816,11 @@ our deterministic expectations and the stochastic distribution.</em>
 Take a moment to think how the parameters of the stochastic distribution
 are determined by the parameters of the deterministic function. For the
 gamma distribution, both the shape and scale parameters are related to
-the mean of the distribution, i.e., mean = shape × scale (page 133). So
-how will you specify that the deterministic function (the Ricker model)
-should represent the mean? What parameters do you need your (negative)
-log-likelihood function to estimate? Write out your negative
-log-likelihood function to solve for the likelihood.</p>
+the mean of the distribution, i.e., mean = shape × scale (page 133)(or
+shape/rate). So how will you specify that the deterministic function
+(the Ricker model) should represent the mean? What parameters do you
+need your (negative) log-likelihood function to estimate? Write out your
+negative log-likelihood function to solve for the likelihood.</p>
 <p>ASIDE: the mean and variance of the gamma distribution are
 inter-related: the shape parameter can be specified as: <span
 class="math inline">\(\frac{mean^2}{var}\)</span> and the scale
@@ -980,7 +980,7 @@ function and the initial values in “params”)<br />
 to its maximum likelihood estimate (which you just computed).<br />
 </li>
 <li>For each of the two parameters in “parameters_selected”, develop a
-vector of length 50 that ranges from the lower to the upper bound.</li>
+vector of length 100 that ranges from the lower to the upper bound.</li>
 <li>Loop over the two dimensions specified in “params_selected” (e.g.,
 using a nested ‘for’ loop, iterating through both vectors computed in
 the previous step), characterizing all of parameter space from the lower
@@ -1154,9 +1154,9 @@ NLL_frogOccupancy <- function(params=0.5,data=c(3,2,6),N=10){
 #####
 # 3.2a
 
-#rffr <- read.csv("ReedfrogFuncResp.csv",row.names = 1)
+rffr <- read.csv("ReedfrogFuncResp.csv",row.names = 1)
   # alternative: 
-rffr <- emdbook::ReedfrogFuncresp     # from Bolker's "emdbook" package
+# rffr <- emdbook::ReedfrogFuncresp     # from Bolker's "emdbook" package
   # ?Reedfrog      # learn more about this dataset
 head(rffr)
 
