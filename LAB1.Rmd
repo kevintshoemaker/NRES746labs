@@ -1,7 +1,7 @@
 ---
 title: "Lab 1"
 author: "NRES 746"
-date: "Fall 2023"
+date: "Fall 2025"
 output: 
   learnr::tutorial:
     progressive: true
@@ -9,7 +9,7 @@ output:
 runtime: shiny_prerendered
 # editor_options:
 #   preview: viewer
-description: "Getting started with writing statistical algorithms in R!"
+description: "Getting started with writing algorithms in R!"
 ---
 
 ```{r setup, include=FALSE}
@@ -17,6 +17,7 @@ library(learnr)
 library(gradethis)
 library(dplyr)
 library(checkmate)
+library(ggplot2)
 tutorial_options(
   exercise.reveal_solution = FALSE
 )
@@ -39,21 +40,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Lab 1 overview
 
-In this course we will rely heavily on the R programming language for statistical computing and graphics (e.g., this lab is actually built in R using ['Rmarkdown'](https://rmarkdown.rstudio.com/) and [Rshiny](https://shiny.rstudio.com/)). The purpose of this first laboratory exercise is to develop the level of familiarity with R that is needed to succeed in this course – and ultimately, to establish a foundation for you to develop your data analysis skills using R throughout your scientific career. 
+In this course we use the R programming language for statistical computing and graphics (e.g., this lab is actually built in R using ['Rmarkdown'](https://rmarkdown.rstudio.com/) and [Rshiny](https://shiny.rstudio.com/)). The purpose of this laboratory exercise is to develop familiarity with programming in R. 
 
 ## Lab 1 details
 
-This lab will provide an introduction to the R programming Language and the use of R to perform statistics and programming tasks. 
+This lab provides an introduction to the R programming Language and the use of R to perform statistical and programming tasks. 
 
-As with all lab reports, your answers will either take the form of R functions or short written responses. The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab1.R". So my submission would be "kevin_shoemaker_lab1.R" (all lower case). _Please include only the requested functions in your submitted R script_. That is, the script you turn in should only include the custom R functions you constructed to answer the questions, and none of the ancillary code you used to develop and test your functions. You will probably want to complete the lab exercises using a main script (that includes all your work, including code for testing your solutions), and then save a reduced copy (with only the requested functions) for submission. One useful way to accomplish this would be to work with two R script (.R extension) files: one for your functions (that you will turn in), and a main script for testing (that you will NOT turn in) that sources your functions and tests them. Ask your instructor if you'd like a demo of how this works!   
+As with all lab reports, your answers will either take the form of R functions or short written responses. The R functions should be stored in an R script file ('.R' extension). To allow me to evaluate your work more efficiently, please name your R script using the following convention: "[your first name]_[your last name]_lab1.R". So my submission would be "kevin_shoemaker_lab1.R" (all lower case). 
 
-Before submitting your code using our shared Nevada Box folder, please clear your environment and run the script you will submit (containing only the requested functions) from start to finish. Check the 'Environment' tab in RStudio after running your script, and make sure that the script ONLY defines functions within your global environment. Your script should generate no additional objects (e.g., data frames). 
+_Please include only the requested functions in your submitted R script_. That is, the R script you turn in should only include the custom R functions you constructed to answer the questions, and none of the ancillary code you used to develop and test your functions. You will probably want to complete the lab exercises using a main script (that includes all your work, including code for testing your solutions), and then save a reduced copy (with only the requested functions) for submission. One useful way to accomplish this would be to work with two R script (.R extension) files: one for your functions (that you will turn in), and a main script for testing (that you will NOT turn in) that sources your functions and tests them. Ask your instructor if you'd like a demo of how this works!   
+
+Before submitting your code using our shared Nevada Box folder, please clear your environment and run the script you will submit (containing only the requested functions) from start to finish. Check the 'Environment' tab in RStudio after running your script, and make sure that the script ONLY defines functions within your global environment. Your script should generate no additional objects (e.g., data frames), it should not read in any files. Don't put a 'clear workspace' line (e.g., 'rm(list=ls()))' anywhere in your submitted code- unless you want to make the instructors life difficult.  
 
 In addition to submitting your script, you will need to respond to additional questions using the Lab 1 "quiz" interface on WebCampus. 
 
 Please submit your R script (via NevadaBox) and complete the WebCampus quiz by midnight on the due date (one week after the final lab session allocated for this topic). You can work in groups but submit the materials individually.
 
-This lab exercise will extend over two Tuesday laboratory periods (Aug. 29 and Sep. 5), with your R script and WebCampus quiz due Sept. 12.
+This lab exercise will extend over two Tuesday laboratory periods with your R script and WebCampus quiz due on the date specified in WebCampus.
 
 ## Let's get started!
 
@@ -65,10 +68,11 @@ This lab exercise will extend over two Tuesday laboratory periods (Aug. 29 and S
 
 ## Take some time to get more familiar with R (optional)
 
-From the R manual, ['Introduction to R'](http://cran.r-project.org/doc/manuals/R-intro.html) you can implement all the steps in Appendix A, located [here](http://cran.r-project.org/doc/manuals/R-intro.html#A-sample-session). This takes you far but without much explanation-- it is a way to jump into the deep end of the pool. Alternatively, or in addition, go to the [Links](https://kevintshoemaker.github.io/NRES-746/Links.html) page and pick a tutorial to run through (e.g., the Datacamp introductory R course, which uses the newer 'tidyverse' packages). You can also check out the materials from [UNR's R "bootcamp"](https://kevintshoemaker.github.io/R-Bootcamp/). Before you move on, make sure you have a basic understanding of how to work with R and RStudio. If you are working with someone who has used R before, don't be afraid to ask questions! Also, take your time with this- you might want to use the entire lab period on this if you have never used R before.
+From the R manual, ['Introduction to R'](http://cran.r-project.org/doc/manuals/R-intro.html) you can implement all the steps in Appendix A, located [here](http://cran.r-project.org/doc/manuals/R-intro.html#A-sample-session). This takes you far but without much explanation-- it is a way to jump into the deep end of the pool. Alternatively, or in addition, go to the [Links](https://kevintshoemaker.github.io/NRES-746/Links.html) page and pick a tutorial to run through (e.g., the Datacamp introductory R course, which uses the 'tidyverse' packages). You can also check out the materials from [my R "bootcamp"](https://kevintshoemaker.github.io/R-Bootcamp/) archive. 
+
+Before you move on, make sure you have a basic understanding of how to work with R and RStudio. If you are working with someone who has used R before, don't be afraid to ask questions! Also, take your time with this- you might want to use the entire lab period on this if you have never used R before - it will be time well spent!
 
 Another useful introductory R tutorial can be found [here](https://gsp.humboldt.edu/olm/R/Tutorials/BestFirstRTutorial.pdf), courtesy of [NCEAS](https://www.nceas.ucsb.edu/). If you haven't used R before, consider working through this tutorial before going through the lab exercises.   
-
 If you already have basic R expertise, you can move ahead!     
 
 As you work your way through the tutorial(s) (on your own pace), please ask the instructor or your peers if you are uncertain about anything.  
@@ -81,21 +85,21 @@ Here's an example:
 
 Write a function that takes a numeric input vector and computes the sum of all its elements.
 
-Basically, all you need to do here is write 'sum(vector)' where it says '[add code here]'
+Basically, all you need to do here is write 'sum(x)' where it says '[add code here]'
 
 NOTE: you don't need to submit this as part of your lab report! This is just practice...
 
 
 ```{r funcdemo, exercise=TRUE}
-myfunc <- function(vector){
+myfunc <- function(x){
     # [add code here!]
 }
 
 ```
 
 ```{r funcdemo-solution}
-myfunc <- function(vector){     # demo function (not part of lab)
-    sum(vector)
+myfunc <- function(x){     # demo function (not part of lab)
+    sum(x)
 }
 
 ```
@@ -184,13 +188,19 @@ grade_this({
 
 
 ## Demonstration: Central Limit Theorem (CLT)
+
 To gain some familiarity with using R scripts and developing algorithms, complete the following exercise (you don't need to submit this demo as part of your lab write-up BUT you will be asked to use this code as part of exercise 1 (below).
 
-Remember that you may want to have two scripts for this and other labs. The first script contains all the code you built to learn new concepts, develop and test code for answering the questions, etc. The second script is the one you will submit, and only contains the functions you defined as part of each lab. I recommend either (1) putting the second script (for submission) together after you finish the lab (just before submitting)- basically copying your main script and deleting everything but the functions- OR (2) developing your code as 2 scripts from the beginning: a script with all the functions for turning in, along with a testing script that sources and then tests these functions.  
+Remember that you may want to have two scripts for this and other labs. The first script contains all the code you build to learn new concepts, develop and test code for answering the questions, etc. The second script is the one you will submit, and only contains the functions you defined as part of each lab. I recommend either (1) putting the second script (for submission) together after you finish the lab (just before submitting)- basically copying your main script and deleting everything but the functions- OR (2) developing your code as 2 scripts from the beginning: a script with all the functions for turning in, along with a testing script that sources and then tests these functions.  
 
 ## Complete the following steps:
 
-Review the meaning of the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which implies (among other things) that the mean of a sufficiently large number of independent random variables (small samples from a much larger *population* of interest) will have a *sampling distribution* that is approximately normally distributed, regardless of whether or not the underlying data are normally distributed.
+Review the meaning of the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which states that the sum (or mean) of a sufficiently large number of independent and identically distributed random variables will form another random variable that is asymptotically normally distributed (as the number of elements added together approaches infinity), regardless of the distribution of the underlying data. One of the key implications is that the sample mean (sum of iid random variables divided by the sample size) will be normally distributed with mean equal to the mean of the data distribution and variance equal to the variance of the data distribution divided by the sample size:
+
+$$X \sim any \;distribution(mean=\mu, var=\sigma^2)$$
+$$ \bar{X}= \frac{1}{N}\sum_{i=1}^N X_i$$
+$$\bar{X} \xrightarrow{D} Normal(\mu,\frac{\sigma}{\sqrt{N}})$$
+
 
 Type (or paste) the following code into your R script window (or RStudio script window):         
 
@@ -198,28 +208,19 @@ Type (or paste) the following code into your R script window (or RStudio script 
 
 # CENTRAL LIMIT THEOREM demonstration ------------------------
 
-infinity <- 100000       # number approximating infinity for the purpose of the exercise     
-
-N_SAMPLES <- 1000       # number of independent random samples to draw from the specified distribution
-SAMPLESIZE <- 10          # sample size of each independent random sample
+N <- 10          # sample size
+lots <- 1000       # placeholder representing infinity 
 
 ##  Define the random number distribution. ------------------
-  # Here, we will use a "uniform" random number generator with a min of 10 and max of 20.   
-TRUEMIN <- 10            
-TRUEMAX <- 20      
-data_population <- runif(infinity,TRUEMIN,TRUEMAX)      # here we define the full set of possible random numbers to draw random samples from (the population of potential data). We assume this is uniformly distributed
 
-# Draw samples from the population of possible data --------------- 
+my_random_variable <- function(n){ runif(n,10,20)}   # Here, we will modify the "uniform" random number generator to have a min of 10 and max of 20. You could just use 'runif()' or any other distribution for that matter
 
-samplemean <- numeric(N_SAMPLES)     # set up storage vector
-for(i in 1:N_SAMPLES){      # for each replicate (independent random sample)
-  sample <- sample(data_population,SAMPLESIZE)   # draw an independent random sample from the population of interest
-  samplemean[i] <- mean(sample)    # compute and record the sample mean
-}
+many_samples = replicate(lots,my_random_variable(N))  # do it many times!
+many_xbars = colMeans(many_samples)
 
-hist(data_population,freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of sample means
-hist(samplemean,freq=F,add=T,col="red")    # overlay the distribution of the underlying data from which we are drawing samples.
-legend("topleft",fill=c("white","red"),legend=c("data population","sample means"),bty="n")     # add a legend to the plot
+hist(my_random_variable(lots),freq=F,ylim=c(0,1),main="",xlab="Value")      # plot out the distribution of sample means
+hist(many_xbars,freq=F,add=T,col="red")    # overlay the distribution of the underlying data from which we are drawing samples.
+legend("topleft",fill=c("gray","red"),legend=c("data population","sample means"),bty="n")     # add a legend to the plot
 
 ```
 
@@ -230,7 +231,6 @@ legend("topleft",fill=c("white","red"),legend=c("data population","sample means"
     * save the script to your working directory as a text file with .R extension, and then run the script using the "source()" function, e.g.:
 
 ```
-
 source("CentralLimitTheorem.R")     # load the R script!
 
 ```
@@ -246,7 +246,7 @@ Here is an interactive window you can use to play around with the CLT code (or e
 ```
 
 <div id="cltdemo1-hint">
-**Hint:** Try running with different values for the 'sample.size' parameter.
+**Hint:** Try running with different values for the 'N' parameter.
 </div>
 
 
@@ -290,11 +290,10 @@ Again, here is an interactive window you can use to play around with the CLT cod
 ```
 
 <div id="cltdemo2-hint">
-**Hint:** Try running with different values for the 'sample.size' parameter.
+**Hint:** Try running with different values for the 'N' parameter.
 </div>
 
 So... what can you conclude from these tests??
-
 
 ## Exercise 1: home-made functions!
 
@@ -306,13 +305,13 @@ You should now know how to construct functions in R. If you don't, go back to th
 
 ## **Exercise 1a** (for R script) 
 
-Write an R function called "CoefVar()" that takes a numeric vector (named 'vector' within the function but could have any name outside the function) as input, and computes (and returns) its coefficient of variation (CV; standard deviation as a proportion of the mean). To make sure it works, apply your function to the 'Height' vector in the 'trees' dataset that installs with R as sample data:
+Write an R function called "CoefVar()" that takes a numeric vector (named 'x' within the function but could have any name outside the function) as input, and computes (and returns) its coefficient of variation (CV; standard deviation as a proportion of the mean). To make sure it works, apply your function to the 'Height' vector in the 'trees' dataset that installs with R as sample data:
 
-You can test your function in the 'sandbox' below, but when you submit, make sure you delete or comment out all code except for the function itself. 
+You can test your function in the 'sandbox' below. Before you check your answer, make sure you delete or comment out all code except for the function itself. 
 
 ```{r q1a, exercise=TRUE}
 
-CoefVar <- function(vector){
+CoefVar <- function(x){
     # [add code here!]
 }
 
@@ -324,12 +323,14 @@ CoefVar <- function(vector){
 
 ```{r q1a-solution, echo=FALSE, context="data"}
 
-# LAB 1 answer key (lots of other possibilities) --------------------
+# LAB 1 answer key  --------------------
+
+# this is just one solution- there are lots of other possibilities
 
 ## exercise 1a  ----------------------
 
-CoefVar <- function(vector){    
-  cv <- sd(vector,na.rm=TRUE)/mean(vector,na.rm=TRUE)
+CoefVar <- function(x){    
+  cv <- sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)
   return(cv)     
 }
 #CoefVar(c(2,3,4,3,2,3,4))   # test your function
@@ -339,8 +340,8 @@ CoefVar <- function(vector){
 
 ```{r dataq1a0, echo=FALSE, context="data"}
 
-CoefVar <- function(vector){    
-  cv <- sd(vector,na.rm=TRUE)/mean(vector,na.rm=TRUE)
+CoefVar <- function(x){    
+  cv <- sd(x,na.rm=TRUE)/mean(x,na.rm=TRUE)
   return(cv)     
 }
 
@@ -383,15 +384,21 @@ Write a function called "DrawLine()" for drawing a regression line through a sca
     + x = a numeric vector specifying the x-coordinates of the scatter plot   
     + y = a numeric vector specifying the y-coordinates of the scatter plot    
 
-+ **suggested algorithm**:   
++ **suggested algorithm (base R)**:   
     + with the x and y coordinates, first produce a scatterplot (HINT: use the "plot()" function)
     + use the "lm()" function to regress the y variable on the x variable.
     + record the intercept and slope of the linear relationship between x and y (HINT: use the "coef()" function)
     + add a regression line to the scatter plot (HINT: use the "abline()" function)
 
++ **suggested algorithm (ggplot)**:  
+    + use the "lm()" function to regress the y variable on the x variable, and store the coefs
+    + make a data frame containting the x and y coordinates
+    + use ggplot to produce a scatterplot (HINT: use geom_point)
+    + add a regression line to the scatter plot (HINT: use the "geom_smooth" function with method "lm")
+    + NOTE: you need to use the 'print' function to make sure your plot shows up (e.g., 'print(myplot)')
+
 + **return**:  
     + coefs = a vector of length 2, storing the intercept and slope of the linear relationship (in that order)
-
 
 You can use this "sandbox" (below) to develop and test your function! Again, remember to comment out everything except for your "DrawLine" function definition prior to submitting (you can test the function using the "run" button). 
 
@@ -410,13 +417,18 @@ DrawLine <- function(x,y){
 
 ```{r q1b-solution, echo=FALSE,context="data"}
 
+library(ggplot2)
+
 ## exercise 1b ---------------------
 
-DrawLine <- function(x,y){  
-  plot(y~x)
-  mod <- lm(y~x)
-  coefs <- coef(mod)
-  abline(mod)
+DrawLine <- function(x,y){ 
+  coefs <- coef(lm(y~x))
+  df = data.frame(x=x,y=y)
+  plot = ggplot(df,aes(x,y)) +
+    geom_point() +
+    geom_smooth(method="lm") +
+    theme_classic()
+  print(plot)
   return(coefs)
 }
 
@@ -424,11 +436,14 @@ DrawLine <- function(x,y){
 
 ```{r dataq1b0, echo=FALSE, context="data"}
 
-DrawLine <- function(x,y){  
-  plot(y~x)
-  mod <- lm(y~x)
-  coefs <- coef(mod)
-  abline(mod)
+DrawLine <- function(x,y){ 
+  coefs <- coef(lm(y~x))
+  df = data.frame(x=x,y=y)
+  plot = ggplot(df,aes(x,y)) +
+    geom_point() +
+    geom_smooth(method="lm") +
+    theme_classic()
+  print(plot)
   return(coefs)
 }
 
@@ -466,7 +481,7 @@ Write a function called "DrawLine2()" for drawing a "smoothed" regression line t
 + **input**:  
     + x = a numeric vector specifying the x-coordinates of the scatter plot   
     + y = a numeric vector specifying the y-coordinates of the scatter plot
-    + smooth = a logical (TRUE/FALSE) value defining whether or not to add a smoothed line or a simple linear regression line
+    + smooth = a logical (TRUE/FALSE) value defining whether or not to add a smoothed line or a linear regression line
     + span = a number indicating the degree of smoothness, or "un-wiggliness" of the smoothed line (only applies if smooth=TRUE)
 
 + **suggested algorithm**:   
