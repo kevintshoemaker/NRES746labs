@@ -329,7 +329,7 @@ Myx_Ricker_JAGS <- function(data,CImethod,CIlevel){
 
 # MyxDat <- emdbook::MyxoTiter_sum
 # Myx <- subset(MyxDat,grade==1)  #Data set from grade 1 of myxo data
-# this <- Myx_Ricker_JAGS(data=Myx[,-1],JAGScode = "BUGSmodel_ricker.txt", CImethod = "HPD", CIlevel = 0.95)
+# this <- Myx_Ricker_JAGS(data=Myx[,-1],CImethod = "HPD", CIlevel = 0.95)
 # test <- this$conf.ints
 ```
 
